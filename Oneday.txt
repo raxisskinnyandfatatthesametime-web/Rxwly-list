@@ -9,6 +9,7 @@ aal
 aalii
 aaliis
 beikost (new)
+beikost
 beikosts (new)
 aals
 aam
@@ -155,7 +156,6 @@ abassi
 abassin
 abastard
 abastardize
-abastral
 abatable
 abatage
 abate
@@ -29800,6 +29800,8 @@ avoyership
 avruga
 avrugas
 avshar
+uezd
+uezds
 avulse
 avulsed
 avulses
@@ -32045,6 +32047,7 @@ bakshished
 bakshishes
 bakshishing
 baktun
+daxiatitan
 baku
 bakuba
 bakula
@@ -51764,10 +51767,10 @@ budworm
 budworms
 budzart
 budzat
-buenas
-bueno
-buenos
-buettneria
+buenas (x)
+bueno (x)
+buenos (x)
+buettneria (x)
 buettneriaceae
 bufagin
 buff
@@ -76652,6 +76655,11 @@ colonially
 colonialness
 opicapone
 opicapones
+yassification
+yassifications
+yassified
+yassify
+yassifying
 colonialnesses
 colonials
 colonic
@@ -119036,7 +119044,7 @@ ecad
 ecads
 ecalcarate
 ecalcavate (x)
-ibalizumab
+ibalizumab?
 ecanda
 ecardinal
 ecardinate
@@ -123330,6 +123338,8 @@ emongest
 emongst
 emony
 emory
+emordnilaps
+emordnilap
 emos
 emote
 emoted
@@ -175216,6 +175226,8 @@ hlqn
 hm
 hmm
 hmmm
+hmong
+hmongs
 hny
 ho
 hoa
@@ -196918,6 +196930,8 @@ ionicize
 ionics
 ionidium
 ionisable
+aqsaqal
+aqsaqals
 ionisation
 ionisations
 ionise
@@ -218043,6 +218057,7 @@ lokindra
 lokman
 lokshen
 lola
+lolawe
 loli
 loliginidae
 loligo
@@ -342057,7 +342072,6 @@ casirivimab
 clesrovimab
 dacilizumab
 dostarlimab
-epratuzumab
 etrolizumab
 gevokizumab
 lanadelumab
@@ -342122,7 +342136,6 @@ evinacumab
 evolocumab
 gemtuzumab
 guselkumab
-ibalizumab
 infliximab
 ipilimumab
 itolizumab
@@ -342135,6 +342148,9 @@ reslizumab
 sotrovimab
 spesolimab
 sutimlimab
+verfremdungseffekt?
+verfremdungseffekte?
+verf?
 teplizumab
 + aducanumab
 + bimagrumab
@@ -360252,6 +360268,7 @@ shakt
 shakta
 shakti
 shaktis
+ivacaftor
 shaktism
 shaku
 shakudo
@@ -420061,6 +420078,10 @@ uitspan
 ujamaa
 ujamaas
 uji
+ujima
+fitspiration
+fitspirations
+iiwis
 hukahuka
 ukase
 ukases
@@ -451739,7 +451760,9 @@ vrystater
 vrystaters
 vs
 vss
-vt
+vtuber
+vtubers
+vtubing
 vu
 vucom
 vucoms
@@ -455819,7 +455842,7 @@ coccinite
 cochromite
 coconinoite
 coesite
-coffinite
+binite
 cohenite
 coiraite
 coldwellite
@@ -458969,7 +458992,7 @@ yingjiangite
 yixunite
 yoderite
 yofortierite
-yoshimuraite
+yoshimuraite (x)
 yoshiokaite
 yuanfuliite
 yuanjiangite
@@ -466864,7 +466887,7 @@ yorping
 yorps
 yoruba
 yoruban
-yosemite
+yosemite (x)
 yot
 yotacism
 yotacize
