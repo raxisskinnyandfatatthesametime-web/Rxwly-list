@@ -15790,6 +15790,8 @@ anitinstitutionalism
 anitos
 anitrogenous
 anjan
+anjaneyasanas
+anjaneyasana
 anjou
 ankara
 ankaramite
@@ -54657,6 +54659,7 @@ cadmopone
 cadmus
 cados
 cadouk
+cadonilimab
 cadrans
 cadranses
 cadre
@@ -75702,7 +75705,9 @@ cohunes
 cohusband
 cohyponym
 cohyponyms
-coidentity
+coidentity (x)
+coideal
+coideals
 coif
 coifed
 coiffe
@@ -120411,6 +120416,7 @@ effuviate
 efik
 efl
 eflagelliferous
+eflornithine (new)
 efoliolate
 efoliose
 efoveolate
@@ -121759,10 +121765,10 @@ electuary
 eledoisin
 eledoisins
 eledone
-eleemosinar
-eleemosynar
-eleemosynarily
-eleemosynariness
+eleemosinar (x)
+eleemosynars
+eleemosynarily (x)
+eleemosynariness (x)
 eleemosynary
 elegance
 elegances
@@ -265045,6 +265051,8 @@ ojibway
 ojime
 ojimes
 ojoceratops
+ojousamas
+ojousama
 ok
 oka
 okanagan
@@ -265506,6 +265514,8 @@ ologoans
 olograph
 olographic
 ology
+oloid
+oloids
 ololiuqui
 ololiuquis
 olomao
@@ -398845,7 +398855,7 @@ tarwhine
 tarwhines
 tarwood
 tarworks
-taryard
+taryard (x)
 taryba
 tarzan
 tarzanish
@@ -402255,7 +402265,7 @@ terns
 ternstroemia
 ternstroemiaceae
 terotechnology
-teroxide
+teroxide (x)
 terp
 terpadiene
 terpane
@@ -458960,6 +458970,12 @@ xanthiosite
 xanthoconite
 xanthoxenite
 xenophyllite
+ijarah
+ijaza
+ijazah
+ijazahs
+ijazas
+ijazat
 xiangjiangite
 xieite
 xifengite
@@ -459369,7 +459385,7 @@ wyllieite?
 gwyddbwyll?
 efinaconazoles?
 ixabepilone?
-idarucizumab?
+
 ruxolitinib?
 saeks?
 isans?
