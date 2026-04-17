@@ -2231,10 +2231,7 @@ accustoms
 accustrement
 accustrements
 ace
-aceacenaphthene (x)
-aceanthrene (x)
 eintopf   
-aceanthrenequinone (x)
 aceanthrylene
 aceanthrylenes
 acecaffin
@@ -78952,40 +78949,40 @@ comus
 comuses
 comvia
 con
-brexpiprazole (new)
-brexpiprazoles (new)
-efinaconazole (new)
-efinaconazoles (new)
+brexpiprazole
+brexpiprazoles
+efinaconazole 
+efinaconazoles
 cualstibite
 daptomycin
-kujichagulia (x)
+kujichagulia
 ruyangosaurus
-biyatch (x)
-ffrench (x)
-awendaw (x)
-avapritinib (x)
-auseklis (x)
+biyatch
+ffrench 
+awendaw
+avapritinib
+auseklis
 atsugari
-anrukinzumab (x)
-aningre (x)
-anifrolumab (new)
-anifrolumabs (new)
-anekantavada (new)
-kkakdugi (new)
-aktashite (new)
-akhtenskite (new)
-akhtenskites (new)
-akapuka (new)
-akaogiite (new)
-akaogiites (new)
-afatinib (new)
-afatinibs (new)
-adogmatic (new)
-adhumulone (new)
-adcumulate (new)
-acireductone (new)
-abukumalite (new)
-abaecin (new)
+anrukinzumab
+aningre
+anifrolumab
+anifrolumabs
+anekantavada
+kkakdugi
+aktashite
+akhtenskite
+akhtenskites 
+akapuka 
+akaogiite 
+akaogiites 
+afatinib 
+afatinibs 
+adogmatic 
+adhumulone 
+adcumulate 
+acireductone 
+abukumalite 
+abaecin 
 conable
 conacaste
 conacre
@@ -268227,13 +268224,13 @@ oribi
 oribis
 oricalche
 oricalches
-orichalc
-orichalceous
-orichalch
-orichalcs
-orichalcum
-oriconic
-oricycle
+orichalc (x)
+orichalceous (x)
+orichalch (x)
+orichalcs (x)
+orichalcum (x)
+oriconic (x)
+oricycle (x)
 oriel
 orielled
 oriels
@@ -459008,7 +459005,6 @@ yingjiangite
 yixunite
 yoderite
 yofortierite
-yoshimuraite (x)
 yoshiokaite
 yuanfuliite
 yuanjiangite
@@ -466903,12 +466899,12 @@ yorping
 yorps
 yoruba
 yoruban
-yosemite (x)
 yot
 yotacism
 yotacize
 yote
 yottabyte
+onedimensional
 yottabytes
 you
 youd
