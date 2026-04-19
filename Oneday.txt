@@ -2231,7 +2231,10 @@ accustoms
 accustrement
 accustrements
 ace
+aceacenaphthene (x)
+aceanthrene (x)
 eintopf   
+aceanthrenequinone (x)
 aceanthrylene
 aceanthrylenes
 acecaffin
@@ -37329,6 +37332,8 @@ behindsight
 behint
 behither
 behn
+dmisteinbergite
+dmisteinbergites
 behold
 beholdable
 beholden
@@ -37374,6 +37379,9 @@ beice
 beid
 beige
 beigel
+asmr
+asmrtist    
+asmrtists
 beigeled
 beigeling
 beigelled
@@ -78949,40 +78957,40 @@ comus
 comuses
 comvia
 con
-brexpiprazole
-brexpiprazoles
-efinaconazole 
-efinaconazoles
+brexpiprazole (new)
+brexpiprazoles (new)
+efinaconazole (new)
+efinaconazoles (new)
 cualstibite
 daptomycin
-kujichagulia
+kujichagulia (x)
 ruyangosaurus
-biyatch
-ffrench 
-awendaw
-avapritinib
-auseklis
+biyatch (x)
+ffrench (x)
+awendaw (x)
+avapritinib (x)
+auseklis (x)
 atsugari
-anrukinzumab
-aningre
-anifrolumab
-anifrolumabs
-anekantavada
-kkakdugi
-aktashite
-akhtenskite
-akhtenskites 
-akapuka 
-akaogiite 
-akaogiites 
-afatinib 
-afatinibs 
-adogmatic 
-adhumulone 
-adcumulate 
-acireductone 
-abukumalite 
-abaecin 
+anrukinzumab (x)
+aningre (x)
+anifrolumab (new)
+anifrolumabs (new)
+anekantavada (new)
+kkakdugi (new)
+aktashite (new)
+akhtenskite (new)
+akhtenskites (new)
+akapuka (new)
+akaogiite (new)
+akaogiites (new)
+afatinib (new)
+afatinibs (new)
+adogmatic (new)
+adhumulone (new)
+adcumulate (new)
+acireductone (new)
+abukumalite (new)
+abaecin (new)
 conable
 conacaste
 conacre
@@ -112539,9 +112547,6 @@ dks
 dl
 dlr
 dlvy
-dm
-dmarche
-dmod
 dn
 dnieper
 do
@@ -196928,7 +196933,6 @@ ionically
 ionicism
 ionicities
 ionicity
-ionicization
 ionicize
 ionics
 ionidium
@@ -342055,19 +342059,19 @@ satralizumab
 tislelizumab
 tralokinumab
 tremelimumab
-+ bapineuzumab
-+ blinatumomab
-+ brolucizumab
-+ caplacizumab
-+ farletuzumab
-+ fremanezumab
-+ galcanezumab
-+ gantenerumab
-+ girentuximab
-+ margetuximab
-+ mirvetuximab
-+ obinutuzumab
-+ zolbetuximab
+bapineuzumab
+blinatumomab
+brolucizumab
+caplacizumab
+farletuzumab
+fremanezumab
+galcanezumab
+gantenerumab
+girentuximab
+margetuximab
+mirvetuximab
+obinutuzumab
+zolbetuximab
 alemtuzumab
 anifrolumab
 basiliximab
@@ -342191,29 +342195,29 @@ sarilumab
 sirukumab
 tabalumab
 talizumab
-+ donanemab
-+ faricimab
-+ lecanemab
-+ matuzumab
-+ tanezumab
+donanemab
+faricimab
+lecanemab
+matuzumab
+tanezumab
 avelumab
 urelumab
-+ capromab
-+ erenumab
+capromab
+erenumab
 teclistamab     : amab (4)   
-+ amivantamab
-+ datopotamab
-+ epcoritamab
-+ belantamab
-+ glofitamab
+amivantamab
+datopotamab
+epcoritamab
+belantamab
+glofitamab
 rozanolixizumab
-+ rovalpituzumab
+rovalpituzumab
 crizanlizumab
 mogamulizumab
 pembrolizumab
 spartalizumab
 tildrakizumab
-+ loncastuximab
+loncastuximab
 atezolizumab
 bamlanivimab
 bebtelovimab
@@ -342337,6 +342341,8 @@ ritornelli
 ritornello
 ritornellos
 ritornells
+ssamjang
+ssambap
 ritornels
 ritournelle
 ritournelles
@@ -455152,8 +455158,6 @@ alappuzha?
 kuzhambu?
 qilin?
 budesonide?
-dmitryivanovite?
-dmitryivanovites?
 [
 abellaite
 abelsonite
@@ -458160,6 +458164,14 @@ roxbyite
 roymillerite
 rozenite
 rruffite
+oshiwambo    : mbo  (2)   
+oshiboris    : oris (7)   
+oshizushis   : shis (10)   
+oshikatsu
+oshirukos
+oshizushi
+oshibori
+oshiruko
 ruarsite
 rubicline
 rucklidgeite
@@ -459005,6 +459017,7 @@ yingjiangite
 yixunite
 yoderite
 yofortierite
+yoshimuraite (x)
 yoshiokaite
 yuanfuliite
 yuanjiangite
@@ -466899,12 +466912,12 @@ yorping
 yorps
 yoruba
 yoruban
+yosemite (x)
 yot
 yotacism
 yotacize
 yote
 yottabyte
-onedimensional
 yottabytes
 you
 youd
