@@ -2775,9 +2775,7 @@ achroous
 achropsia
 achtehalber
 achtel
-achtelthaler
 achter
-achterveld
 achuas
 achuete
 achy
@@ -4548,7 +4546,6 @@ adiating
 adiation
 adib
 adibasi
-adicea
 adicity
 adiel
 adience
@@ -7898,7 +7895,7 @@ ahab
 ahadith
 ahamkara
 ahankara
-ahantchuyuk
+kutsinta
 ahartalav
 ahaunch
 ahchoo
@@ -7943,7 +7940,6 @@ ahousaht
 ahoy
 ahrendahronon
 ahriman
-ahrimanian
 ahs
 ahsan
 aht
@@ -8575,7 +8571,7 @@ akoluthia
 akoluthoi
 akoluthos
 akoluthoses
-akonge
+akonge (x)
 akontae
 akoulalion
 akov
@@ -9573,6 +9569,7 @@ algarrobin
 algarrobo
 algarrobos
 algarsife
+ndorobo
 algarsyf
 algas
 algate
@@ -12076,7 +12073,6 @@ ambushment
 ambushments
 ambustion
 ambystoma
-ambystomidae
 amchoor
 amdahl
 amdt
@@ -19873,9 +19869,7 @@ apellous
 apeman
 apemantus
 apemen
-apennine
 apennines
-apenteric
 apepsia
 apepsias
 apepsies
@@ -20123,12 +20117,10 @@ aphthongal
 aphthongia
 aphthonite
 aphthous
-aphydrotropic
-aphydrotropism
-aphyllies
+aphylly
+aphyllies  
 aphyllose
 aphyllous
-aphylly
 aphyric
 apiaca
 apiaceae
@@ -23446,10 +23438,8 @@ arillodium
 arilloid
 arillus
 arils
-arimasp
 arimaspian
 nirsevimab
-arimathaean
 ariocarpus
 arioi
 arioian
@@ -24178,8 +24168,6 @@ arrythmical
 arrythmically
 ars
 arsacid
-arsacidan
-arsanilic
 arse
 arsed
 arsedine
@@ -24768,7 +24756,6 @@ aryballoses
 aryballus
 arybballi
 aryepiglottic
-aryepiglottidean
 aryl
 arylamine
 arylamino
@@ -25059,12 +25046,6 @@ aseismicity
 aseitas
 aseities
 aseity
-aselar
-aselgeia
-asellate
-aselli
-asellidae
-aselline
 asellus
 asem
 asemantic
@@ -27712,10 +27693,7 @@ aucanian
 aucasaurus
 auceps
 aucepses
-auchenia
 auchenium
-auchlet
-aucht
 auckland
 auctary
 auction
@@ -54662,8 +54640,8 @@ cadmiumize
 cadmiums
 cadmopone
 cadmus
-cados
-cadouk
+erdafitinib
+kkanpunggi
 cadonilimab
 cadrans
 cadranses
@@ -61415,8 +61393,6 @@ cattycorner
 cattycornered
 cattyman
 cattyphoid
-catullian
-catur
 catvine
 catwalk
 catwalks
@@ -78970,6 +78946,37 @@ ffrench (x)
 awendaw (x)
 avapritinib (x)
 auseklis (x)
+unsnib            : snib (4)   
+snib
+encorafenib-binimetinib
+dabrafenib-trametinib
+deucravacitinib
+acalabrutinib
+delgocitinib
+abrocitinib
+baricitinib
+dacomitinib
+encorafenib
+entrectinib
+erdafitinib
+ruxolitinib
+vorasidenib
+brigatinib
+dabrafenib
+enasidenib
+ensartinib
+ivosidenib
+tipifarnib
++ crizotinib
++ capmatinib
+alectinib
+dasatinib
+erlotinib
+masitinib
+afatinib
+axitinib
+algenib
+nib
 atsugari
 anrukinzumab (x)
 aningre (x)
@@ -91331,7 +91338,6 @@ cujam
 cuke
 cukes
 cul
-culation
 culavamsa
 culbert
 culbut
@@ -94508,6 +94514,7 @@ dahabiya
 dahabiyah
 dahabiyahs
 dahabiyas
+iyashikei
 dahabiyeh
 dahabiyehs
 dahalokely
@@ -95452,6 +95459,18 @@ daschagga
 dase
 dasein
 dasewe
+  granddaughters-in-law
+  government-in-exile
+  governor-in-council
+ grandfathers-in-law
+  grandmothers-in-law
+  great-grandchildren
+  great-granddaughter
+  glory-of-the-snows
+  grandfather-in-law
+  grandmother-in-law
+  good-heartednesses
+  good-naturednesses
 dash
 dashboard
 dashboards
@@ -105435,6 +105454,7 @@ diazotizes
 diazotizing
 diazotype
 dib
+alvocidib
 dibase
 dibasic
 dibasicities
@@ -119882,10 +119902,7 @@ edeology
 edeomania
 edeoscopy
 edeotomy
-edessan
-edestan
 edestin
-edestosaurus
 edgar
 edge
 edgebone
@@ -120014,7 +120031,6 @@ edmund
 edna
 edo
 edomite
-edomitish
 edoni
 edp
 edplot
@@ -120661,9 +120677,7 @@ ehrwaldite
 ehs
 ehtanethial
 ehuawa
-eichbergite
 eichhornia
-eichwaldite
 eicosane
 eicosanoid
 eicosanoids
@@ -122380,7 +122394,6 @@ elytrotomy
 elytrous
 elytrtra
 elytrum
-elzevir
 elzevirian
 em
 emacerate
@@ -123795,6 +123808,7 @@ empyrosis
 emraud
 emrode
 ems
+emsian
 emu
 emulable
 emulant
@@ -124037,7 +124051,6 @@ enarthrodia
 enarthrodial
 enarthroses
 enarthrosis
-enascent
 enatant
 enate
 enates
@@ -126764,6 +126777,7 @@ enterochlorophyll
 enterocholecystostomy
 enterochromaffin
 enterocinesia
+elesclomol
 enterocinetic
 enterocleisis
 enteroclisis
@@ -127345,7 +127359,6 @@ entwisting
 entwists
 entwite
 entyloma
-entypies
 enucleate
 enucleated
 enucleates
@@ -127599,8 +127612,6 @@ eodevonian
 eodiscid
 eodromaeus
 eof
-eogaea
-eogaean
 eoghanacht
 eohippus
 eohippuses
@@ -129068,8 +129079,6 @@ epsilons
 epsom
 epsomite
 epsomites
-eptath 
-eptatretidae
 eptatretus
 epthianura
 epthianuras
@@ -129948,8 +129957,6 @@ erotophobias
 erotylid
 erotylidae
 erpetoichthys
-erpetologist
-erpetology
 err
 errability
 errable
@@ -130016,6 +130023,7 @@ erthen
 erthling
 erthly
 erubescence
+eribulin
 erubescences
 erubescencies
 erubescency
@@ -130058,7 +130066,6 @@ erugatory
 eruginous
 erugo
 erugos
-erump
 erumpent
 erupt
 erupted
@@ -130506,7 +130513,7 @@ eskualdun
 eskuara
 esky
 eslabon
-eslisor
+eslicarbazepine
 esloign
 esloin
 esloined
@@ -130516,10 +130523,7 @@ esloyne
 esloyned
 esloynes
 esloyning
-esmayle (x)
-esmeralda (x)
-esmeraldan (x)
-esmeraldite
+esmolol
 esne
 esnecies
 esnecy
@@ -130534,7 +130538,6 @@ esoenteritis
 esoethmoiditis
 esogastritis
 esonarthex
-esoneural
 esopgi
 esophagal
 esophagalgia
@@ -131110,7 +131113,8 @@ etamin
 etamine
 etamines
 etamins
-etang
+etanercept
+sgian-dubh
 etape
 etapes
 etas
@@ -132444,7 +132448,6 @@ eurytropic
 eurytus
 euryzygous
 euscaro
-eusebian
 euselachii
 euskaldun
 euskara
@@ -136088,7 +136091,6 @@ exurbias
 exurbs
 exurge
 exuscitate
-exust
 exuvia
 exuviability
 exuviable
@@ -158080,8 +158082,8 @@ glenting
 glents
 glenwood
 glessite
+glessites
 gletscher
-gletty
 glew
 gley
 gleyde
@@ -166433,8 +166435,6 @@ hagdon
 hagdons
 hagdown
 hagdowns
-hageen
-hagein
 hagenia
 hagfish
 hagfishes
@@ -183448,11 +183448,13 @@ icework
 iceworm
 iceworms
 ich
+hojicha
 ichabod
 ichebu
 iched
 iches
 ichibu
+
 iching
 ichneumia
 ichneumon
@@ -185130,10 +185132,11 @@ imbursing
 imbute
 imcnt
 imdtly
+aqiqahs  
+aqidah  
+aqiqah 
 imelle
-imer
-imerina
-imeritian
+imetelstat
 imi
 imid
 imidacloprid
@@ -190895,7 +190898,6 @@ ingestions
 ingestive
 ingests
 inghamite
-inghilois
 ingine
 ingines
 ingirt
@@ -204183,7 +204185,6 @@ keepsakier
 keepsakiest
 keepsaky
 keepworthy
-keerie
 keerogue
 kees
 keeshond
@@ -207190,8 +207191,6 @@ kokowai
 kokowais
 kokra
 kokras
-koksaghyz
-koksagyz
 kokstad
 koktaite
 koku
@@ -208025,7 +208024,6 @@ kupfernickel
 kupfferite
 kuphar
 kupper
-kurajong
 kuranko
 kurbash
 kurbashed
@@ -216421,10 +216419,9 @@ lis
 lisa
 lisbon
 lise
-lisente
-lisere
-lisette
+lisente	
 lish
+nzema
 lisiere
 lisk
 lisks
@@ -238150,6 +238147,7 @@ mnioid
 mniotiltidae
 mnium
 mo
+ertapenem
 moa
 moabite
 moabitess
@@ -251708,7 +251706,6 @@ nitwittednesses
 nitwitteries
 nitwittery
 nitzschia
-nitzschiaceae
 niuan
 niue
 nival
@@ -265040,6 +265037,82 @@ ointment
 ointments
 oints
 oireachtas
+zidebactam
+  copanlisib
+  idelalisib
+  inavolisib
+  umbralisib
+  alpelisib
+  duvelisib
+  matrisib
+  patrisib
+olaratumab
+  alpha-naphthoflavone
+  pentamethoxyflavone
+  polymethoxyflavone
+  isoflavone
+  edaravone
+  schiavone
+  carvone
+  flavone
+  pavone
+  isopropyl-beta-d-thiogalactopyranoside
+  monosialotetrahexosylganglioside
+  carboxyatractyloside
+  ribonucleoside
+  asperuloside
+  arabinoside
+  cerebroside
+  datiscoside
+  diglucoside
+  galactoside
+  ganglioside
+  fructoside
+  furanoside
+  heteroside
+  nucleoside
+  pyranoside
+  rhamnoside
+  robinoside
+  teniposide
+  etoposide
+  glucoside
+  glycoside
+  lactoside
+  pentoside
+  aldoside
+  ketoside
+  xyloside
+    shammashim
+  chumashim
+  kaddishim
+  midrashim
+  kedoshim
+  kodashim
+  qedoshim
+  shloshim
+  kashim
+  nashim
+    pashim
+  shim
+    beta-lactoglobulin
+  hematoglobulin
+  immunoglobulin
+  pseudoglobulin
+  thyreoglobulin
+  lactoglobulin
+  macroglobulin
+  thyroglobulin
+  antiglobulin
+  cryoglobulin
+    hemoglobulin
+  paraglobulin
+  myoglobulin
+  ovoglobulin
+  euglobulin
+  eribulin
+  globulin
+  tubulin
 ois
 oisin
 oisivity
@@ -265111,9 +265184,7 @@ okurigana
 okuzgozu
 ol
 ola
-olacaceae
 olacaceous
-olacad
 olaf
 olam
 olamic
@@ -265519,6 +265590,7 @@ oloid
 oloids
 ololiuqui
 ololiuquis
+sksksk
 olomao
 olona
 olonets
@@ -265535,7 +265607,7 @@ olpes
 olpidiaster
 olpidium
 ols
-olson
+olsalazine
 oltonde
 oltunna
 olycook
@@ -266085,7 +266157,6 @@ oneself
 onesie
 onesies
 onesigned
-onethe
 onetime
 oneupmanship
 onewhere
@@ -278321,6 +278392,7 @@ ozophen
 ozophene
 ozostomia
 ozotype
+jidaigeki
 ozraptor
 ozs
 ozzie
@@ -299774,6 +299846,7 @@ pliss
 plisse
 plisses
 plitch
+plitidepsin
 ploat
 ploated
 ploating
@@ -335205,8 +335278,6 @@ reoiled
 reoiling
 reoils
 reometer
-reomission
-reomit
 reopen
 reopened
 reopener
@@ -342097,7 +342168,6 @@ nipocalimab
 ocrelizumab
 palivizumab
 panitumumab
-pexelizumab
 pidilizumab
 ramucirumab
 ranibizumab
@@ -342106,6 +342176,9 @@ raxibacumab
 romosozumab
 secukinumab
 sifalimumab
+pexophagies   : gies (2)   
+pexophagy     : agy  (7)   
+pexiganan
 tezepelumab
 tixagevimab
 tocilizumab
@@ -342115,22 +342188,22 @@ vedolizumab
 bococizumab
 brentuximab
 catumaxomab
-+ cixutumumab
-+ daratumumab
-+ dinutuximab
-+ ecromeximab
-+ edrecolomab
-+ eptinezumab
-+ ibritumomab
-+ mapatumumab
-+ moxetumomab
-+ necitumumab
-+ onartuzumab
-+ polatuzumab
-+ sacituzumab
-+ solanezumab
-+ tositumomab
-+ ublituximab
+cixutumumab
+daratumumab
+dinutuximab
+ecromeximab
+edrecolomab
+eptinezumab
+ibritumomab
+mapatumumab
+moxetumomab
+necitumumab
+onartuzumab
+polatuzumab
+sacituzumab
+solanezumab
+tositumomab
+ublituximab
 adalimumab
 afelimomab
 alirocumab
@@ -342163,22 +342236,22 @@ verfremdungseffekt?
 verfremdungseffekte?
 verf?
 teplizumab
-+ aducanumab
-+ bimagrumab
-+ concizumab
-+ crenezumab
-+ elotuzumab
-+ emicizumab
-+ enfortumab
-+ inotuzumab
-+ isatuximab
-+ lintuzumab
-+ ofatumumab
-+ penpulimab
-+ pertuzumab
-+ siltuximab
-+ simtuzumab
-+ veltuzumab
+aducanumab
+bimagrumab
+concizumab
+crenezumab
+elotuzumab
+emicizumab
+enfortumab
+inotuzumab
+isatuximab
+lintuzumab
+ofatumumab
+penpulimab
+pertuzumab
+siltuximab
+simtuzumab
+veltuzumab
 abciximab
 belimumab
 burosumab
@@ -343390,8 +343463,6 @@ romanza
 romanzas
 romaunt
 romaunts
-romble
-rombos
 rombowline
 romcom
 romcoms
@@ -393310,9 +393381,7 @@ susurrus
 susurruses
 susus
 sutaio
-suterberries
 suterberry
-suterbery
 suther
 sutherlandia
 sutile
@@ -396800,8 +396869,6 @@ tagboard
 tagboards
 tagel
 tagetes
-tagetol
-tagetone
 taggant
 taggants
 tagged
@@ -416421,7 +416488,6 @@ troppo
 troptometer
 tropyl
 trossers
-trostera
 trot
 trotcozy
 troth
@@ -419889,7 +419955,6 @@ tziganes
 tziganies
 tzigany
 tzimmes
-tzimmeses
 tzitzis
 tzitzit
 tzitzith
@@ -420002,6 +420067,7 @@ ueueteotl
 uey
 ueys
 ufer
+ttyl
 ufo
 ufological
 ufologies
@@ -420017,7 +420083,6 @@ uganda
 ugandan
 ugandans
 ugaritic
-ugarono
 ugged
 ugging
 ugglesome
@@ -444602,6 +444667,9 @@ urps
 urradhus
 urrhodin
 urrhodinic
+otchipwe
+pwetty 
+pwease
 urs
 ursa
 ursae
@@ -455097,6 +455165,11 @@ uighurs?
 isopropanols?
 tralokinumab?
 jajangmyeon?
+hlubi
+hlengwe 
+hlai  
+hlais 
+hlonipha
 hlonipha?
 hlais?
 hlai?
@@ -455592,6 +455665,10 @@ bulachite
 bulgakite
 bultfonteinite
 bunnoite
+o-be-joyfuls   : fuls (7)   
+o-benzylhydroxylamines
+o-benzylhydroxylamine
+o-be-joyful
 bunsenite
 burangaite
 burbankite
@@ -456033,8 +456110,6 @@ dittmarite
 dixenite
 djerfisherite
 djurleite
-dmisokolovite
-dmitryivanovite
 dolerophanite
 dolomite
 doloresite
@@ -456533,7 +456608,6 @@ gypsum
 gyrolite
 haapalaite
 hafnon
-hagendorfite
 haggertyite
 haidingerite
 haigerachite
@@ -457018,7 +457092,6 @@ kogarkoite
 kojonenite
 kokchetavite
 kokinosite
-koksharovite
 koktaite
 kolarite
 kolbeckite
@@ -457067,8 +457140,6 @@ kristiansenite
 krivovichevite
 krotite
 krupkaite
-kuranakhite
-kuratite
 kurchatovite
 kurgantaite
 kurilite
@@ -457197,7 +457268,6 @@ liottite
 lipscombite
 lipuite
 liroconite
-lisetite
 lishizhenite
 lisiguangite
 lisitsynite
@@ -457735,9 +457805,7 @@ olgite
 olkhonskite
 olmiite
 olmsteadite
-olsacherite
 ssireum
-olshanskyite
 olympite
 omariniite
 omeiite
@@ -457911,8 +457979,8 @@ phosphophyllite
 phosphosiderite
 phosphowalpurgite
 phosphuranylite
-phuralumite
 phurcalite
+phurcalites
 phylloretine
 phyllotungstite
 pickeringite
@@ -458382,6 +458450,7 @@ sinnerite
 sinoite
 sitinakite
 skaergaardite
+skaergaardites
 skinnerite
 skippenite
 sklodowskite
@@ -458472,8 +458541,7 @@ stichtite
 stilleite
 stillwaterite
 stilpnomelane
-stishovite
-stistaite
+tafasitamab
 stoiberite
 stokesite
 stolzite
@@ -458776,6 +458844,7 @@ tyrolite
 tyrrellite
 tyuyamunite
 uchucchacuaite
+uchigatana
 uduminelite
 uklonskovite
 ulexite
@@ -458956,7 +459025,6 @@ wiserite
 witherite
 wittichenite
 wittite
-witzkeite
 wodginite
 wolfeite
 wollastonite
@@ -467844,6 +467912,10 @@ zhanghenglong
 zhejiangosaurus
 zheng
 zhenyuanlong
+lurbinectedin
+enzalutamide
+tsawwassen
+etelcalcetide
 zhmud
 zho
 zhomo
@@ -469091,3 +469163,2064 @@ zyzomys
 zyzzogeton
 zyzzyva
 zyzzyvas
+
+idarucizumab?
+ulzzang?
+biy?
+yuenyeung?
+hochzeitssuppe?
+llanfairpwllgwyngyll?
+iwakiite?
+iwakiites?
+hocartite?
+hocartites
+aktashite?
+aktashites?
+zussmanite?
+zussmanites?
+eugsterite?
+eugsterites?
+edrecolomab
+ecromeximab
+ublituximab
+obinutuzumab
+onartuzumab
+catumaxomab
+eptinezumab
+ibritumomab
+moxetumomab
+girentuximab
+isatuximab
+mirvetuximab
+datopotamab
+elotuzumab
+farletuzumab
+inotuzumab
+veltuzumab
+ofatumumab
+mapatumumab
+daratumumab
+tanezumab
+erenumab
+eptinezumab
+llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch
+hizb
+masenqos
+ikejime
+uchigatana
+vrikshasana
+vrikshasanas
+kena
+olaratumab
+toripalimab
+zimberelimab
+makan
+yaoi
+oshikatsu
+oshiruko
+oshizushi
+oshiwambo
+oshiboris
+oshibori
+tahan
+hantu
+hantus
+chey
+daoshis
+daoshi
+oshikatsu
+oshiruko
+oshizushi
+oshiwambo
+oshiboris
+oshibori
+sitzball
+ouachitites
+vonsenites
+ussingites
+ndau
+ndokwa
+szechwan
+sitzprobes
+sitzprobe
+sitzfleisch
+sinhala
+aimag
+aimags
+idarubicin
+amsacrine
+tipifarnib
+seliciclib
+abiraterone
+olaparib
+adagrasib
+pegaspargase
+lucanthone
+alitretinoin
+selinexor
+tazemetostat
+bortezomib
+oxocarbenium
+tschermigites
+tschernichites
+tschermakites
+jjambbong
+tschernichite
+tschermigite
+mscarlet
+mscarlets
+lusitano
+knabstrupper
+sezessionen
+kapampangans
+kapampangan
+tixes
+kostovite
+kostovites
+fps
+smurfed
+wsp
+tfym
+numpad
+numpads
+iminium
+iminiums
+bharadvajasana
+bharadvajasanas
+gobsmacking
+abalienates
+abalienations
+rpg
+banhammer
+banhammered
+banhammering
+banhammers
+oneshots
+oneshotting
+oneshotted
+oneshot
+ilyt
+kys
+ily
+ilysm
+tysm
+silole
+siloles
+biurets
+ximmer
+rngesus
+rts
+nt
+lte
+lfm
+lfg
+hitscans
+fpc
+fp
+dlcs
+dlc
+dps
+dpm
+bhopping
+bhop
+fkn
+bffls
+bffl
+bffs
+myob
+jic
+wyd
+fwiw
+pmo
+fml
+ffa
+lf
+nty
+ebay
+ebays
+mmo
+pvp
+pve
+mmorpg
+hitstun
+hitstuns
+hitstunned
+hitscan
+ccb
+icymi
+mmo
+laner
+mmorpg
+wtaf
+tldr
+afaik
+sthu
+lmfao
+rp
+lms
+pp
+dlcs
+dlc
+gtfoh
+gtfih
+gm
+bffls
+bffl
+bffs
+ahah
+iykwim
+bts
+ss
+umeshu
+umeshus
+nikuman
+nikumans
+nikujaga
+nikujagas
+umeshu
+umeshus
+motsunabes
+kakuni
+kakunis
+zoni
+zonis
+ikura
+ikuras
+nabemono
+tsukudani
+tsukudanis
+osechi
+osechis
+dagashi
+dagashis
+imonis
+okayus
+oyakodons
+imoni
+duhhh
+duhh
+kushikatsus
+kushikatsu
+kushiyaki
+okayu
+oyakodon
+makizushi
+temakis
+uramakis
+temaki
+uramaki
+tsukemen
+tsukemens
+tsukemono
+izakaya
+izakayas
+yusheng
+zongzi
+zongzis
+jiaozi
+jiaozis
+baozis
+baozi
+tychoparthenogenetic
+citogenesis
+rna
+aahing
+aahs
+aah
+wehraboos
+wehraboo
+hleb
+lupara
+nsima
+tzeltales
+tzeltal
+nth
+cp
+lgbtqia
+lgbt
+lgbtq
+larper
+larpers
+larp
+larps
+larped
+larping
+tmr
+wtv
+lowk
+np
+tianjin
+hehehe
+maghrebis
+maghrebi
+qatayefs
+qatayef
+ogi
+ndole
+msemens
+msemen
+aficamten
+aclidinium
+acamprosate
+abaloparatide
+acespec
+aroace
+ogoni
+xong
+riyadh
+motsunabe
+gyukatsu
+hr
+abendmusik
+abendmusiken
+lulavim
+joulemeters
+tmrw
+azimethylenes
+bhekasana
+bhekasanas
+bakasana
+bakasanas
+bunyavirus
+bunyaviruses
+totopo
+totopos
+tlayuda
+tlayudas
+dvd
+xoloitzcuintlis
+bbc
+bbq
+aksakallar
+aqsaqallar
+epsilonproteobacteria
+epsilonproteobacterial
+epsilonproteobacterium
+tupperwares
+ubers
+lego
+legos
+moken
+coideal
+coideals
+coidentities
+abkhaz
+abkhazian
+abkhazians
+bwahaha
+coidentities
+llapingacho
+llapingachos
+hr
+ndole
+ndoles
+okpas
+eep
+eeped
+eeping
+eeps
+eepy
+eepier
+eepiest
+edublog
+edublogs
+plyos
+plyo
+maakouda
+maakoudas
+gfs
+dioleoylphosphatidylglycerol
+dioleoylphosphatidylglycerols
+dioleoylphosphatidylethanolamine
+dioleoylphosphatidylethanolamines
+cisheteropatriarchies
+cisheteropatriarchy
+cisheteropatriarchal
+cisheteronormativities
+cisheteronormativity
+cisheteronormative
+kilnforming
+kilnformings
+ello
+cluelessness
+cluelessnesses
+cluelessly
+cupioromantic
+cupioromantics
+euxinic
+euxinia
+euxinias
+gezelligheid
+gezelligheids
+norrbottenspitz
+norrbottenspitzes
+mkates
+ochazukes
+oviraptorosaur
+oviraptorosaurs
+bfs
+pexiganan
+pexophagies
+pexophagy
+povidone
+povidones
+ylides
+ylide
+ylids
+ylid
+ylides
+ylide
+ylids
+ylid
+fada
+kugelhopf
+isicholo
+isicathamiyas
+oprichnina
+oprichniki
+oprichnik
+oprichniks
+lherzolitic
+iyashikei
+nehiyawak
+nehiyawewin
+nehiyaw
+yezidis
+yezidism
+yezidisms
+shcherbakovite
+shcherbakovites
+yazidi
+yazidis
+yazidism
+yazidisms
+gukbap
+gukbaps
+ramyeon
+ramyeons
+doenjang
+doenjangs
+seon
+seons
+sgaw
+oshirukos
+mgqashiyo
+yazidi
+yazidis
+yazidism
+yazidisms
+seolleongtangs
+namul
+namuls
+kongnamul
+kongnamuls
+seon
+seons
+tteokguks
+tf
+jajangmyeons
+jajangmyuns
+jajangmyun
+kshatriyas
+ksatriyas
+ksour
+hahaha
+dubai
+ojousamas
+ojousama
+rpgs
+rpg
+tps
+rking
+rk
+rked
+eicosanoic
+ubering
+himedanshi
+himedanshis
+hrs
+rpgs
+lumenogenesis
+lumenogeneses
+remyelination
+remyelinations
+oogenic
+asmrtists
+asmrtist
+kek
+yume
+fursuiters
+asmrtists
+asmrtist
+himedanshi
+fursuiting
+fursuiter
+fursonas
+fursona
+hikikomori
+junebug
+buserelin
+bosentan
+gyaru
+gyarus
+lolita
+kush
+yeppers
+yesh
+wlw
+mlm
+bbg
+bb
+kk
+tp
+fw
+mlg
+btc
+bs
+tiedowns
+tiedown
+nashvillian
+nashvillians
+nipissing
+tsawwassen
+halkomelem
+otchipwe
+matsqui
+kwantlen
+suquamish
+ojibwemowin
+saulteaux
+benoxaprofen
+dookie
+dookies
+xixime
+xixiangs
+xiximes
+xixiang
+xixiasauruses
+xixiasaurus
+llanfair
+uberize
+airy-fairier
+airy-fairiest
+airy-fairy
+aids-de-camp
+acey-deucey
+acey-deucy
+a-okay
+a-ok
+ankole-watusis
+ankole-watusi
+also-ran
+also-rans
+alice-in-wonderland
+alef-beis
+alef-bet
+grrr
+grrr
+masenqo
+eumelaninogenesis
+nshima
+ndali
+ndamba
+wehrwirtschaft
+digons
+xes-as-a-service
+sons-in-law
+worn-out
+such-and-such
+ylang-ylangs
+marxist-leninist-maoist
+marxist-leninist-maoists
+marxism-leninism-maoisms
+marxism-leninism-maoism
+arty-crafty
+arty-farty
+ch'i-p'ao
+ch'i-p'aos
+duty-free
+e-dating
+e-datings
+e-health
+e-healths
+e-hon
+e-hookah
+e-hookahs
+e-securities
+e-security
+e-sex
+e-sexes
+eaux-de-vie
+haak-en-steek
+haak-en-steeks
+huet-huet
+huet-huets
+ilang-ilang
+ilang-ilangs
+roux-en-y
+tody-flycatcher
+tody-flycatchers
+tody-tyrant
+tody-tyrants
+tugs-of-war
+u-ey
+u-eys
+u-ie
+u-ies
+upsy-daisy
+wabi-sabi
+y-axes
+y-axis
+'amakihi
+'amakihis
+'tis
+akiapola'au
+akiapola'aus
+ch'i
+ch'is
+do'a
+do'as
+ijma'
+ma'ariv
+ma'arivim
+ma'jonga
+nyah-nyahing
+nyah-nyahed
+nyah-nyahs
+nyah-nyah
+blah-blah-blah
+blah-blah-blahs
+ukiyo-e
+aye-aye
+aye-ayes
+bain-marie
+bain-maries
+bains-marie
+budae-jjigae
+chhi-chhi
+clop-clop
+clop-clopped
+clop-clopping
+clop-clops
+culs-de-sac
+cusk-eel
+cusk-eels
+debt-ridden
+doenjang-jjigae
+doenjang-jjigaes
+dried-up
+easy-going
+easy-peasy
+eau-de-vie
+eaux-de-vie
+ebb-tide
+ebb-tides
+either-or
+either-ors
+envy-free
+envy-freeness
+envy-freenesses
+gung-ho
+hits-and-runs
+jiu-jitsu
+jiu-jutsu
+jnana-marga
+jnana-margas
+judeo-christian
+judeo-christianities
+judeo-christianity
+judeo-christians
+khus-khus
+khus-khuses
+kimilsungism-kimjongilism
+kimilsungism-kimjongilisms
+labs-on-a-chip
+labs-on-a-molecule
+labs-on-chip
+labs-on-chips
+laid-back
+laisser-aller
+laisser-passer
+laissez-aller
+laissez-faire
+laissez-faireism
+laissez-faireisms
+laissez-faires
+laissez-passer
+lily-livered
+lily-of-the-valley
+lily-white
+loup-garou
+loups-garous
+madonna-whore
+mahi-mahi
+mahi-mahis
+maki-e
+meow-meow
+meow-meows
+mm-hm
+mm-hmm
+mm-kay
+mokele-mbembe
+mokele-mbembes
+moms-and-pops
+muu-muu
+muu-muus
+next-door
+next-gen
+next-generation
+once-over
+once-overs
+oops-a-daisy
+owlet-nightjar
+owlet-nightjars
+pesh-kabz
+pooh-pooh
+pooh-poohed
+pooh-pooher
+pooh-poohers
+pooh-poohing
+pooh-poohs
+rags-to-riches
+rao-blackwellisation
+rao-blackwellisations
+rao-blackwellised
+rao-blackwellization
+rao-blackwellizations
+rao-blackwellized
+rats-on-a-stick
+rica-rica
+sado-erotic
+seek-no-further
+seek-no-furthers
+shichi-go-san
+shishi-odoshi
+tete-a-tete
+tete-a-tetes
+tohu-bohu
+tohu-bohus
+tteok-bokki
+tuco-tuco
+tuco-tucos
+tuk-tuk
+tuk-tuks
+ukiyo-ye
+vingt-et-un
+yamato-damashii
+yamato-e
+'amakihi
+'amakihis
+bussin'
+fuqaha'
+guv'nor
+guv'nors
+iqta'
+elexacaftor-tezacaftor-ivacaftor
+elexacaftor-tezacaftor-ivacaftors
+acaeruloplasminaemias
+amoxicillin-clavulanate
+amoxicillin-clavulanates
+ampicillin-sulbactams
+azidothymidine-triphosphate
+azidothymidine-triphosphates
+bosnian-herzegovinian
+bosnian-herzegovinians
+budesonide-formoterol
+budesonide-formoterols
+deendothelialisations
+deendothelializations
+epsilon-caprolactones
+epsilon-neighborhoods
+epsilon-neighbourhood
+epsilon-neighbourhoods
+judeo-christian-islamic
+lumacaftor-ivacaftors
+nivolumab-relatlimabs
+o-benzylhydroxylamine
+o-benzylhydroxylamines
+ticarcillin-clavulanate
+ticarcillin-clavulanates
+tixagevimab-cilgavimab
+tixagevimab-cilgavimabs
+ukay-ukay
+t-intersection
+t-intersections
+usodere
+usoderes
+paksiws
+paksiw
+feetjob
+feetjobs
+bakadere
+bakaderes
+nyandere
+nyanderes
+tsundere
+tsunderes
+rlly
+xnor
+epiafzelechin
+epiafzelechins
+omotenashi
+acey-deucies
+acey-deuceys
+funsies
+soxhlets
+soxhlation
+soxhlations
+ustekinumab-aekn
+ptsd
+sgian-dubh
+bawus
+bawu
+dtomatos
+dtomato
+tkemali
+tkemali
+dyk
+nsambyas
+nsambya
+ndorobo
+ayo
+uroradiologies
+uroradiology
+urorectal
+tsilhqot'in
+rly
+fufu
+aryans
+aryan
+mturquoise
+sikhye
+mpumalanga
+khoikhoi
+mpumalanga
+gauteng
+etodolac
+etelcalcetide
+etanercept
+esmolol
+eslicarbazepine
+ertugliflozin
+ertapenem
+erdafitinib
+enzalutamide
+eluxadoline
+edaravone
+dutasteride
+aktionsarten
+aktionsart
+mlecchas
+sgian-dubh
+hirolas
+hirola
+kkwabaegi
+kootenai
+kootenay
+ngarinyin
+ngarrindjeri
+dvaitadvaita
+zentais
+zentai
+nsambyas
+nsambya
+ndorobo
+dluwang
+ledeburites
+ledeburite
+nganasan
+nganasans
+qalam
+qalams
+lusaka
+eflapegrastim-xnst
+etravirine
+etrasimod
+ertugliflozin
+ertapenem
+erlotinib
+erdafitinib
+eptifibatide
+epoprostenol
+enalaprilat
+eltrombopag
+eflapegrastim
+efavirenz
+ecallantide
+daxibotulinumtoxina-lanm
+dulaglutide
+doxylamine
+doravirine
+dolasetron
+dofetilide
+docosanol
+daxibotulinumtoxina
+dasiglucagon
+daratumumab-lenalidomide-dexamethasone
+danicopan
+dacomitinib
+
+  'a'ali'i   : 'i   (1)   
+  'cept      : cept (1)   
++ 'merica    : rica (2)   
+  'i'iwi     : iwi  (2)   
+  'twixt     : ixt  (2)   
+  'ava       : 'ava (2)   
++ 'ave       : 'ave (2)   
+  'za        : 'za  (2)   
++ 'tweens    : eens (3)   
+  'rona      : rona (3) 
+  + 'twas       : twas (3)   
+  'zas        : zas  (3)   
++ 'tween      : een  (4)   
+  'tis        : 'tis (4)   
+  'avas       : avas (5)   
++ 'cuz        : cuz  (5)   
++ 'mericans   : cans (7)   
++ 'tisms      : ms   (7)   
+  'fraid      : raid (8)   
++ 'aqida      : ida  (10) 
++ 'murica
++ 'muricans
+  'amakihis
+  'ad'iyah
+  'amakihi
++ 'merican
++ 'murican
++ 'twasn't
++ 'aven't
+  'gainst
+  + 'tain't
++ 'tisn't
+  'zoubds
+  'zounds
++ 'aqa'id
++ 'cause
+  'twere
+  'twill
+  'bout
++ 'tism
+  'cos
++ 'ere
++ 'kay
++ 'pon
+  'til
++ 'nam
+  'em
+above-mentioned   : oned (1)
+anti-vaxer        : axer (1)   
+zidebactam
+  copanlisib
+  idelalisib
+  inavolisib
+  umbralisib
+  alpelisib
+  duvelisib
+  matrisib
+  patrisib
+olaratumab
+  alpha-naphthoflavone
+  pentamethoxyflavone
+  polymethoxyflavone
+  isoflavone
+  edaravone
+  schiavone
+  carvone
+  flavone
+  pavone
+  isopropyl-beta-d-thiogalactopyranoside
+  monosialotetrahexosylganglioside
+  carboxyatractyloside
+  ribonucleoside
+  asperuloside
+  arabinoside
+  cerebroside
+  datiscoside
+  diglucoside
+  galactoside
+  ganglioside
+  fructoside
+  furanoside
+  heteroside
+  nucleoside
+  pyranoside
+  rhamnoside
+  robinoside
+  teniposide
+  etoposide
+  glucoside
+  glycoside
+  lactoside
+  pentoside
+  aldoside
+  ketoside
+  xyloside
+    shammashim
+  chumashim
+  kaddishim
+  midrashim
+  kedoshim
+  kodashim
+  qedoshim
+  shloshim
+  kashim
+  nashim
+    pashim
+  shim
+    beta-lactoglobulin
+  hematoglobulin
+  immunoglobulin
+  pseudoglobulin
+  thyreoglobulin
+  lactoglobulin
+  macroglobulin
+  thyroglobulin
+  antiglobulin
+  cryoglobulin
+    hemoglobulin
+  paraglobulin
+  myoglobulin
+  ovoglobulin
+  euglobulin
+  eribulin
+  globulin
+  tubulin
+andersonite
+andersonites
+arthurite
+arthurites
+auerlite
+auerlites
+baratovite
+baratovites
+barbertonite
+barbertonites
+basaluminite
+basaluminites
+bayerite
+bayerites
+bayleyite
+bayleyites
+billietite
+billietites
+birnessite
+birnessites
+bismoclite
+bismoclites
+blueschist
+blueschists
+botallackite
+botallackites
+britholite
+britholites
+brownmillerite
+brownmillerites
+buddingtonite
+buddingtonites
+buergerite
+buergerites
+bultfonteinite
+ancylite
+ancylites
+qashqai
+alluaudite
+alluaudites
+alleghanyite
+alleghanyites
+akaganeite
+akaganeites
+adipocire
+nekoite
+nekoites
+enterocolites
+enterocolitises
+enterocolitis
+xenologies
+organoarsenical
+xavante
+huli
+xingu
+karuk
+asmat
+mentawai
+sentinelese
+jarawas
+sandawe 
+hadza 
+korubo
+muisca
+wayuu
+kichwa
+ashaninka
+yanomami
+kayapo
+pentagonite
+pentagonites
+ 'aqa'id
+  'aqida     : ida  (10)   
+  'ave       : 'ave (2)   
+  'aven't
+  'cause
+  'cuz       : cuz  (5)   
+  'ere
+  'kay
+  'merica    : rica (2)   
+  'merican
+    ambassador-in-residence
+  ambassadors-in-residence
+  analytics-as-a-service
+  anansi            : nsi (1)   
+  anemophobias
+  anglophobias
+  anthropophobias
+  anticonstitutionalist
+  antioxidizer
+  antioxygen
+  
+idarucizumab?
+ulzzang?
+biy?
+yuenyeung?
+hochzeitssuppe?
+llanfairpwllgwyngyll?
+iwakiite?
+iwakiites?
+hocartite?
+hocartites
+aktashite?
+aktashites?
+zussmanite?
+zussmanites?
+eugsterite?
+eugsterites?
+edrecolomab
+ecromeximab
+ublituximab
+obinutuzumab
+onartuzumab
+catumaxomab
+eptinezumab
+ibritumomab
+moxetumomab
+girentuximab
+isatuximab
+mirvetuximab
+datopotamab
+elotuzumab
+farletuzumab
+inotuzumab
+veltuzumab
+ofatumumab
+mapatumumab
+daratumumab
+tanezumab
+erenumab
+eptinezumab
+llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch
+hizb
+masenqos
+ikejime
+uchigatana
+vrikshasana
+vrikshasanas
+kena
+olaratumab
+toripalimab
+zimberelimab
+makan
+yaoi
+oshikatsu
+oshiruko
+oshizushi
+oshiwambo
+oshiboris
+oshibori
+tahan
+hantu
+hantus
+chey
+daoshis
+daoshi
+oshikatsu
+oshiruko
+oshizushi
+oshiwambo
+oshiboris
+oshibori
+sitzball
+ouachitites
+vonsenites
+ussingites
+ndau
+ndokwa
+szechwan
+sitzprobes
+sitzprobe
+sitzfleisch
+sinhala
+aimag
+aimags
+idarubicin
+amsacrine
+tipifarnib
+seliciclib
+abiraterone
+olaparib
+adagrasib
+pegaspargase
+lucanthone
+alitretinoin
+selinexor
+tazemetostat
+bortezomib
+oxocarbenium
+tschermigites
+tschernichites
+tschermakites
+jjambbong
+tschernichite
+tschermigite
+mscarlet
+mscarlets
+lusitano
+knabstrupper
+sezessionen
+kapampangans
+kapampangan
+tixes
+kostovite
+kostovites
+fps
+smurfed
+wsp
+tfym
+numpad
+numpads
+iminium
+iminiums
+bharadvajasana
+bharadvajasanas
+gobsmacking
+abalienates
+abalienations
+rpg
+banhammer
+banhammered
+banhammering
+banhammers
+oneshots
+oneshotting
+oneshotted
+oneshot
+ilyt
+kys
+ily
+ilysm
+tysm
+silole
+siloles
+biurets
+ximmer
+rngesus
+rts
+nt
+lte
+lfm
+lfg
+hitscans
+fpc
+fp
+dlcs
+dlc
+dps
+dpm
+bhopping
+bhop
+fkn
+bffls
+bffl
+bffs
+myob
+jic
+wyd
+fwiw
+pmo
+fml
+ffa
+lf
+nty
+ebay
+ebays
+mmo
+pvp
+pve
+mmorpg
+hitstun
+hitstuns
+hitstunned
+hitscan
+ccb
+icymi
+mmo
+laner
+mmorpg
+wtaf
+tldr
+afaik
+sthu
+lmfao
+rp
+lms
+pp
+dlcs
+dlc
+gtfoh
+gtfih
+gm
+bffls
+bffl
+bffs
+ahah
+iykwim
+bts
+ss
+umeshu
+umeshus
+nikuman
+nikumans
+nikujaga
+nikujagas
+umeshu
+umeshus
+motsunabes
+kakuni
+kakunis
+zoni
+zonis
+ikura
+ikuras
+nabemono
+tsukudani
+tsukudanis
+osechi
+osechis
+dagashi
+dagashis
+imonis
+okayus
+oyakodons
+imoni
+duhhh
+duhh
+kushikatsus
+kushikatsu
+kushiyaki
+okayu
+oyakodon
+makizushi
+temakis
+uramakis
+temaki
+uramaki
+tsukemen
+tsukemens
+tsukemono
+izakaya
+izakayas
+yusheng
+zongzi
+zongzis
+jiaozi
+jiaozis
+baozis
+baozi
+tychoparthenogenetic
+citogenesis
+rna
+aahing
+aahs
+aah
+wehraboos
+wehraboo
+hleb
+lupara
+nsima
+tzeltales
+tzeltal
+nth
+cp
+lgbtqia
+lgbt
+lgbtq
+larper
+larpers
+larp
+larps
+larped
+larping
+tmr
+wtv
+lowk
+np
+tianjin
+hehehe
+maghrebis
+maghrebi
+qatayefs
+qatayef
+ogi
+ndole
+msemens
+msemen
+aficamten
+aclidinium
+acamprosate
+abaloparatide
+acespec
+aroace
+ogoni
+xong
+riyadh
+motsunabe
+gyukatsu
+hr
+abendmusik
+abendmusiken
+lulavim
+joulemeters
+tmrw
+azimethylenes
+bhekasana
+bhekasanas
+bakasana
+bakasanas
+bunyavirus
+bunyaviruses
+totopo
+totopos
+tlayuda
+tlayudas
+dvd
+xoloitzcuintlis
+bbc
+bbq
+aksakallar
+aqsaqallar
+epsilonproteobacteria
+epsilonproteobacterial
+epsilonproteobacterium
+tupperwares
+ubers
+lego
+legos
+moken
+coideal
+coideals
+coidentities
+abkhaz
+abkhazian
+abkhazians
+bwahaha
+coidentities
+llapingacho
+llapingachos
+hr
+ndole
+ndoles
+okpas
+eep
+eeped
+eeping
+eeps
+eepy
+eepier
+eepiest
+edublog
+edublogs
+plyos
+plyo
+maakouda
+maakoudas
+gfs
+dioleoylphosphatidylglycerol
+dioleoylphosphatidylglycerols
+dioleoylphosphatidylethanolamine
+dioleoylphosphatidylethanolamines
+cisheteropatriarchies
+cisheteropatriarchy
+cisheteropatriarchal
+cisheteronormativities
+cisheteronormativity
+cisheteronormative
+kilnforming
+kilnformings
+ello
+cluelessness
+cluelessnesses
+cluelessly
+cupioromantic
+cupioromantics
+euxinic
+euxinia
+euxinias
+gezelligheid
+gezelligheids
+norrbottenspitz
+norrbottenspitzes
+mkates
+ochazukes
+oviraptorosaur
+oviraptorosaurs
+bfs
+pexiganan
+pexophagies
+pexophagy
+povidone
+povidones
+ylides
+ylide
+ylids
+ylid
+ylides
+ylide
+ylids
+ylid
+fada
+kugelhopf
+isicholo
+isicathamiyas
+oprichnina
+oprichniki
+oprichnik
+oprichniks
+lherzolitic
+iyashikei
+nehiyawak
+nehiyawewin
+nehiyaw
+yezidis
+yezidism
+yezidisms
+shcherbakovite
+shcherbakovites
+yazidi
+yazidis
+yazidism
+yazidisms
+gukbap
+gukbaps
+ramyeon
+ramyeons
+doenjang
+doenjangs
+seon
+seons
+sgaw
+oshirukos
+mgqashiyo
+yazidi
+yazidis
+yazidism
+yazidisms
+seolleongtangs
+namul
+namuls
+kongnamul
+kongnamuls
+seon
+seons
+tteokguks
+tf
+jajangmyeons
+jajangmyuns
+jajangmyun
+kshatriyas
+ksatriyas
+ksour
+hahaha
+dubai
+ojousamas
+ojousama
+rpgs
+rpg
+tps
+rking
+rk
+rked
+eicosanoic
+ubering
+himedanshi
+himedanshis
+hrs
+rpgs
+lumenogenesis
+lumenogeneses
+remyelination
+remyelinations
+oogenic
+asmrtists
+asmrtist
+kek
+yume
+fursuiters
+asmrtists
+asmrtist
+himedanshi
+fursuiting
+fursuiter
+fursonas
+fursona
+hikikomori
+junebug
+buserelin
+bosentan
+gyaru
+gyarus
+lolita
+kush
+yeppers
+yesh
+wlw
+mlm
+bbg
+bb
+kk
+tp
+fw
+mlg
+btc
+bs
+tiedowns
+tiedown
+nashvillian
+nashvillians
+nipissing
+tsawwassen
+halkomelem
+otchipwe
+matsqui
+kwantlen
+suquamish
+ojibwemowin
+saulteaux
+benoxaprofen
+dookie
+dookies
+xixime
+xixiangs
+xiximes
+xixiang
+xixiasauruses
+xixiasaurus
+llanfair
+uberize
+airy-fairier
+airy-fairiest
+airy-fairy
+aids-de-camp
+acey-deucey
+acey-deucy
+a-okay
+a-ok
+ankole-watusis
+ankole-watusi
+also-ran
+also-rans
+alice-in-wonderland
+alef-beis
+alef-bet
+grrr
+grrr
+masenqo
+eumelaninogenesis
+nshima
+ndali
+ndamba
+wehrwirtschaft
+digons
+xes-as-a-service
+sons-in-law
+worn-out
+such-and-such
+ylang-ylangs
+marxist-leninist-maoist
+marxist-leninist-maoists
+marxism-leninism-maoisms
+marxism-leninism-maoism
+arty-crafty
+arty-farty
+ch'i-p'ao
+ch'i-p'aos
+duty-free
+e-dating
+e-datings
+e-health
+e-healths
+e-hon
+e-hookah
+e-hookahs
+e-securities
+e-security
+e-sex
+e-sexes
+eaux-de-vie
+haak-en-steek
+haak-en-steeks
+huet-huet
+huet-huets
+ilang-ilang
+ilang-ilangs
+roux-en-y
+tody-flycatcher
+tody-flycatchers
+tody-tyrant
+tody-tyrants
+tugs-of-war
+u-ey
+u-eys
+u-ie
+u-ies
+upsy-daisy
+wabi-sabi
+y-axes
+y-axis
+'amakihi
+'amakihis
+'tis
+akiapola'au
+akiapola'aus
+ch'i
+ch'is
+do'a
+do'as
+ijma'
+ma'ariv
+ma'arivim
+ma'jonga
+nyah-nyahing
+nyah-nyahed
+nyah-nyahs
+nyah-nyah
+blah-blah-blah
+blah-blah-blahs
+ukiyo-e
+aye-aye
+aye-ayes
+bain-marie
+bain-maries
+bains-marie
+budae-jjigae
+chhi-chhi
+clop-clop
+clop-clopped
+clop-clopping
+clop-clops
+culs-de-sac
+cusk-eel
+cusk-eels
+debt-ridden
+doenjang-jjigae
+doenjang-jjigaes
+dried-up
+easy-going
+easy-peasy
+eau-de-vie
+eaux-de-vie
+ebb-tide
+ebb-tides
+either-or
+either-ors
+envy-free
+envy-freeness
+envy-freenesses
+gung-ho
+hits-and-runs
+jiu-jitsu
+jiu-jutsu
+jnana-marga
+jnana-margas
+judeo-christian
+judeo-christianities
+judeo-christianity
+judeo-christians
+khus-khus
+khus-khuses
+kimilsungism-kimjongilism
+kimilsungism-kimjongilisms
+labs-on-a-chip
+labs-on-a-molecule
+labs-on-chip
+labs-on-chips
+laid-back
+laisser-aller
+laisser-passer
+laissez-aller
+laissez-faire
+laissez-faireism
+laissez-faireisms
+laissez-faires
+laissez-passer
+lily-livered
+lily-of-the-valley
+lily-white
+loup-garou
+loups-garous
+madonna-whore
+mahi-mahi
+mahi-mahis
+maki-e
+meow-meow
+meow-meows
+mm-hm
+mm-hmm
+mm-kay
+mokele-mbembe
+mokele-mbembes
+moms-and-pops
+muu-muu
+muu-muus
+next-door
+next-gen
+next-generation
+once-over
+once-overs
+oops-a-daisy
+owlet-nightjar
+owlet-nightjars
+pesh-kabz
+pooh-pooh
+pooh-poohed
+pooh-pooher
+pooh-poohers
+pooh-poohing
+pooh-poohs
+rags-to-riches
+rao-blackwellisation
+rao-blackwellisations
+rao-blackwellised
+rao-blackwellization
+rao-blackwellizations
+rao-blackwellized
+rats-on-a-stick
+rica-rica
+sado-erotic
+seek-no-further
+seek-no-furthers
+shichi-go-san
+shishi-odoshi
+tete-a-tete
+tete-a-tetes
+tohu-bohu
+tohu-bohus
+tteok-bokki
+tuco-tuco
+tuco-tucos
+tuk-tuk
+tuk-tuks
+ukiyo-ye
+vingt-et-un
+yamato-damashii
+yamato-e
+'amakihi
+'amakihis
+bussin'
+fuqaha'
+guv'nor
+guv'nors
+iqta'
+elexacaftor-tezacaftor-ivacaftor
+elexacaftor-tezacaftor-ivacaftors
+acaeruloplasminaemias
+amoxicillin-clavulanate
+amoxicillin-clavulanates
+ampicillin-sulbactams
+azidothymidine-triphosphate
+azidothymidine-triphosphates
+bosnian-herzegovinian
+bosnian-herzegovinians
+budesonide-formoterol
+budesonide-formoterols
+deendothelialisations
+deendothelializations
+epsilon-caprolactones
+epsilon-neighborhoods
+epsilon-neighbourhood
+epsilon-neighbourhoods
+judeo-christian-islamic
+lumacaftor-ivacaftors
+nivolumab-relatlimabs
+o-benzylhydroxylamine
+o-benzylhydroxylamines
+ticarcillin-clavulanate
+ticarcillin-clavulanates
+tixagevimab-cilgavimab
+tixagevimab-cilgavimabs
+ukay-ukay
+t-intersection
+t-intersections
+usodere
+usoderes
+paksiws
+paksiw
+feetjob
+feetjobs
+bakadere
+bakaderes
+nyandere
+nyanderes
+tsundere
+tsunderes
+rlly
+xnor
+epiafzelechin
+epiafzelechins
+omotenashi
+acey-deucies
+acey-deuceys
+funsies
+soxhlets
+soxhlation
+soxhlations
+ustekinumab-aekn
+ptsd
+sgian-dubh
+bawus
+bawu
+dtomatos
+dtomato
+tkemali
+tkemali
+dyk
+nsambyas
+nsambya
+ndorobo
+ayo
+uroradiologies
+uroradiology
+urorectal
+tsilhqot'in
+rly
+fufu
+aryans
+aryan
+mturquoise
+sikhye
+mpumalanga
+khoikhoi
+mpumalanga
+gauteng
+etodolac
+etelcalcetide
+etanercept
+esmolol
+eslicarbazepine
+ertugliflozin
+ertapenem
+erdafitinib
+enzalutamide
+eluxadoline
+edaravone
+dutasteride
+aktionsarten
+aktionsart
+mlecchas
+sgian-dubh
+hirolas
+hirola
+kkwabaegi
+kootenai
+kootenay
+ngarinyin
+ngarrindjeri
+dvaitadvaita
+zentais
+zentai
+nsambyas
+nsambya
+ndorobo
+dluwang
+ledeburites
+ledeburite
+nganasan
+nganasans
+qalam
+qalams
+lusaka
+eflapegrastim-xnst
+etravirine
+etrasimod
+ertugliflozin
+ertapenem
+erlotinib
+erdafitinib
+eptifibatide
+epoprostenol
+enalaprilat
+eltrombopag
+eflapegrastim
+efavirenz
+ecallantide
+daxibotulinumtoxina-lanm
+dulaglutide
+doxylamine
+doravirine
+dolasetron
+dofetilide
+docosanol
+daxibotulinumtoxina
+dasiglucagon
+daratumumab-lenalidomide-dexamethasone
+danicopan
+dacomitinib
+
+  'a'ali'i   : 'i   (1)   
+  'cept      : cept (1)   
++ 'merica    : rica (2)   
+  'i'iwi     : iwi  (2)   
+  'twixt     : ixt  (2)   
+  'ava       : 'ava (2)   
++ 'ave       : 'ave (2)   
+  'za        : 'za  (2)   
++ 'tweens    : eens (3)   
+  'rona      : rona (3) 
+  + 'twas       : twas (3)   
+  'zas        : zas  (3)   
++ 'tween      : een  (4)   
+  'tis        : 'tis (4)   
+  'avas       : avas (5)   
++ 'cuz        : cuz  (5)   
++ 'mericans   : cans (7)   
++ 'tisms      : ms   (7)   
+  'fraid      : raid (8)   
++ 'aqida      : ida  (10) 
++ 'murica
++ 'muricans
+  'amakihis
+  'ad'iyah
+  'amakihi
++ 'merican
++ 'murican
++ 'twasn't
++ 'aven't
+  'gainst
+  + 'tain't
++ 'tisn't
+  'zoubds
+  'zounds
++ 'aqa'id
++ 'cause
+  'twere
+  'twill
+  'bout
++ 'tism
+  'cos
++ 'ere
++ 'kay
++ 'pon
+  'til
++ 'nam
+  'em
+above-mentioned   : oned (1)
+anti-vaxer        : axer (1)   
+kimilsungism-kimjongilisms
+kimilsungism-kimjongilism
