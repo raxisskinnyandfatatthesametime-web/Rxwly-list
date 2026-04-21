@@ -250576,6 +250576,7 @@ ngatis
 ngoko
 ngoma
 ngomas
+ngondo
 ngram
 ngrams
 ngultrum
@@ -399622,39 +399623,26 @@ tbsp
 tbssaraglot
 tc
 tcawi
-tch
-tchai
-tchaikovsky
-tchapan
-tcharik
-tchast
-tche
-tcheckup
-tcheirek
-tcheka
-tcherkess
-tchervonets
-tchervonetz
-tchervontzi
-tchetchentsish
-tchetnitsi
-tchetvert
-tchi
-tchick
-tchicked
-tchicking
-tchicks
-tchincou
-tchotchke
-tchotchkes
-tchoukball
-tchoukballs
-tchr
-tchu
-tchwi
 tck
+tchoukballs  
+tchotchkes  
+tchoukball
+tchotchke
+tchai
++tchagras
++tchagra
 td
 tdr
+  bri'ish     
+  lady's-smocks   
+  young'uns     
+  m'lady      
+  aaron's-beard    
+  za'atar       
+  crow's-foot  
+  lady's-laces   
+  wolf's-bane 
+  qur'anic  
 te
 tea
 teabag
@@ -470048,6 +470036,7 @@ eflapegrastim
 efavirenz
 ecallantide
 daxibotulinumtoxina-lanm
+ifosfamide
 dulaglutide
 doxylamine
 doravirine
@@ -470057,6 +470046,8 @@ docosanol
 daxibotulinumtoxina
 dasiglucagon
 daratumumab-lenalidomide-dexamethasone
+levo-alpha-acetylmethadols
+
 danicopan
 dacomitinib
 
