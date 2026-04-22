@@ -40739,6 +40739,7 @@ bifanged
 bifara
 bifarious
 bifariously
+ayanamsa
 bifer
 biferous
 biff
@@ -118097,6 +118098,10 @@ dyeability
 dyeable
 dyebeck
 dyed
+dyed-in-the-wool
+deep-dyed 
+overdyed
+tie-dyed
 dyehouse
 dyeing
 dyeings
@@ -127614,6 +127619,8 @@ eodromaeus
 eof
 eoghanacht
 eohippus
+d-optimal
+good-o
 eohippuses
 eoith
 eoiths
@@ -155512,12 +155519,8 @@ genuinenesses
 genupectoral
 genus
 genuses
-genyantrum
 genyodectes
-genyophrynidae
-genyoplasty
 genyplasty
-genys
 geo
 geoaesthesia
 geoagronomic
@@ -187184,7 +187187,6 @@ inagglutinable
 inaggressive
 inagile
 inaidable
-inaidible
 inaja
 inalacrity
 inalienabilities
@@ -204186,6 +204188,10 @@ keepsakiest
 keepsaky
 keepworthy
 keerogue
+brides-to-be
+shut-in
+t-intersection
+t-intersections
 kees
 keeshond
 keeshonden
@@ -207867,6 +207873,8 @@ kuba
 kubachi
 kubanka
 kubasa
+zoledronate
+zoledronic
 kubasas
 kubba
 kubera
@@ -238141,7 +238149,6 @@ mnemotechny
 mnesic
 mnestic
 mnevis
-mniaceae
 mniaceous
 mnioid
 mniotiltidae
@@ -246561,6 +246568,7 @@ nacket
 nackets
 nacre
 nacred
+bexarotene
 nacreous
 nacreousness
 nacres
@@ -250584,9 +250592,6 @@ ngultrums
 nguyen
 ngwee
 ngwees
-nhan
-nhandu
-nhandus
 nheengatu
 ni
 niacin
@@ -265174,7 +265179,8 @@ okro
 okroog
 okrug
 okruzi
-okshoofd
+oksapmin
+oks
 okta
 oktas
 oktastylos
@@ -408179,7 +408185,6 @@ tis
 tisane
 tisanes
 tisar
-tishiya
 tishri
 tisic
 tisick
@@ -455657,6 +455662,10 @@ o-be-joyfuls   : fuls (7)
 o-benzylhydroxylamines
 o-benzylhydroxylamine
 o-be-joyful
+brides-to-be 
+grooms-to-be
+bride-to-be
+groom-to-be
 bunsenite
 burangaite
 burbankite
@@ -459048,6 +459057,7 @@ xilingolite
 ximengite
 xingzhongite
 xitieshanite
+xitsonga?
 xocolatlite
 xocomecatlite
 xonotlite
@@ -461041,6 +461051,7 @@ whisked
 whisker
 whiskerage
 whiskerando
+oops-a-daisy
 whiskerandoed
 whiskerandos
 whiskered
@@ -469414,6 +469425,7 @@ citogenesis
 rna
 aahing
 aahs
+ykwim
 aah
 wehraboos
 wehraboo
@@ -469718,6 +469730,7 @@ sons-in-law
 worn-out
 such-and-such
 ylang-ylangs
+ylang-ylang
 marxist-leninist-maoist
 marxist-leninist-maoists
 marxism-leninism-maoisms
