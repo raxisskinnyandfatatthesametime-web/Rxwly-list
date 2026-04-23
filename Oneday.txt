@@ -94311,36 +94311,36 @@ dads
 dadu
 daduchus
 dadupanthi
-dae
-daedal
-daedalea
-daedalean
-daedaleous
+daemony        
+daemonies      
+daemonology    
+daejeon        
+daegeum        
+daemonurgist   
+daedalea       
+daemon
 daedalian
-daedalic
-daedalidae
+daedalean      
+daemonelix        
+daegu             
+daemons           
+daemonosaurus     
+daemones          
+daemonosauruses
+daemonistic
+daemonurgy
 daedalist
-daedaloid
 daedalous
+daedalic
 daedalus
+daemonic
+daedal
 daeing
 daekon
-daemon
-daemonelix
-daemones
-daemonian
-daemonic
-daemonies
-daemonistic
-daemonology
-daemonosaurus
-daemons
-daemonurgist
-daemonurgy
-daemony
+daeva
 daer
 daes
-daeva
+dae
 daf
 daff
 daffadillies
@@ -174293,6 +174293,9 @@ hildings
 hile
 hili
 hiliferous
+hiligaynons (?)
+hiligaynon (?)
+okonomiyakis
 hill
 hillary
 hillberry
@@ -200959,6 +200962,7 @@ jihadisms
 jihadist
 jihadists
 jihads
+ngemba
 jikungu
 jilbab
 jilbabs
@@ -205784,75 +205788,62 @@ kinetosome
 kinetosomes
 kinfolk
 kinfolks
-king
-kingbird
-kingbirds
-kingbolt
-kingbolts
-kingcob
-kingcraft
-kingcrafts
-kingcup
-kingcups
-kingdom
-kingdomed
-kingdomful
-kingdomless
-kingdoms
-kingdomship
-kinged
-kingfish
-kingfisher
-kingfishers
-kingfishes
-kinghead
-kinghood
-kinghoods
-kinghorn
-kinghunter
-kinging
-kingklip
-kingklips
-kingle
-kingles
-kingless
-kinglessness
 kinglet
-kinglets
-kinglier
-kingliest
-kinglihood
-kinglihoods
-kinglike
-kinglily
-kingliness
-kinglinesses
-kingling
-kinglings
-kingly
-kingmaker
-kingmakers
-kingmaking
-kingpiece
-kingpin
-kingpins
-kingpost
-kingposts
-kingrow
-kings
-kingship
-kingships
-kingside
-kingsides
-kingsize
-kingsman
-kingsnake
-kingsnakes
-kingston
-kingu
-kingweed
-kingwood
-kingwoods
+  kingfishers
+  kingcraft
+  kinghead
+  kingfishes
+  kingsides
++ kingite
+  kingmaker
+  kingcups
+  kinglike
+  kinglier
+  kingdoms
+  kingfish
+  king-of-the-salmons
+  kingklip
+  kingships
+  king-sized
+  kingsnakes
+  kingmakers
+  kinghood
+  kingwood
+  kinghoods
+  kingwoods
+  kingliness
+  kingless
+  kingpins
+  king-of-the-salmon
+  kinglinesses
+  kingdomship
+  kingcrafts
+  kingfisher
+  kingmaking
+  king-size
+  kingbirds
+  kingbolts
+  kingdomed
+  kingklips
+  kingliest
+  kingposts
+  kingsnake
+  kingbird
+  kingbolt
+  kinglets
+  kingpost
+  kingship
+  kingside
+  kingsize
+  kingsman
+  kingcup
+  kingdom
+  kinging
+  kingpin
+  kinged
+  kingly
+ kings
+  king
 kinhin
 kinic
 kinin
