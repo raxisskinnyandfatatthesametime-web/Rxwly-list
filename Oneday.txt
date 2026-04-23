@@ -2969,8 +2969,6 @@ aclastic
 acle
 acleidian
 acleistocardia
-acleistous
-aclemon
 aclidian
 aclinal
 aclinic
@@ -4064,6 +4062,7 @@ adarbitrium
 adarme
 adarticulation
 adasaurus
+adasauruses
 adat
 adati
 adatis
@@ -5036,8 +5035,6 @@ adorns
 adorsed
 ados
 adosculation
-adossed
-adossee
 adoulie
 adown
 adoxa
@@ -11527,6 +11524,7 @@ alyssums
 alytarch
 alytes
 alzheimer
+alzheimer's
 am
 ama
 amaas
@@ -15478,8 +15476,6 @@ aniconists
 anicular
 anicut
 anicuts
-anidian
-anidiomatic
 anidiomatical
 anidroses
 anidrosis
@@ -15780,10 +15776,6 @@ anisum
 anisuria
 anisyl
 anisylidene
-anita
-anither
-anitinstitutionalism
-anitos
 anitrogenous
 anjan
 anjaneyasanas
@@ -15813,8 +15805,6 @@ anklong
 anklongs
 anklung
 anklungs
-ankol
-ankoli
 ankou
 ankus
 ankuses
@@ -20435,8 +20425,6 @@ apoise
 apojove
 apokatastasis
 apokatastatic
-apokrea
-apokreos
 apolar
 apolarity
 apolaustic
@@ -26530,8 +26518,6 @@ astutest
 astutious
 astyanax
 astylar
-astyllen
-astylospongia
 astylosternus
 asuang
 asudden
@@ -26713,9 +26699,7 @@ ateba
 atebrin
 atebrins
 atechnic
-atechnical
 atechnics
-atechny
 ated
 atees
 ateeter
@@ -27131,7 +27115,7 @@ atopic
 atopies
 atopite
 atopy
-atorai
+atoroidal
 atorvastatin
 atorvastatins
 atossa
@@ -29890,7 +29874,6 @@ aweary
 aweather
 aweband
 awed
-awedly
 awedness
 awee
 aweek
@@ -29900,7 +29883,6 @@ aweing
 aweless
 awelessness
 awelessnesses
-awellimiden
 awes
 awesome
 awesomely
@@ -30003,6 +29985,7 @@ awunctive
 ax
 axal
 axanthopsia
+axanthic
 axbreaker
 axe
 axebird
@@ -30245,7 +30228,6 @@ azaserine
 azathioprine
 azathioprines
 azazel
-azedarac
 azedarach
 azedarachs
 azelaic
@@ -31936,9 +31918,7 @@ bajau
 bajillion
 bajillions
 bajocco
-bajochi
 bajocian
-bajoire
 bajonado
 bajra
 bajras
@@ -35502,29 +35482,9 @@ bcf
 bcfeda
 bch
 bchs
-bd
-bde
-bdellatomy
-bdellid
-bdellidae
-bdellium
-bdelliums
-bdelloid
-bdelloida
-bdellometer
-bdellostoma
-bdellostomatidae
-bdellostomidae
-bdellotomy
-bdelloura
-bdellouridae
-bdellovibrio
 bdft
-bdl
 bdle
-bdls
 bdrm
-bds
 be
 bea
 beach
@@ -51753,10 +51713,6 @@ budworm
 budworms
 budzart
 budzat
-buenas (x)
-bueno (x)
-buenos (x)
-buettneria (x)
 buettneriaceae
 bufagin
 buff
@@ -78939,7 +78895,9 @@ brexpiprazoles (new)
 efinaconazole (new)
 efinaconazoles (new)
 cualstibite
+cualstibites
 daptomycin
+daptomycins
 kujichagulia (x)
 ruyangosaurus
 biyatch (x)
@@ -90925,16 +90883,6 @@ cs
 csardas
 csardases
 csc
-csch (x)
-csect (x)
-csects (x)
-csi (x)
-csk (x)
-csmp (x)
-csnet (x)
-csp (x)
-cst (x)
-csw (x)
 ct
 cte
 ctelette
@@ -93893,11 +93841,9 @@ cytaster
 cytasters
 cyte
 cytes
-cythera
 cytherea
 cytherean
 cytherella
-cytherellidae
 cytidine
 cytidines
 cytidylic
@@ -101337,7 +101283,6 @@ deorsum
 deorsumvergence
 deorsumversion
 deorusumduction
-deosculate
 deossification
 deossify
 deota
@@ -103852,7 +103797,6 @@ deul
 deunam
 deuniting
 deurbanize
-deurwaarder (x)
 deus
 deusan
 deutencephalic
@@ -119023,7 +118967,6 @@ eboulement
 eboulements
 ebracteate
 ebracteolate
-ebraick
 ebriate
 ebriated
 ebricty
@@ -119075,7 +119018,6 @@ ec
 ecad
 ecads
 ecalcarate
-ecalcavate (x)
 ibalizumab?
 ecanda
 ecardinal
@@ -119160,7 +119102,6 @@ ecclesiology
 ecclesiophobia
 ecco
 eccoprotic
-eccoproticophoric
 eccoprotics
 eccremocarpi
 eccremocarpus
@@ -119364,7 +119305,6 @@ echuca
 eciliate
 eciton
 ecize
-eckehart
 eckermannite (new)
 ecklein
 eclair
@@ -119984,6 +119924,7 @@ ediles
 edility
 edinburgh
 edingtonite
+edingtonites
 edison
 edit
 editable
@@ -120467,7 +120408,6 @@ egalities
 egality
 egall
 egally
-egards
 egarement
 egarements
 egba
@@ -121786,10 +121726,7 @@ electuary
 eledoisin
 eledoisins
 eledone
-eleemosinar (x)
 eleemosynars
-eleemosynarily (x)
-eleemosynariness (x)
 eleemosynary
 elegance
 elegances
@@ -122239,7 +122176,6 @@ eloquential
 eloquently
 eloquentness
 elotherium
-elotillo (x)
 elpasolite
 elpee
 elpees
@@ -123363,7 +123299,6 @@ emonges
 emongest
 emongst
 emony
-emory
 emordnilaps
 emordnilap
 emos
@@ -127706,7 +127641,6 @@ epagomenal
 epagomenic
 epagomenous
 epaleaceous
-epalpate
 epalpebrate
 epanadiploses
 epanadiplosis
@@ -129052,7 +128986,9 @@ epornitic
 epornitically
 epos
 eposes
-epotation
+epotation (x)
+epothilone
+epothilones
 epoxidation
 epoxidations
 epoxide
@@ -129087,8 +129023,6 @@ epsom
 epsomite
 epsomites
 eptatretus
-epthianura
-epthianuras
 epuise
 epuisee
 epulary
@@ -131619,7 +131553,6 @@ etnean
 etoffe
 etoile
 etoiles
-eton
 etonian
 etonogestrel
 etonogestrels
@@ -140838,6 +140771,7 @@ fiducinales
 fie
 fied
 fiedlerite
+fiedlerites
 fief
 fiefdom
 fiefdoms
@@ -143495,9 +143429,6 @@ flensing
 flentes
 flerovium
 fleroviums
-flerried
-flerry
-flerrying
 flesh
 fleshbrush
 fleshed
@@ -156718,7 +156649,6 @@ giddyish
 giddypate
 giddyup
 gideon
-gideonite
 gideonmantellia
 gidgea
 gidgee
@@ -177486,8 +177416,7 @@ hordeum
 hording
 hordock
 hordocks
-hore
-horehoond
+hore	
 horehound
 horehounds
 horiatiki
@@ -183285,11 +183214,8 @@ iapetus
 iapyges
 iapygian
 iapygii
-iare
 iarovization
 iarovize
-iarovized
-iarovizing
 iatraliptic
 iatraliptics
 iatric
@@ -184858,8 +184784,6 @@ ilmenite
 ilmenites
 ilmenitite
 ilmenorutile
-ilocano
-ilokano
 ilokelesia
 iloko
 ilongot
@@ -189719,12 +189643,7 @@ inembryonate
 inemendable
 inemotivity
 inemulous
-inenarrability (x)
 inenarrable
-inenarrably (x)
-inenergetic (x)
-inenubilable (x)
-inenucleable (x)
 inept
 inepter
 ineptest
@@ -197861,7 +197780,6 @@ isaian
 isallobar
 isallobaric
 isallobars
-isallotherm
 isamin
 isamine
 isander
@@ -197982,7 +197900,6 @@ ishpingo
 ishshakku
 isiac
 isiacal
-isicle (x)
 isicathamiya
 axicabtagene
 isidae
@@ -198003,6 +197920,7 @@ isinglass
 isinglasses
 isis
 isisaurus
+isisauruses
 isit
 isize
 isl
@@ -202013,10 +201931,7 @@ jr
 js
 jt
 ju
-juamave
 juan
-juang
-juans
 juba
 jubarb
 jubardy
@@ -207854,7 +207769,6 @@ ks
 ksar
 ksars
 kshatriya
-kshatriyahood
 ksi
 kt
 ktenasite
@@ -218150,7 +218064,6 @@ lomilomi
 loming
 lomita
 lommock
-lomonite
 lompish
 lomta
 lonchocarpus
@@ -220530,7 +220443,6 @@ lykewalks
 lym
 lymantria
 lymantriid
-lymantriidae
 lyme
 lymes
 lymhpangiophlebitis
@@ -242795,17 +242707,7 @@ msl
 msource
 mss
 mster
-mt
-mtd
-mtg
-mtge
-mtier
-mtn
-mts
-mtscmd
-mtsvane
 mtsvane 
-mtx
 mu
 muang
 muban
@@ -248543,11 +248445,10 @@ neemb
 neemba
 neembs
 neems
-neencephala
-neencephalic
 neencephalon
 neencephalons
-neengatu
+ezza-ezekuna
+ezza
 neep
 neepour
 neeps
@@ -250918,8 +250819,8 @@ nielsen
 niente
 niepa
 nierembergia
-nierembergias (x)
-niersteiner (x)
+nierite
+nierites
 nies
 nieshout
 nietzsche
@@ -251759,6 +251660,7 @@ nkrumahist?
 nkrumahists?
 nkrumahism?
 nkatenkwan?
+nkanu
 nkwobi?
 nkole?
 nkrumanisms?
@@ -262679,7 +262581,6 @@ oaths
 oathworthy
 oatier
 oatiest
-oatland
 oatlike
 oatmeal
 oatmeals
@@ -265320,10 +265221,8 @@ oleothorax
 oleous
 oleoyl
 olepy
-oleraceae
 oleraceous
 olericultural
-olericulturally
 olericulture
 olericulturist
 oleron
@@ -266211,11 +266110,8 @@ onionskins
 oniony
 oniric
 onirotic
-oniscidae
 onisciform
 oniscoid
-oniscoidea
-oniscoidean
 oniscus
 onium
 oniums
@@ -266498,9 +266394,8 @@ ooid
 ooidal
 oojamaflip
 oojamaflips
-ookinesis
-ookinete
 ookinetic
+ookinete
 oolachan
 oolachans
 oolak
@@ -269129,7 +269024,6 @@ ortolan
 ortolans
 ortrud
 orts
-ortstaler
 ortstein
 ortygan
 ortygian
@@ -280444,8 +280338,7 @@ palynologists
 palynology
 palynomorph
 pam
-pamaceous
-pamaquin
+pama-nyungan(+)
 pamaquine
 pambanmanche
 pamela
@@ -286754,10 +286647,8 @@ pegmatize
 pegmatoid
 pegmatophyre
 pegmen
-pegology
 pegomancy
 pegomastax
-pegoxyl
 pegroots
 pegs
 pegtop
@@ -287133,11 +287024,6 @@ pelvisacral
 pelvises
 pelvisternal
 pelvisternum
-pelycogram
-pelycography
-pelycology
-pelycometer
-pelycometry
 pelycosaur
 pelycosauria
 pelycosaurian
@@ -303515,6 +303401,7 @@ ponks
 ponograph
 ponos
 pons
+ponsegromab
 pont
 pontac
 pontacq
@@ -325766,6 +325653,7 @@ ralphed
 ralphing
 ralphs
 rals
+galsulfase
 ralstonite
 ram
 rama
@@ -341370,8 +341258,6 @@ rid
 ridabilities
 ridability
 ridable
-ridableness
-ridably
 riddam
 riddance
 riddances
@@ -346103,6 +345989,8 @@ saa
 saad
 saag
 saags
+inzolia?
+inzolias?
 saan
 saanen
 saarbrucken
@@ -395829,8 +395717,6 @@ synrocs
 synsacral
 synsacrum
 synsepalous
-synspermous
-synsporous
 syntactially
 syntactic
 syntactical
@@ -398184,10 +398070,6 @@ tanya
 tanyard
 tanyards
 tanycolagreus
-tanyoan
-tanystomata
-tanystomatous
-tanystome
 tanzania
 tanzanian
 tanzanians
@@ -420030,6 +419912,7 @@ udallers
 udalman
 udals
 udanoceratops
+udanoceratopses
 udasi
 udder
 uddered
@@ -425377,7 +425260,6 @@ uncuticulate
 uncuttable
 uncynical
 uncynically
-uncypress
 undabbled
 undaggled
 undaily
@@ -447252,7 +447134,6 @@ veloutines
 velskoen
 velskoens
 velte
-veltfare
 velum
 velumen
 velumina
@@ -449756,11 +449637,6 @@ vineyarding
 vineyardist
 vineyardists
 vineyards
-vingerhoed
-vingolf
-vingt
-vingtieme
-vingtun
 vinhatico
 vinic
 vinicultural
@@ -451833,7 +451709,11 @@ vrows
 vrystater
 vrystaters
 vs
-vss
+vs
+vstreamer
+vsinger
+vstreamers
+vsingers
 vtuber
 vtubers
 vtubing
@@ -455261,6 +455141,7 @@ agrinierite
 aguilarite
 aheylite
 ahlfeldite
+ahlfeldites
 aikinite
 aiolosite
 ajoite
@@ -456154,9 +456035,7 @@ earlshannonite
 eastonite
 ecandrewsite
 ecdemite
-eckerite
-eckermannite
-eckhardite
+eckermannites
 eclarite
 edenharterite
 edenite
@@ -456643,6 +456522,7 @@ hauckite
 hauerite
 hausmannite
 hawleyite
+hawleyites
 hawthorneite
 haxonite
 haycockite
@@ -456764,6 +456644,7 @@ hunchunite
 hungchaoite
 huntite
 hureaulite
+hureaulites
 hurlbutite
 hutcheonite
 hutchinsonite
@@ -456941,10 +456822,6 @@ jordanite
 jordisite
 joteite
 jouravskite
-juabite
-juanitaite
-juanite
-juansilvaite
 julienite
 jungite
 junitoite
@@ -457016,7 +456893,6 @@ keilite
 keithconnite
 keldyshite
 kellyite
-kelyanite
 kemmlitzite
 kempite
 kenhsuite
@@ -457287,6 +457163,7 @@ lizardite
 lobanovite
 lombardoite
 lomonosovite
+lomonosovites
 londonite
 lonecreekite
 lonsdaleite
@@ -457646,6 +457523,7 @@ nacrite
 nafertisite
 nagashimalite
 nagelschmidtite
+nagelschmidtites
 nahcolite
 nahpoite
 nakauriite
@@ -458257,6 +458135,7 @@ rutheniridosmine
 rutherfordine
 rutile
 rynersonite
+rynersonites
 saamite
 sabatierite
 sabelliite
@@ -459054,7 +458933,6 @@ xiangjiangite
 xieite
 xifengite
 xilingolite
-ximengite
 xingzhongite
 xitieshanite
 xitsonga?
@@ -459083,7 +458961,6 @@ yingjiangite
 yixunite
 yoderite
 yofortierite
-yoshimuraite (x)
 yoshiokaite
 yuanfuliite
 yuanjiangite
@@ -465524,12 +465401,9 @@ xicak
 xicaque
 xii
 xiii
-ximenia (x)
 xingyiquan?
-xinca (x)
 xingshu?
 xing
-xinjiangtitan (x)
 xingyi?
 xint
 xiongguanlong
@@ -466979,7 +466853,6 @@ yorping
 yorps
 yoruba
 yoruban
-yosemite (x)
 yot
 yotacism
 yotacize
@@ -467947,6 +467820,8 @@ zibetone
 zibets
 zibetum
 ziczac
+ziconotides
+ziconotide
 zidovudine
 zidovudines
 ziega
