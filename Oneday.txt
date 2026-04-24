@@ -78926,8 +78926,8 @@ enasidenib
 ensartinib
 ivosidenib
 tipifarnib
-+ crizotinib
-+ capmatinib
+crizotinib
+capmatinib
 alectinib
 dasatinib
 erlotinib
@@ -118042,6 +118042,7 @@ dyeability
 dyeable
 dyebeck
 dyed
+sirsasana
 dyed-in-the-wool
 deep-dyed 
 overdyed
@@ -124877,6 +124878,20 @@ endogonidium
 endointoxication
 endokaryogamy
 endolabyrinthitis
+ndogo
+ndongo
+ndonde
+ndoderm
+nduja
+ndoles
+ndali
+ndamba
+ndembu
+ndorobo
+ndokwa
+ndujas
+ndole
+ndau
 endolaryngeal
 endolemma
 endolithic
@@ -251651,6 +251666,8 @@ nkrumahist?
 nkrumahists?
 nkrumahism?
 nkatenkwan?
+icchantika?
+icchantikas?
 nkanu
 nkwobi?
 nkole?
@@ -344657,15 +344674,8 @@ rowty
 rowy
 rox
 roxana
-roxane
-roxanne
 roxburgh
-roxburghe
-roxburghiaceae
-roxbury
-roxie
 roxolani
-roxy
 roy
 royal
 royale
@@ -365613,7 +365623,7 @@ sirree
 sirrees
 sirring
 sirs
-sirship
+sirship (x)
 sirtuin
 sirtuins
 siruaballi
