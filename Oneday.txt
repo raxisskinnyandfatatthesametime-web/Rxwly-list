@@ -400,7 +400,7 @@ aberroscope
 abers
 aberuncate
 aberuncator
-abesse
+abesse (x)
 abessive
 abessives
 abet
@@ -6880,6 +6880,7 @@ aftosas
 aftward
 aftwards
 afunction
+afutu
 afunctional
 afwillite
 afzelia
@@ -26689,10 +26690,10 @@ ataxophemia
 ataxy
 atazir
 atbash
-atchieve
-atchieved
-atchieves
-atchieving
+atchieve (x)
+atchieved (x)
+atchieves (x)
+atchieving (x)
 atchison
 ate
 ateba
@@ -29767,6 +29768,8 @@ avshar
 uezd
 uezds
 avulse
+ezdiki
+ikigai
 avulsed
 avulses
 avulsing
@@ -29982,6 +29985,7 @@ awry
 awshar
 awsome
 awunctive
+awutu
 ax
 axal
 axanthopsia
@@ -31589,9 +31593,11 @@ baffeta
 baffies
 baffing
 baffle
+bafut
 baffled
 bafflegab
 bafflegabs
+bufu
 bafflement
 bafflements
 baffleplate
@@ -35477,14 +35483,9 @@ bb
 bbl
 bbls
 bbs
-bcd
-bcf
-bcfeda
-bch
+bc
 bchs
-bdft
-bdle
-bdrm
+bcuz
 be
 bea
 beach
@@ -89991,6 +89992,7 @@ crowded
 crowdedly
 crowdedness
 crowdednesses
+wdym
 crowder
 crowders
 crowdfund
@@ -103797,6 +103799,7 @@ deul
 deunam
 deuniting
 deurbanize
+deurwaarder
 deus
 deusan
 deutencephalic
@@ -120134,6 +120137,8 @@ eeven
 eevens
 eevn
 eevning
+txoko
+txokos
 eevnings
 eevns
 eew
@@ -120142,6 +120147,8 @@ eeyuck
 ef
 efecks
 eff
+iqama
+iqamas
 effable
 efface
 effaceable
@@ -120358,6 +120365,7 @@ effulgence
 effulgences
 effulgent
 effulgently
+effutu
 effulges
 effulging
 effumability
@@ -122361,6 +122369,7 @@ emailings
 emails
 emajagua
 emalangeni
+emalangenis
 emamelware
 emanant
 emanate
@@ -132403,6 +132412,7 @@ eurytropic
 eurytus
 euryzygous
 euscaro
+eusebian(*)
 euselachii
 euskaldun
 euskara
@@ -136249,6 +136259,15 @@ eyrir
 eyry
 eysoge
 ezan
+ezza
+ezaa
+ezogabine
+ezogelin
+ezrins
+ezillo
+ezidi
+ezrin
+ezme
 ezba
 ezekiel
 ezine
@@ -148927,6 +148946,8 @@ fremituses
 fremontia
 fremontodendron
 fremt
+emtansine
+emtricitabine
 fren
 frena
 frenal
@@ -199434,6 +199455,8 @@ jacuzzis
 jad
 jadded
 jadder
+deagle
+deagles
 jadding
 jade
 jaded
@@ -242688,6 +242711,9 @@ mpg
 mph
 mphps
 mpondo
+mpondomise (*)
+mpongwe (*)
+mpondos (*)
 mpox
 mpoxes
 mpret
@@ -250494,6 +250520,9 @@ ngomas
 ngondo
 ngram
 ngrams
+gray-a
+grey-a
+
 ngultrum
 ngultrums
 nguyen
@@ -265048,6 +265077,7 @@ okanagan
 okapi
 okapia
 okapis
+acitretin
 okara
 okaras
 okas
@@ -269790,6 +269820,7 @@ otectomy
 otelcosis
 otello
 othaematoma
+otelixizumab
 othake
 othelcosis
 othello
@@ -306222,6 +306253,8 @@ pozzuolanic
 pozzy
 pp
 ppa
+ppang
+ppangs
 ppb
 ppd
 pph
@@ -341879,8 +341912,8 @@ rinsibility
 rinsible
 rinsing
 rinsings
-rinthereout
-rinthereouts
+rinthereout (x)
+rinthereouts (x)
 rintherout
 rio
 riobitsu
@@ -342015,6 +342048,8 @@ ripup
 riroriro
 riroriros
 risala
+oleyl
+oleylamine
 risaldar
 risaldars
 risankizumab
@@ -342540,7 +342575,7 @@ rle
 rly
 rm
 rmoulade
-rms
+rms (x)
 rn
 rnd
 ro
@@ -394478,6 +394513,11 @@ swungen
 swure
 swy
 swythe
+tenascin-r
+n-retinylidene-n-retinylethanolamines
+n-retinylidene-n-retinylethanolamine
+n-rases
+n-rases
 syagush
 sybarism
 sybarist
@@ -434717,7 +434757,7 @@ unnutritive
 unnuzzled
 unnymphal
 unnymphean
-unnymphlike
+unnymphlike (x)
 unoaked
 unoared
 unobdurate
@@ -455543,7 +455583,7 @@ bunnoite
 o-be-joyfuls   : fuls (7)   
 o-benzylhydroxylamines
 o-benzylhydroxylamine
-o-be-joyful
+o-be-joyful	
 brides-to-be 
 grooms-to-be
 bride-to-be
@@ -456111,6 +456151,7 @@ erzwiesite
 eskebornite
 eskimoite
 eskolaite
+eskolaites
 esperanzaite
 esperite
 esquireite
@@ -456134,9 +456175,9 @@ eveslogite
 ewaldite
 ewingite
 eylettersite
+'amakihis
+'amakihi
 eyselite
-ezcurrite
-eztlite
 fabianite
 faheyite
 fahleite
@@ -456952,7 +456993,6 @@ kleberite
 kleemanite
 kleinite
 klockmannite
-klyuchevskite
 knasibfite
 koashvite
 kobellite
@@ -456998,6 +457038,8 @@ kottenheimite
 koutekite
 kovdorskite
 kozyrevskite
+ttakji
+ttakjis
 kraisslite
 krasheninnikovite
 krasnovite
@@ -457339,8 +457381,7 @@ mayingite
 mazzettiite
 mbobomkulite
 mcallisterite
-mcalpineite
-mcauslanite
+mcallisterites
 mcbirneyite
 mcconnellite
 mccrillisite
@@ -457653,6 +457694,7 @@ novgorodovaite
 novodneprite
 nowackiite
 nsutite
+nsutites
 nuffieldite
 nukundamite
 nullaginite
@@ -458974,7 +459016,6 @@ yvonite
 zabuyelite
 zaccagnaite
 zaccariniite
-zadovite
 zaherite
 zakharovite
 zanazziite
@@ -469324,6 +469365,8 @@ larping
 tmr
 wtv
 lowk
+lowkey
+lowkenuinely
 np
 tianjin
 hehehe
