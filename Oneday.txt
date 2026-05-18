@@ -150406,6 +150406,7 @@ fuji
 fujis
 fukuiraptor
 fukuisaurus
+daifuku
 fula
 fulah
 fulani
@@ -454360,6 +454361,7 @@ wazzing
 wazzock
 wazzocks
 wb
+wbu
 wc
 wd
 we
@@ -456082,10 +456084,7 @@ frohbergite
 frolovite
 frondelite
 froodite
-fuenzalidaite
-fuettererite
 fukalite
-fukuchilite
 furongite
 furutobeite
 gabrielite
@@ -467936,12 +467935,6 @@ saulteaux
 benoxaprofen
 dookie
 dookies
-xixime
-xixiangs
-xiximes
-xixiang
-xixiasauruses
-xixiasaurus
 llanfair
 uberize
 airy-fairier
@@ -469001,7 +468994,7 @@ vhavenda
   helix-turn-helices     : ices (9)   
   government-issued      : sued (9)   
   pleasantness-unpleasantness   : ss   (9)   
-  high-proof             : oof  (9)   
+  high-proof             : oof  (9)	   
   lilies-of-the-valley   : ley  (9)   
   open-source            : urce (9)   
   d-idose                : dose (9)   
@@ -478969,3 +478962,12 @@ x self-made
 + glu-c
 + n-ray
   x-ed
+  
+  
+[New]
+biinvariant
+abagusii
+gusii
+kisii
+ngqika
+ndlambe
