@@ -15,7 +15,22 @@ local TweenService = cloneref(game:GetService("TweenService"))
 local LogService = cloneref(game:GetService("LogService"))
 local GuiService = cloneref(game:GetService("GuiService"))
 
-local request = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
+local request = syn and syn.request 
+    or (http and http.request) 
+    or http_request 
+    or (fluxus and fluxus.request) 
+    or request
+
+-- Fallback for executors that only have getgenv().request or similar
+if not request then
+    request = getgenv and getgenv().request or nil
+end
+
+-- Final safety check
+if not request then
+    warn("❌ HTTP Request function not found! Word list fetch will fail.")
+    -- Optional: Use a static cached list or notify user
+end
 
 local TOGGLE_KEY = Enum.KeyCode.RightControl
 local MIN_CPM = 50
@@ -194,18 +209,15 @@ end
 
 -- Startup: Always fetch fresh word list
 local function FetchWords()
-	UpdateStatus("Fetching latest word list...", THEME.Warning)
-	local success, res = pcall(function()
-		return request({Url = url, Method = "GET"})
-	end)
-
-	if success and res and res.Body then
-		writefile(fileName, res.Body)
-		UpdateStatus("Fetched successfully!", THEME.Success)
-	else
-		UpdateStatus("Fetch failed! Using cached.", Color3.fromRGB(255, 80, 80))
-	end
-	task.wait(0.5)
+    UpdateStatus("Fetching latest word list...", THEME.Warning)
+    local res = SafeRequest(url)
+    if res.Body and #res.Body > 100 then
+        writefile(fileName, res.Body)
+        UpdateStatus("Fetched successfully!", THEME.Success)
+    else
+        UpdateStatus("Fetch failed! Using cached list.", Color3.fromRGB(255, 80, 80))
+    end
+    task.wait(0.5)
 end
 
 FetchWords()
@@ -397,7 +409,7 @@ local function GetCurrentGameWord(providedFrame)
 	local detected = ""
 	local censored = false
 
-	local children = container:GetChildren()
+	local children = container and container:GetChildren() or {}
 	local letterData = {}
 
 	for _, c in ipairs(children) do
