@@ -132,6 +132,10 @@ local forceUpdateList = false
 local lastInputTime = 0
 local LIST_DEBOUNCE = 0.05
 local currentBestMatch = nil
+-- SPECTATE GLOBALS
+_G.WH_SpectateActive = false
+_G.WH_SpectateTable = nil
+_G.WH_LastSpectateText = ""
 
 if logConn then logConn:Disconnect() end
 logConn = LogService.MessageOut:Connect(function(message, type)
@@ -1577,33 +1581,28 @@ ServerBrowserBtn.MouseButton1Click:Connect(function()
 	end
 end)
 
--- ==================== REFRESH LIST BUTTON ====================
-local RefreshBtn = Instance.new("TextButton", TogglesFrame)
-RefreshBtn.Text = "Refresh List"
-RefreshBtn.Font = Enum.Font.GothamMedium
-RefreshBtn.TextSize = 11
-RefreshBtn.TextColor3 = THEME.Success
-RefreshBtn.BackgroundColor3 = THEME.Background
-RefreshBtn.Size = UDim2.new(0, 265, 0, 24)
-RefreshBtn.Position = UDim2.new(0, 15, 0, 235)
-Instance.new("UICorner", RefreshBtn).CornerRadius = UDim.new(0, 4)
+	-- ==================== REFRESH LIST BUTTON ====================
+	local RefreshBtn = Instance.new("TextButton", TogglesFrame)
+	RefreshBtn.Text = "Refresh List"
+	RefreshBtn.Font = Enum.Font.GothamMedium
+	RefreshBtn.TextSize = 11
+	RefreshBtn.TextColor3 = THEME.Success
+	RefreshBtn.BackgroundColor3 = THEME.Background
+	RefreshBtn.Size = UDim2.new(0, 265, 0, 24)
+	RefreshBtn.Position = UDim2.new(0, 15, 0, 235)
+	Instance.new("UICorner", RefreshBtn).CornerRadius = UDim.new(0, 4)
 
-RefreshBtn.MouseButton1Click:Connect(function()
-    UsedWords = {}
-    RandomOrderCache = {}
-    RandomPriority = {}
-    forceUpdateList = true
-    lastDetected = "---"
-    ShowToast("List refreshed!", "success")
-    local _, reqLetter = GetTurnInfo()
-    if UpdateList then UpdateList(lastDetected, reqLetter) end
-end)
+	RefreshBtn.MouseButton1Click:Connect(function()
+		UsedWords = {}
+		RandomOrderCache = {}
+		forceUpdateList = true
+		lastDetected = "---"
+		ShowToast("List refreshed!", "success")
+		local _, reqLetter = GetTurnInfo()
+		if UpdateList then UpdateList(lastDetected, reqLetter) end
+	end)
 
--- ==================== SPECTATE TABLES (Fixed & Clean) ====================
-_G.WH_SpectateActive = false
-_G.WH_SpectateTable = nil
-_G.WH_LastSpectateText = ""
-
+-- ==================== SPECTATE TABLES ====================
 local SpectateTablesBtn = Instance.new("TextButton", TogglesFrame)
 SpectateTablesBtn.Text = "Spectate Tables"
 SpectateTablesBtn.Font = Enum.Font.GothamMedium
@@ -1611,7 +1610,7 @@ SpectateTablesBtn.TextSize = 11
 SpectateTablesBtn.TextColor3 = Color3.fromRGB(100, 200, 255)
 SpectateTablesBtn.BackgroundColor3 = THEME.Background
 SpectateTablesBtn.Size = UDim2.new(0, 265, 0, 24)
-SpectateTablesBtn.Position = UDim2.new(0, 15, 0, 265) -- Below Refresh
+SpectateTablesBtn.Position = UDim2.new(0, 15, 0, 265)
 Instance.new("UICorner", SpectateTablesBtn).CornerRadius = UDim.new(0, 4)
 
 local SpectateFrame = Instance.new("Frame", ScreenGui)
@@ -1768,9 +1767,11 @@ task.spawn(function()
 	end
 end)
 
--- ==================== SPECTATE OVERRIDE ====================
--- Inside runConn, replace the elseif line with this:
+-- ==================== SPECTATE OVERRIDE (in runConn) ====================
+-- Find this:
+-- elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
 
+-- Replace with:
 		elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
 
 			-- SPECTATE OVERRIDE
@@ -1885,8 +1886,7 @@ local function CreateSartreCustomizer()
     SartreBtn.TextColor3 = Color3.fromRGB(255, 180, 100)
     SartreBtn.BackgroundColor3 = THEME.Background
     SartreBtn.Size = UDim2.new(0, 265, 0, 24)
-	RefreshBtn.Position = UDim2.new(0, 15, 0, 235)
-    SartreBtn.Position = UDim2.new(0, 15, 0, 265)
+    SartreBtn.Position = UDim2.new(0, 15, 0, 295)
     Instance.new("UICorner", SartreBtn).CornerRadius = UDim.new(0, 4)
 
     local function RefreshList()
