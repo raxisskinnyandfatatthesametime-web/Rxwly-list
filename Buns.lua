@@ -15,30 +15,7 @@ local TweenService = cloneref(game:GetService("TweenService"))
 local LogService = cloneref(game:GetService("LogService"))
 local GuiService = cloneref(game:GetService("GuiService"))
 
--- ==================== IMPROVED HTTP REQUEST ====================
-local request = (syn and syn.request) 
-    or (http and http.request) 
-    or http_request 
-    or (fluxus and fluxus.request) 
-    or (getgenv and getgenv().request) 
-    or request
-
--- Extra safety for popular executors (Solara, Wave, etc.)
-if not request then
-    local success, func = pcall(function()
-        return game:HttpGet  -- fallback using Roblox's own method (limited)
-    end)
-    if success then
-        request = function(tbl)
-            local body = game:HttpGet(tbl.Url)
-            return {Body = body or "", Success = true}
-        end
-    end
-end
-
-if not request then
-    warn("⚠️ No HTTP request function found! Word list will use cache only.")
-end
+local request = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 
 local TOGGLE_KEY = Enum.KeyCode.RightControl
 local MIN_CPM = 50
@@ -120,6 +97,9 @@ local errorRate = Config.ErrorRate
 local thinkDelayCurrent = Config.ThinkDelay
 local riskyMistakes = Config.RiskyMistakes
 local keyboardLayout = Config.KeyboardLayout or "QWERTY"
+local antiIntimidatorEnabled = Config.AntiIntimidator or false
+local antiIntimidatorActive = false
+local isSpectating = false
 
 local isTyping = false
 local isAutoPlayScheduled = false
@@ -147,7 +127,7 @@ local UpdateList
 local ButtonCache = {}
 local ButtonData = {}
 local JoinDebounce = {}
-local thinkDelayMin = 0.4
+local thinkDelayMin = 0.01
 local thinkDelayMax = 1.2
 
 local listUpdatePending = false
@@ -155,10 +135,6 @@ local forceUpdateList = false
 local lastInputTime = 0
 local LIST_DEBOUNCE = 0.05
 local currentBestMatch = nil
--- SPECTATE GLOBALS
-_G.WH_SpectateActive = false
-_G.WH_SpectateTable = nil
-_G.WH_LastSpectateText = ""
 
 if logConn then logConn:Disconnect() end
 logConn = LogService.MessageOut:Connect(function(message, type)
@@ -215,30 +191,18 @@ local function UpdateStatus(text, color)
 	game:GetService("RunService").RenderStepped:Wait()
 end
 
--- ==================== SAFE HTTP REQUEST ====================
-local function SafeRequest(url)
-	if not request then 
-		return {Body = ""}
-	end
+-- Startup: Always fetch fresh word list
+local function FetchWords()
+	UpdateStatus("Fetching latest word list...", THEME.Warning)
 	local success, res = pcall(function()
 		return request({Url = url, Method = "GET"})
 	end)
-	if success and res and res.Body then
-		return res
-	end
-	return {Body = ""}
-end
 
-local function FetchWords()
-	UpdateStatus("Fetching latest word list...", THEME.Warning)
-	
-	local res = SafeRequest(url)
-	
-	if res.Body and #res.Body > 5000 then
+	if success and res and res.Body then
 		writefile(fileName, res.Body)
-		UpdateStatus("Fetched successfully! (" .. #res.Body .. " bytes)", THEME.Success)
+		UpdateStatus("Fetched successfully!", THEME.Success)
 	else
-		UpdateStatus("Fetch failed → Using cached list", Color3.fromRGB(255, 100, 80))
+		UpdateStatus("Fetch failed! Using cached.", Color3.fromRGB(255, 80, 80))
 	end
 	task.wait(0.5)
 end
@@ -306,68 +270,37 @@ local function shuffleTable(t)
 end
 
 local PriorityEndings = {
-    -- Original high-priority endings (1000 = highest)
-    arde = 100,
-    dii = 28,
-    nite = 1,
-	ged = 10,
-    ion = 4,
-	eka = 3,
-	resy = 21,
-	rer = 15,
-	hyr = 20,
-	dava = 19,
-	aeti = 25,
-	chen = 18,
-    kham = 26,
-    xera = 32,
-    yun = 35,
-    zal = 150,
-    oshi = 50,
-    tero = 50,
-    oya = 150,
-    eich = 150,
-    korn = 150,
-    kool = 9,
-    bago = 40,
-    king = 35,
-    nia = 13,
-    ker = 5,
-    ting = 11,
-	inalacrity = 40, 
-	inal = 10,
-	chy = 20,
-    syns = 34,
-    ower = 5,
-	sia = 3,
-	illa = 21,
-	anos = 50,
-	mab = 35,
-	quae = 350,
-	y = 1,
-	s = 1,
-	l = 1,
-    -- ──────── ADD YOUR CUSTOM MULTI-LETTER ENDINGS HERE ────────
-    -- Higher number = higher priority
-	ally   = 2,   -- ← your example
-	ely   = 20,   -- ← your example
-	diae   = 100,   -- ← your example
-    ness   = 7,   -- ← your example
-    addo  = 30,   -- ← your example
-    ines = 17,   -- ← your example
+    -- Original high-priority endings
+    umec = 10, etel = 10, hado = 10, eles = 30, halk = 15, zide = 15,
+    chhi = 27, fex = 20, jid = 8, ely = 2, zole = 10, etop = 10,
+    otch = 10, ibal = 10, esom = 19, imo = 10, ime = 10, kt = 15,
+    idel = 15, erda = 15, iyas = 15, acea = 15, pyle = 15, olan = 15,
+    dapa = 29, cles = 3, naci = 19, huo = 2, ator = 2, akti = 15,
+    nirs = 15, idar = 22, enza = 100, romo = 22, rux = 22, hojo = 10,
+    labs = 100, tams = 10, tsaw = 25, omot = 11, etan = 16, ibar = 16,
+    nii = 16, opic = 3, huka = 8, oned = 6, kkan = 9, adal = 9,
+    jjim = 15, jji = 15, jja = 15, yass = 17, vt = 30, akao = 17,
+    afel = 17, efa = 8, emap = 30, anif = 30, etes = 25, ipil = 25,
+    itol = 14, omal = 14, jaspes = 15, urel = 16, rax = 25, uste = 30,
+    vedo = 30, akht = 17, abuk = 15, adog = 25, akta = 21, aqs = 26,
+    dda = 14, ivac = 23, zang = 15, bied = 9, mies = 4, efin = 4, leic = 1, gier = 1, wla = 31,
+    ssir = 6, elke = 11, adim = 12, pex = 12, axic = 30, anja = 30,
+    anjan = 50, alvo = 3, ["o-be"] = 300, lons = 3, epia = 30,
+    eaux = 300, xim = 300, dyed = 30, aids = 30, anko = 30, zema = 30,
+    nage = 30, ilan = 100, ezza = 50, arty = 30, akia = 30, epot = 30,
+    ixit = 300, kimi = 50, mian = 30, edar = 30, lifo = 30, fifo = 30, acit = 40, xits = 30, esmo = 130, emt = 150, hsia = 25, esko = 40, oley = 30, mpu = 150, ndal = 27, ndam = 21,  
 
-    -- You can add as many as you want:
-    -- xyz = 2000,
-    -- tion = 1200,
-    -- ing = 800,
-    -- etc.
+    -- Custom endings
+    eze = 2,
+    rwa = 3,
+    anek = 4,
+    -- Add more here if you want
 }
 
--- Single hard letters as fallback (still works)
+-- Single hard letters as fallback
 local HardLetterScores = {
     x = 0, z = 0, q = 0, j = 0,
-    v = 0, k = 0,
-    b = 0, f = 0, w = 0,
+    v = 0, k = 0, b = 0, f = 0, w = 0,
     y = 0, g = 0, p = 0,
 }
 
@@ -389,6 +322,24 @@ local function GetEndingPriority(word)
     -- Fallback to single hard letter
     local last = word:sub(-1):lower()
     return HardLetterScores[last] or 0
+end
+
+local function HasHyphenOrApostrophe(word)
+    return word:find("[-']") ~= nil
+end
+
+local function GetHyphenatedPriority(word)
+    if HasHyphenOrApostrophe(word) then
+        local sartreScore = GetEndingPriority(word)
+        -- Big boost for hyphenated/apostrophe words
+        return 10000 + sartreScore
+    end
+    return GetEndingPriority(word)
+end
+
+local function Reverse(s)
+    if not s or s == "" then return "" end
+    return s:reverse()
 end
 
 local function getDistance(s1, s2)
@@ -432,7 +383,7 @@ local function GetCurrentGameWord(providedFrame)
 	local detected = ""
 	local censored = false
 
-	local children = container and container:GetChildren() or {}
+	local children = container:GetChildren()
 	local letterData = {}
 
 	for _, c in ipairs(children) do
@@ -1107,10 +1058,17 @@ end)
 KeyboardBtn.TextColor3 = showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
 
 local SortBtn = CreateToggle("Sort: "..sortMode, UDim2.new(0, 15, 0, 33), function()
-	if sortMode == "Random" then sortMode = "Shortest"
-	elseif sortMode == "Shortest" then sortMode = "Longest"
-	elseif sortMode == "Longest" then sortMode = "Sartre"
-	else sortMode = "Random" end
+	if sortMode == "Random" then 
+		sortMode = "Shortest"
+	elseif sortMode == "Shortest" then 
+		sortMode = "Longest"
+	elseif sortMode == "Longest" then 
+		sortMode = "Sartre"
+	elseif sortMode == "Sartre" then 
+		sortMode = "Hyphenated"
+	else 
+		sortMode = "Random" 
+	end
 
 	Config.SortMode = sortMode
 	lastDetected = "---"
@@ -1237,6 +1195,16 @@ ServerBrowserBtn.BackgroundColor3 = THEME.Background
 ServerBrowserBtn.Size = UDim2.new(0, 265, 0, 24)
 ServerBrowserBtn.Position = UDim2.new(0, 15, 0, 205)
 Instance.new("UICorner", ServerBrowserBtn).CornerRadius = UDim.new(0, 4)
+
+local SpectateTablesBtn = Instance.new("TextButton", TogglesFrame)
+SpectateTablesBtn.Text = "Spectate Tables"
+SpectateTablesBtn.Font = Enum.Font.GothamMedium
+SpectateTablesBtn.TextSize = 11
+SpectateTablesBtn.TextColor3 = Color3.fromRGB(100, 200, 255)
+SpectateTablesBtn.BackgroundColor3 = THEME.Background
+SpectateTablesBtn.Size = UDim2.new(0, 265, 0, 24)
+SpectateTablesBtn.Position = UDim2.new(0, 15, 0, 235)
+Instance.new("UICorner", SpectateTablesBtn).CornerRadius = UDim.new(0, 4)
 
 local CustomWordsFrame = Instance.new("Frame", ScreenGui)
 CustomWordsFrame.Name = "CustomWordsFrame"
@@ -1616,208 +1584,6 @@ ServerBrowserBtn.MouseButton1Click:Connect(function()
 	end
 end)
 
-	-- ==================== REFRESH LIST BUTTON ====================
-	local RefreshBtn = Instance.new("TextButton", TogglesFrame)
-	RefreshBtn.Text = "Refresh List"
-	RefreshBtn.Font = Enum.Font.GothamMedium
-	RefreshBtn.TextSize = 11
-	RefreshBtn.TextColor3 = THEME.Success
-	RefreshBtn.BackgroundColor3 = THEME.Background
-	RefreshBtn.Size = UDim2.new(0, 265, 0, 24)
-	RefreshBtn.Position = UDim2.new(0, 15, 0, 235)
-	Instance.new("UICorner", RefreshBtn).CornerRadius = UDim.new(0, 4)
-
-	RefreshBtn.MouseButton1Click:Connect(function()
-		UsedWords = {}
-		RandomOrderCache = {}
-		forceUpdateList = true
-		lastDetected = "---"
-		ShowToast("List refreshed!", "success")
-		local _, reqLetter = GetTurnInfo()
-		if UpdateList then UpdateList(lastDetected, reqLetter) end
-	end)
-
--- ==================== SPECTATE TABLES ====================
-local SpectateTablesBtn = Instance.new("TextButton", TogglesFrame)
-SpectateTablesBtn.Text = "Spectate Tables"
-SpectateTablesBtn.Font = Enum.Font.GothamMedium
-SpectateTablesBtn.TextSize = 11
-SpectateTablesBtn.TextColor3 = Color3.fromRGB(100, 200, 255)
-SpectateTablesBtn.BackgroundColor3 = THEME.Background
-SpectateTablesBtn.Size = UDim2.new(0, 265, 0, 24)
-SpectateTablesBtn.Position = UDim2.new(0, 15, 0, 265)
-Instance.new("UICorner", SpectateTablesBtn).CornerRadius = UDim.new(0, 4)
-
-local SpectateFrame = Instance.new("Frame", ScreenGui)
-SpectateFrame.Name = "SpectateTables"
-SpectateFrame.Size = UDim2.new(0, 340, 0, 460)
-SpectateFrame.Position = UDim2.new(0.5, -170, 0.5, -230)
-SpectateFrame.BackgroundColor3 = THEME.Background
-SpectateFrame.Visible = false
-SpectateFrame.ClipsDescendants = true
-EnableDragging(SpectateFrame)
-Instance.new("UICorner", SpectateFrame).CornerRadius = UDim.new(0, 8)
-
-local SpecStroke = Instance.new("UIStroke", SpectateFrame)
-SpecStroke.Color = THEME.Accent
-SpecStroke.Thickness = 2
-
-local SpecHeader = Instance.new("TextLabel", SpectateFrame)
-SpecHeader.Text = "Spectate Tables"
-SpecHeader.Font = Enum.Font.GothamBold
-SpecHeader.TextSize = 16
-SpecHeader.TextColor3 = THEME.Text
-SpecHeader.Size = UDim2.new(1, 0, 0, 40)
-SpecHeader.BackgroundTransparency = 1
-
-local SpecCloseBtn = Instance.new("TextButton", SpectateFrame)
-SpecCloseBtn.Text = "X"
-SpecCloseBtn.Font = Enum.Font.GothamBold
-SpecCloseBtn.TextSize = 16
-SpecCloseBtn.TextColor3 = Color3.fromRGB(255,100,100)
-SpecCloseBtn.Size = UDim2.new(0,40,0,40)
-SpecCloseBtn.Position = UDim2.new(1,-40,0,0)
-SpecCloseBtn.BackgroundTransparency = 1
-SpecCloseBtn.MouseButton1Click:Connect(function() SpectateFrame.Visible = false end)
-
-local SpecScroll = Instance.new("ScrollingFrame", SpectateFrame)
-SpecScroll.Size = UDim2.new(1,-20,1,-140)
-SpecScroll.Position = UDim2.new(0,10,0,50)
-SpecScroll.BackgroundTransparency = 1
-SpecScroll.ScrollBarThickness = 5
-SpecScroll.ScrollBarImageColor3 = THEME.Accent
-Instance.new("UIListLayout", SpecScroll).Padding = UDim.new(0,6)
-
-local SpecRefreshBtn = Instance.new("TextButton", SpectateFrame)
-SpecRefreshBtn.Text = "🔄 Refresh Tables"
-SpecRefreshBtn.Font = Enum.Font.GothamBold
-SpecRefreshBtn.TextSize = 13
-SpecRefreshBtn.BackgroundColor3 = THEME.Accent
-SpecRefreshBtn.TextColor3 = Color3.new(1,1,1)
-SpecRefreshBtn.Size = UDim2.new(0.48,0,0,35)
-SpecRefreshBtn.Position = UDim2.new(0,10,1,-45)
-Instance.new("UICorner", SpecRefreshBtn).CornerRadius = UDim.new(0,6)
-
-local NormalBtn = Instance.new("TextButton", SpectateFrame)
-NormalBtn.Text = "Normal Mode"
-NormalBtn.Font = Enum.Font.GothamBold
-NormalBtn.TextSize = 13
-NormalBtn.BackgroundColor3 = THEME.ItemBG
-NormalBtn.TextColor3 = THEME.Success
-NormalBtn.Size = UDim2.new(0.48,0,0,35)
-NormalBtn.Position = UDim2.new(0.5,5,1,-45)
-Instance.new("UICorner", NormalBtn).CornerRadius = UDim.new(0,6)
-
-local function RefreshSpectateList()
-	for _, v in ipairs(SpecScroll:GetChildren()) do
-		if v:IsA("GuiObject") and v.Name ~= "UIListLayout" then v:Destroy() end
-	end
-
-	local folder = workspace:FindFirstChild("Tables")
-	if not folder then
-		local lbl = Instance.new("TextLabel", SpecScroll)
-		lbl.Text = "❌ Tables folder not found"
-		lbl.Size = UDim2.new(1,0,0,60)
-		lbl.BackgroundTransparency = 1
-		lbl.TextColor3 = THEME.Warning
-		return
-	end
-
-	local list = folder:GetChildren()
-	table.sort(list, function(a,b) return (tonumber(a.Name) or 0) < (tonumber(b.Name) or 0) end)
-
-	for _, tbl in ipairs(list) do
-		if tbl:IsA("Model") or tbl:IsA("Folder") then
-			local btn = Instance.new("TextButton", SpecScroll)
-			btn.Size = UDim2.new(1,-10,0,55)
-			btn.BackgroundColor3 = THEME.ItemBG
-			btn.Text = ""
-			Instance.new("UICorner", btn).CornerRadius = UDim.new(0,6)
-
-			local title = Instance.new("TextLabel", btn)
-			title.Text = "Table " .. tbl.Name
-			title.Font = Enum.Font.GothamBold
-			title.TextSize = 15
-			title.TextColor3 = THEME.Text
-			title.BackgroundTransparency = 1
-			title.Size = UDim2.new(1,-20,0.5,0)
-			title.Position = UDim2.new(0,10,0,5)
-			title.TextXAlignment = Enum.TextXAlignment.Left
-
-			local status = Instance.new("TextLabel", btn)
-			status.Text = "Click to spectate live"
-			status.Font = Enum.Font.Gotham
-			status.TextSize = 12
-			status.TextColor3 = THEME.SubText
-			status.BackgroundTransparency = 1
-			status.Size = UDim2.new(1,-20,0.5,0)
-			status.Position = UDim2.new(0,10,0.5,0)
-			status.TextXAlignment = Enum.TextXAlignment.Left
-
-			btn.MouseButton1Click:Connect(function()
-				_G.WH_SpectateTable = tbl
-				_G.WH_LastSpectateText = ""
-				_G.WH_SpectateActive = true
-				ShowToast("Spectating Table " .. tbl.Name, "success")
-			end)
-		end
-	end
-end
-
-SpecRefreshBtn.MouseButton1Click:Connect(RefreshSpectateList)
-
-NormalBtn.MouseButton1Click:Connect(function()
-	_G.WH_SpectateActive = false
-	_G.WH_SpectateTable = nil
-	_G.WH_LastSpectateText = ""
-	ShowToast("Back to Normal Mode", "success")
-end)
-
-SpectateTablesBtn.MouseButton1Click:Connect(function()
-	SpectateFrame.Visible = not SpectateFrame.Visible
-	if SpectateFrame.Visible then RefreshSpectateList() end
-end)
-
-local function UpdateSpectateLive()
-	if not _G.WH_SpectateActive or not _G.WH_SpectateTable then return end
-	local label = _G.WH_SpectateTable:FindFirstChild("Starting", true) or _G.WH_SpectateTable:FindFirstChildWhichIsA("TextLabel")
-	if not label then return end
-
-	local currentText = label.Text:lower():gsub("[%s%c#*]+", "")
-	if currentText ~= _G.WH_LastSpectateText and #currentText >= 1 then
-		_G.WH_LastSpectateText = currentText
-		lastDetected = currentText
-		forceUpdateList = true
-
-		StatusText.Text = "👁 Spectating: " .. currentText
-		StatusText.TextColor3 = Color3.fromRGB(100, 255, 200)
-		Tween(StatusDot, {BackgroundColor3 = Color3.fromRGB(100, 255, 200)})
-	end
-end
-
-task.spawn(function()
-	while true do
-		task.wait(0.35)
-		UpdateSpectateLive()
-	end
-end)
-
--- ==================== SPECTATE OVERRIDE (in runConn) ====================
--- Find this:
--- elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
-
--- Replace with:
-		elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
-
-			-- SPECTATE OVERRIDE
-			if _G.WH_SpectateActive and _G.WH_LastSpectateText ~= "" then
-				detected = _G.WH_LastSpectateText
-			end
-
-			currentBestMatch = nil
-			lastDetected = detected
-			lastRequiredLetter = requiredLetter
-
 -- ==================== CUSTOMIZE SARTRE UI (Optimized) ====================
 
 local function CreateSartreCustomizer()
@@ -1857,6 +1623,31 @@ local function CreateSartreCustomizer()
     closeBtn.MouseButton1Click:Connect(function()
         SartreFrame.Visible = false
     end)
+	
+-- ==================== ANTI INTIMIDATOR BUTTON ====================
+local AntiBtn = Instance.new("TextButton", Header)
+AntiBtn.Name = "AntiIntimidatorBtn"
+AntiBtn.Text = "ANTI"
+AntiBtn.Font = Enum.Font.GothamBold
+AntiBtn.TextSize = 13
+AntiBtn.Size = UDim2.new(0, 55, 1, 0)
+AntiBtn.Position = UDim2.new(1, -200, 0, 0)
+AntiBtn.BackgroundTransparency = 1
+AntiBtn.TextColor3 = antiIntimidatorEnabled and THEME.Success or THEME.Warning
+
+AntiBtn.MouseButton1Click:Connect(function()
+    antiIntimidatorEnabled = not antiIntimidatorEnabled
+    Config.AntiIntimidator = antiIntimidatorEnabled
+    antiIntimidatorActive = false   -- Reset active state when toggling feature
+
+    AntiBtn.TextColor3 = antiIntimidatorEnabled and THEME.Success or THEME.Warning
+    SaveConfig()
+
+    ShowToast("Anti Intimidator Feature: " .. (antiIntimidatorEnabled and "ENABLED" or "DISABLED"), 
+              antiIntimidatorEnabled and "success" or "warning")
+
+    forceUpdateList = true
+end)
 
     -- Search Box
     local searchBox = Instance.new("TextBox", SartreFrame)
@@ -1921,7 +1712,7 @@ local function CreateSartreCustomizer()
     SartreBtn.TextColor3 = Color3.fromRGB(255, 180, 100)
     SartreBtn.BackgroundColor3 = THEME.Background
     SartreBtn.Size = UDim2.new(0, 265, 0, 24)
-    SartreBtn.Position = UDim2.new(0, 15, 0, 295)
+    SartreBtn.Position = UDim2.new(0, 15, 0, 265)
     Instance.new("UICorner", SartreBtn).CornerRadius = UDim.new(0, 4)
 
     local function RefreshList()
@@ -2485,6 +2276,12 @@ local function SmartType(targetWord, currentDetected, isCorrection, bypassTurn)
         end
     end
 
+    -- ANTI INTIMIDATOR: Only reverse the word we TYPE when feature + active
+    local wordToType = targetWord
+    if antiIntimidatorEnabled and antiIntimidatorActive then
+        wordToType = Reverse(targetWord)
+    end
+
     isTyping = true
     lastTypingStart = tick()
 
@@ -2498,202 +2295,260 @@ local function SmartType(targetWord, currentDetected, isCorrection, bypassTurn)
     StatusText.TextColor3 = THEME.Accent
     Tween(StatusDot, {BackgroundColor3 = THEME.Accent})
 
-    local success, err = pcall(function()
-        if isCorrection then
-            -- Correction mode (backspacing + typing remaining part)
-            local commonLen = 0
-            local minLen = math.min(#targetWord, #currentDetected)
-            for i = 1, minLen do
-                if targetWord:sub(i,i) == currentDetected:sub(i,i) then
-                    commonLen = i
-                else
-                    break
-                end
-            end
+	isTyping = true
+	lastTypingStart = tick()
 
-            local backspaceCount = #currentDetected - commonLen
-            if backspaceCount > 0 then
-                Backspace(backspaceCount)
-                task.wait(0.15)
-            end
+	local targetBox = GetGameTextBox()
+	if targetBox then
+		targetBox:CaptureFocus()
+		task.wait(0.1)
+	end
 
-            local toType = targetWord:sub(commonLen + 1)
-            for i = 1, #toType do
-                if not bypassTurn and not GetTurnInfo() then
-                    task.wait(0.05)
-                    if not GetTurnInfo() then break end
-                end
-                local ch = toType:sub(i, i)
-                SimulateKey(ch)
-                task.wait(CalculateDelayForKeys(lastKey, ch))
-                lastKey = ch
-                if useHumanization and math.random() < 0.03 then
-                    task.wait(0.15 + math.random() * 0.45)
-                end
-            end
+	StatusText.Text = "Typing..."
+	StatusText.TextColor3 = THEME.Accent
+	Tween(StatusDot, {BackgroundColor3 = THEME.Accent})
 
-            -- Pre-submission verify
-            if not riskyMistakes then
-                task.wait(0.1)
-                local finalCheck = GetGameTextBox()
-                if finalCheck and finalCheck.Text ~= targetWord then
-                    StatusText.Text = "Typing mismatch detected!"
-                    StatusText.TextColor3 = THEME.Warning
-                    Backspace(#finalCheck.Text)
-                    isTyping = false
-                    forceUpdateList = true
-                    return
-                end
-            end
+	local success, err = pcall(function()
+		if isCorrection then
+			local commonLen = 0
+			local minLen = math.min(#targetWord, #currentDetected)
+			for i = 1, minLen do
+				if targetWord:sub(i,i) == currentDetected:sub(i,i) then
+					commonLen = i
+				else
+					break
+				end
+			end
 
-            PressEnter()
+			local backspaceCount = #currentDetected - commonLen
+			if backspaceCount > 0 then
+				Backspace(backspaceCount)
+				task.wait(0.15)
+			end
 
-        else
-            -- Normal typing mode
-            local missingPart = ""
-            if targetWord:sub(1, #currentDetected) == currentDetected then
-                missingPart = targetWord:sub(#currentDetected + 1)
-            else
-                missingPart = targetWord
-            end
+			local toType = targetWord:sub(commonLen + 1)
+			for i = 1, #toType do
+				if not bypassTurn and not GetTurnInfo() then
+					-- Double check if turn info is just flickering
+					task.wait(0.05)
+					if not GetTurnInfo() then break end
+				end
+				local ch = toType:sub(i, i)
+				SimulateKey(ch)
+				task.wait(CalculateDelayForKeys(lastKey, ch))
+				lastKey = ch
+				if useHumanization and math.random() < 0.03 then
+					task.wait(0.15 + math.random() * 0.45)
+				end
+			end
 
-            local letters = "abcdefghijklmnopqrstuvwxyz"
-            for i = 1, #missingPart do
-                if not bypassTurn and not GetTurnInfo() then
-                    task.wait(0.05)
-                    if not GetTurnInfo() then break end
-                end
+			-- Pre-submission verify
+			local finalCheck = GetGameTextBox()
+			if not riskyMistakes then
+				task.wait(0.1)
+				finalCheck = GetGameTextBox()
+				if finalCheck and finalCheck.Text ~= targetWord then
+					StatusText.Text = "Typing mismatch detected!"
+					StatusText.TextColor3 = THEME.Warning
+					Backspace(#finalCheck.Text)
 
-                local ch = missingPart:sub(i, i)
+					isTyping = false
+					forceUpdateList = true
+					return
+				end
+			end
 
-                if errorRate > 0 and (math.random() < (errorRate / 100)) then
-                    local typoChar
-                    repeat
-                        local idx = math.random(1, #letters)
-                        typoChar = letters:sub(idx, idx)
-                    until typoChar ~= ch
+			PressEnter()
 
-                    SimulateKey(typoChar)
-                    if riskyMistakes then
-                        task.wait(0.05 + math.random() * 0.1)
-                        PressEnter()
-                    end
-                    task.wait(CalculateDelayForKeys(lastKey, typoChar))
-                    lastKey = typoChar
+			local verifyStart = tick()
+			local accepted = false
 
-                    local realize = thinkDelayCurrent * (0.6 + math.random() * 0.8)
-                    task.wait(realize)
+			while (tick() - verifyStart) < 1.5 do
+				local currentCheck = GetCurrentGameWord()
+				if currentCheck == "" or (currentCheck ~= targetWord and currentCheck ~= currentDetected) then
+					accepted = true
+					break
+				end
+				task.wait(0.05)
+			end
 
-                    SimulateKey(Enum.KeyCode.Backspace)
-                    lastKey = nil
-                    task.wait(0.05 + math.random() * 0.08)
-                    SimulateKey(ch)
-                    task.wait(CalculateDelayForKeys(lastKey, ch))
-                    lastKey = ch
-                else
-                    SimulateKey(ch)
-                    task.wait(CalculateDelayForKeys(lastKey, ch))
-                    lastKey = ch
-                end
+			if not accepted then
+				Blacklist[targetWord] = true
+				RandomPriority[targetWord] = nil
 
-                if useHumanization and math.random() < 0.03 then
-                    task.wait(0.12 + math.random() * 0.5)
-                end
-            end
+				for k, list in pairs(RandomOrderCache) do
+					for i = #list, 1, -1 do
+						if list[i] == targetWord then table.remove(list, i) end
+					end
+				end
 
-            -- Pre-submission verify
-            if not riskyMistakes then
-                task.wait(0.1)
-                local finalCheck = GetGameTextBox()
-                if finalCheck and finalCheck.Text ~= targetWord then
-                    StatusText.Text = "Typing mismatch detected!"
-                    StatusText.TextColor3 = THEME.Warning
-                    Backspace(#finalCheck.Text)
-                    isTyping = false
-                    forceUpdateList = true
-                    return
-                end
-            end
+				StatusText.Text = "Rejected: removed '" .. targetWord .. "'"
+				StatusText.TextColor3 = THEME.Warning
 
-            PressEnter()
-        end
+				local focused = UserInputService:GetFocusedTextBox()
+				if focused and focused:IsDescendantOf(game) and focused.TextEditable then
+					focused.Text = ""
+				else
+					Backspace(#targetWord + 5)
+				end
 
-        -- ====================== VERIFICATION ======================
-        local verifyStart = tick()
-        local accepted = false
-        while (tick() - verifyStart) < 1.5 do
-            local currentCheck = GetCurrentGameWord()
-            if currentCheck == "" or (currentCheck ~= targetWord and currentCheck ~= currentDetected) then
-                accepted = true
-                break
-            end
-            task.wait(0.05)
-        end
+				lastDetected = "---"
+				isTyping = false
+				forceUpdateList = true
+				return
+			else
+				StatusText.Text = "Word Cleared (Corrected)"
+				StatusText.TextColor3 = THEME.SubText
 
-        if not accepted then
-            -- Rejection / Failed submission
-            local postCheck = GetGameTextBox()
-            if postCheck and postCheck.Text == targetWord then
-                StatusText.Text = "Enter failed? Retrying..."
-                PressEnter()
-                task.wait(0.5)
-            end
+				local current = GetCurrentGameWord()
+				if #current > 0 then
+					Backspace(#current)
+				end
 
-            Blacklist[targetWord] = true
-            for k, list in pairs(RandomOrderCache or {}) do
-                for i = #list, 1, -1 do
-                    if list[i] == targetWord then
-                        table.remove(list, i)
-                    end
-                end
-            end
-
-            StatusText.Text = "Rejected: removed '" .. targetWord .. "'"
-            StatusText.TextColor3 = THEME.Warning
-
-            local focused = UserInputService:GetFocusedTextBox()
-            if focused and focused:IsDescendantOf(game) and focused.TextEditable then
-                focused.Text = ""
-            else
-                Backspace(#targetWord + 5)
-            end
-
-            isTyping = false
-            lastDetected = "---"
-            forceUpdateList = true
-
-            task.spawn(function()
-                task.wait(0.1)
-                local _, req = GetTurnInfo()
-                if UpdateList then UpdateList(lastDetected, req) end
-            end)
-            return
-        else
-            -- SUCCESS: Word accepted by game
-            StatusText.Text = "Submitted: " .. targetWord
-            StatusText.TextColor3 = THEME.Success
-
-            UsedWords[targetWord] = true
-
-            for k, list in pairs(RandomOrderCache or {}) do
-                for i = #list, 1, -1 do
-                    if list[i] == targetWord then
-                        table.remove(list, i)
-                    end
-                end
-            end
-
-            isMyTurnLogDetected = false
-            task.wait(0.2)
-        end
-    end)  -- ← This closes the pcall
-
-    isTyping = false
-    forceUpdateList = true
-
-    if not success then
-        warn("SmartType Error: " .. tostring(err))
+				UsedWords[targetWord] = true
+				isMyTurnLogDetected = false
+				task.wait(0.2)
+			end
+		else
+		local missingPart = ""
+    if wordToType:sub(1, #currentDetected) == currentDetected then
+        missingPart = wordToType:sub(#currentDetected + 1)
+    else
+        missingPart = wordToType
     end
+
+			local letters = "abcdefghijklmnopqrstuvwxyz"
+			for i = 1, #missingPart do
+				if not bypassTurn and not GetTurnInfo() then
+					-- Double check if turn info is just flickering
+					task.wait(0.05)
+					if not GetTurnInfo() then break end
+				end
+				local ch = missingPart:sub(i, i)
+				if errorRate > 0 and (math.random() < (errorRate / 100)) then
+					local typoChar
+					repeat
+						local idx = math.random(1, #letters)
+						typoChar = letters:sub(idx, idx)
+					until typoChar ~= ch
+					SimulateKey(typoChar)
+
+					if riskyMistakes then
+						task.wait(0.05 + math.random() * 0.1)
+						PressEnter()
+					end
+
+					task.wait(CalculateDelayForKeys(lastKey, typoChar))
+					lastKey = typoChar
+					local realize = thinkDelayCurrent * (0.6 + math.random() * 0.8)
+					task.wait(realize)
+					SimulateKey(Enum.KeyCode.Backspace)
+					lastKey = nil
+					task.wait(0.05 + math.random() * 0.08)
+					SimulateKey(ch)
+					task.wait(CalculateDelayForKeys(lastKey, ch))
+					lastKey = ch
+				else
+					SimulateKey(ch)
+					task.wait(CalculateDelayForKeys(lastKey, ch))
+					lastKey = ch
+				end
+				if useHumanization and math.random() < 0.03 then
+					task.wait(0.12 + math.random() * 0.5)
+				end
+			end
+
+			-- Pre-submission verify
+			if not riskyMistakes then
+				-- Wait a moment for last character to register
+				task.wait(0.1)
+				local finalCheck = GetGameTextBox()
+				if finalCheck and finalCheck.Text ~= targetWord then
+					StatusText.Text = "Typing mismatch detected!"
+					StatusText.TextColor3 = THEME.Warning
+					Backspace(#finalCheck.Text)
+
+					isTyping = false
+					forceUpdateList = true
+					-- Return without blacklisting
+					return
+				end
+			end
+
+			PressEnter()
+
+			local verifyStart = tick()
+			local accepted = false
+
+			while (tick() - verifyStart) < 1.5 do
+				local currentCheck = GetCurrentGameWord()
+				if currentCheck == "" or (currentCheck ~= targetWord and currentCheck ~= currentDetected) then
+					accepted = true
+					break
+				end
+				task.wait(0.05)
+			end
+
+			if not accepted then
+
+				local postCheck = GetGameTextBox()
+				if postCheck and postCheck.Text == targetWord then
+					StatusText.Text = "Enter failed? Retrying..."
+					PressEnter()
+					task.wait(0.5)
+					if GetCurrentGameWord() == currentDetected then
+						StatusText.Text = "Submission Failed (Lag?)"
+						StatusText.TextColor3 = THEME.Warning
+						Backspace(#targetWord)
+						isTyping = false
+						forceUpdateList = true
+						return
+					end
+				end
+
+				Blacklist[targetWord] = true
+				for k, list in pairs(RandomOrderCache) do
+					for i = #list, 1, -1 do
+						if list[i] == targetWord then table.remove(list, i) end
+					end
+				end
+				StatusText.Text = "Rejected: removed '" .. targetWord .. "'"
+				StatusText.TextColor3 = THEME.Warning
+
+				local focused = UserInputService:GetFocusedTextBox()
+				if focused and focused:IsDescendantOf(game) and focused.TextEditable then
+					focused.Text = ""
+				else
+					Backspace(#targetWord + 5)
+				end
+
+				isTyping = false
+				lastDetected = "---"
+				forceUpdateList = true
+
+				task.spawn(function()
+					task.wait(0.1)
+					local _, req = GetTurnInfo()
+					UpdateList(currentDetected, req)
+				end)
+				return
+			else
+				StatusText.Text = "Verification Failed"
+				StatusText.TextColor3 = THEME.Warning
+
+				local current = GetCurrentGameWord()
+				if #current > 0 then
+					Backspace(#current)
+				end
+
+				UsedWords[targetWord] = true
+				isMyTurnLogDetected = false
+				task.wait(0.2)
+			end
+		end
+	end)
+	isTyping = false
+	forceUpdateList = true
 end
 
 local function GetMatchLength(str, prefix)
@@ -2735,10 +2590,22 @@ local function BinarySearchStart(list, prefix)
 end
 
 UpdateList = function(detectedText, requiredLetter)
-	local matches = {}
-	local searchPrefix = detectedText
-	local isBacktracked = false
-	local manualSearch = false
+    local matches = {}
+    
+    -- ANTI INTIMIDATOR: Only reverse when both feature is enabled AND active
+    local searchText = detectedText
+    local searchRequired = requiredLetter or ""
+
+    if antiIntimidatorEnabled and antiIntimidatorActive then
+        searchText = Reverse(detectedText)
+        if #searchRequired > 0 then
+            searchRequired = Reverse(searchRequired)
+        end
+    end
+
+    local searchPrefix = searchText
+    local isBacktracked = false
+    local manualSearch = false
 
 	if SearchBox and SearchBox.Text ~= "" then
 		searchPrefix = SearchBox.Text:lower():gsub("[%s%c]+", "")
@@ -2877,22 +2744,23 @@ UpdateList = function(detectedText, requiredLetter)
 		end
 	end
 
-	if #matches > 0 then
-		if sortMode == "Longest" then
-			table.sort(matches, function(a, b) return #a > #b end)
-		elseif sortMode == "Shortest" then
-			table.sort(matches, function(a, b) return #a < #b end)
-		elseif sortMode == "Sartre" then
-			table.sort(matches, function(a, b)
-				local sA = GetEndingPriority(a)
-				local sB = GetEndingPriority(b)
-				if sA == sB then
-					return #a < #b
-				end
-				return sA > sB
-			end)
-		end
-	end
+if #matches > 0 then
+    if sortMode == "Longest" then
+        table.sort(matches, function(a, b) return #a > #b end)
+    elseif sortMode == "Shortest" then
+        table.sort(matches, function(a, b) return #a < #b end)
+    elseif sortMode == "Sartre" or sortMode == "Hyphenated" then
+        table.sort(matches, function(a, b)
+            local sA = (sortMode == "Hyphenated") and GetHyphenatedPriority(a) or GetEndingPriority(a)
+            local sB = (sortMode == "Hyphenated") and GetHyphenatedPriority(b) or GetEndingPriority(b)
+            
+            if sA == sB then
+                return #a < #b  -- tiebreaker: shorter first (like original Sartre)
+            end
+            return sA > sB
+        end)
+    end
+end
 
 	local displayList = {}
 	local maxDisplay = 40
@@ -3146,7 +3014,7 @@ runConn = RunService.RenderStepped:Connect(function()
 		end
 		local detected, censored = cachedDetected, cachedCensored
 
-		if isVisible and isMyTurn and not isTyping and seconds and seconds < 0 then
+		if isVisible and isMyTurn and not isTyping and seconds and seconds < 1.5 then
 			local char = (requiredLetter or ""):lower()
 			local bucket = Buckets[char]
 			if bucket then
@@ -3294,24 +3162,32 @@ runConn = RunService.RenderStepped:Connect(function()
 				StatsData.Count.Text = "Words: 0"
 			end
 			lastDetected = "---"
-        elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
+elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
 
-			-- ==================== SPECTATE OVERRIDE ====================
-			if _G.WH_SpectateActive and _G.WH_LastSpectateText ~= "" then
-				detected = _G.WH_LastSpectateText
-			end
+    -- Spectate Live Override
+    if _G.WH_SpectateActive and _G.WH_SpectateTable then
+        detected = _G.WH_LastSpectateText
+    end
+	
+    -- Spectate Override
+    if _G.WordHelper_SpectateActive and _G.WordHelper_SpectateWord ~= "" then
+        detected = _G.WordHelper_SpectateWord
+    end    
+    -- SPECTATE OVERRIDE - This makes spectating actually work live
+    if isSpectating and spectateOverrideWord ~= "" then
+        detected = spectateOverrideWord
+        requiredLetter = spectateOverrideWord:sub(1,1)
+    end
 
-			currentBestMatch = nil
-			lastDetected = detected
-			lastRequiredLetter = requiredLetter
+    currentBestMatch = nil
+    lastDetected = detected
+    lastRequiredLetter = requiredLetter
 
-			-- (continue with your original code below)
-			if detected == "" and not forceUpdateList then
-				StatusText.Text = "Waiting..."
-				StatusText.TextColor3 = THEME.SubText
-				Tween(StatusDot, {BackgroundColor3 = THEME.SubText})
-
-				UpdateList("", requiredLetter)
+    if detected == "" and not forceUpdateList then
+        StatusText.Text = "Waiting..."
+        StatusText.TextColor3 = THEME.SubText
+        Tween(StatusDot, {BackgroundColor3 = THEME.SubText})
+        UpdateList("", requiredLetter)
 				listUpdatePending = false
 
 				local visCount = 0
@@ -3335,32 +3211,14 @@ runConn = RunService.RenderStepped:Connect(function()
 					end
 
 					if isCompleted then
-                        StatusText.Text = "Completed: " .. detected .. " <font color=\"rgb(100,255,140)\">✓</font>"
-                        StatusText.TextColor3 = THEME.Success
-                        Tween(StatusDot, {BackgroundColor3 = THEME.Success})
-
-    -- NEW: Mark the completed word as used so it disappears from the list
-                        if detected and #detected > 0 then
-                            UsedWords[detected] = true
-        
-        -- Also remove it from RandomOrderCache if using Random sort
-        for k, list in pairs(RandomOrderCache or {}) do
-            for i = #list, 1, -1 do
-                if list[i] == detected then
-                    table.remove(list, i)
-                end
-            end
-        end
-
-        -- Force refresh the list so the word disappears immediately
-        forceUpdateList = true
-    end
-
-                   else
-                       StatusText.Text = "Input: " .. detected
-                       StatusText.TextColor3 = THEME.Accent
-                       Tween(StatusDot, {BackgroundColor3 = THEME.Warning})
-                    end
+						StatusText.Text = "Completed: " .. detected .. " <font color=\"rgb(100,255,140)\">✓</font>"
+						StatusText.TextColor3 = THEME.Success
+						Tween(StatusDot, {BackgroundColor3 = THEME.Success})
+					else
+						StatusText.Text = "Input: " .. detected
+						StatusText.TextColor3 = THEME.Accent
+						Tween(StatusDot, {BackgroundColor3 = THEME.Warning})
+					end
 				end
 
 				if forceUpdateList then
@@ -3396,7 +3254,183 @@ runConn = RunService.RenderStepped:Connect(function()
 	end)
 end)
 
+-- ==================== SPECTATE TABLES - OPTIMIZED (Low Lag) ====================
+
+local SpectateFrame = Instance.new("Frame")
+SpectateFrame.Name = "SpectateTables"
+SpectateFrame.Size = UDim2.new(0, 320, 0, 420)
+SpectateFrame.Position = UDim2.new(0.5, -160, 0.5, -210)
+SpectateFrame.BackgroundColor3 = THEME.Background
+SpectateFrame.Visible = false
+SpectateFrame.ClipsDescendants = true
+SpectateFrame.Parent = ScreenGui
+
+EnableDragging(SpectateFrame)
+Instance.new("UICorner", SpectateFrame).CornerRadius = UDim.new(0, 8)
+
+local SpecStroke = Instance.new("UIStroke", SpectateFrame)
+SpecStroke.Color = THEME.Accent
+SpecStroke.Thickness = 2
+
+local SpecHeader = Instance.new("TextLabel", SpectateFrame)
+SpecHeader.Text = "Spectate Tables"
+SpecHeader.Font = Enum.Font.GothamBold
+SpecHeader.TextSize = 16
+SpecHeader.TextColor3 = THEME.Text
+SpecHeader.Size = UDim2.new(1, 0, 0, 40)
+SpecHeader.BackgroundTransparency = 1
+
+local SpecCloseBtn = Instance.new("TextButton", SpectateFrame)
+SpecCloseBtn.Text = "X"
+SpecCloseBtn.Font = Enum.Font.GothamBold
+SpecCloseBtn.TextSize = 16
+SpecCloseBtn.TextColor3 = Color3.fromRGB(255,100,100)
+SpecCloseBtn.Size = UDim2.new(0,40,0,40)
+SpecCloseBtn.Position = UDim2.new(1,-40,0,0)
+SpecCloseBtn.BackgroundTransparency = 1
+SpecCloseBtn.MouseButton1Click:Connect(function() SpectateFrame.Visible = false end)
+
+local SpecScroll = Instance.new("ScrollingFrame", SpectateFrame)
+SpecScroll.Size = UDim2.new(1,-20,1,-90)
+SpecScroll.Position = UDim2.new(0,10,0,50)
+SpecScroll.BackgroundTransparency = 1
+SpecScroll.ScrollBarThickness = 4
+SpecScroll.ScrollBarImageColor3 = THEME.Accent
+
+Instance.new("UIListLayout", SpecScroll).Padding = UDim.new(0,6)
+
+local NormalBtn = Instance.new("TextButton", SpectateFrame)
+NormalBtn.Text = "Normal Mode"
+NormalBtn.Font = Enum.Font.GothamBold
+NormalBtn.TextSize = 13
+NormalBtn.BackgroundColor3 = THEME.ItemBG
+NormalBtn.TextColor3 = THEME.Success
+NormalBtn.Size = UDim2.new(0.45,0,0,35)
+NormalBtn.Position = UDim2.new(0,15,1,-45)
+Instance.new("UICorner", NormalBtn).CornerRadius = UDim.new(0,6)
+
+local SpectateModeBtn = Instance.new("TextButton", SpectateFrame)
+SpectateModeBtn.Text = "Spectate Mode"
+SpectateModeBtn.Font = Enum.Font.GothamBold
+SpectateModeBtn.TextSize = 13
+SpectateModeBtn.BackgroundColor3 = THEME.ItemBG
+SpectateModeBtn.TextColor3 = THEME.Accent
+SpectateModeBtn.Size = UDim2.new(0.45,0,0,35)
+SpectateModeBtn.Position = UDim2.new(0.52,0,1,-45)
+Instance.new("UICorner", SpectateModeBtn).CornerRadius = UDim.new(0,6)
+
+-- Lightweight variables
+_G.WH_SpectateActive = false
+_G.WH_SpectateTable = nil
+_G.WH_LastSpectateText = ""
+
+NormalBtn.MouseButton1Click:Connect(function()
+    _G.WH_SpectateActive = false
+    _G.WH_SpectateTable = nil
+    ShowToast("Normal Mode", "success")
+    SpectateFrame.Visible = false
+end)
+
+SpectateModeBtn.MouseButton1Click:Connect(function()
+    _G.WH_SpectateActive = true
+    RefreshSpectateList()
+    ShowToast("Spectate Mode - Live (Optimized)", "success")
+end)
+
+function RefreshSpectateList()
+    for _, v in ipairs(SpecScroll:GetChildren()) do
+        if v:IsA("GuiObject") then v:Destroy() end
+    end
+
+    local folder = workspace:FindFirstChild("Tables")
+    if not folder then
+        local lbl = Instance.new("TextLabel", SpecScroll)
+        lbl.Text = "Tables folder not found"
+        lbl.Size = UDim2.new(1,0,0,50)
+        lbl.BackgroundTransparency = 1
+        lbl.TextColor3 = THEME.Warning
+        lbl.TextSize = 14
+        return
+    end
+
+    local list = folder:GetChildren()
+    table.sort(list, function(a,b) return (tonumber(a.Name) or 0) < (tonumber(b.Name) or 0) end)
+
+    for _, tbl in ipairs(list) do
+        if tbl:IsA("Model") or tbl:IsA("Folder") then
+            local btn = Instance.new("TextButton", SpecScroll)
+            btn.Size = UDim2.new(1,-10,0,50)
+            btn.BackgroundColor3 = THEME.ItemBG
+            btn.Text = ""
+            Instance.new("UICorner", btn).CornerRadius = UDim.new(0,6)
+
+            Instance.new("TextLabel", btn).Text = "Table " .. tbl.Name
+            local status = Instance.new("TextLabel", btn)
+            status.Text = "Click to watch"
+            status.Font = Enum.Font.Gotham
+            status.TextSize = 12
+            status.TextColor3 = THEME.SubText
+            status.BackgroundTransparency = 1
+            status.Size = UDim2.new(1,-20,0.5,0)
+            status.Position = UDim2.new(0,10,0.5,0)
+            status.TextXAlignment = Enum.TextXAlignment.Left
+
+            btn.MouseButton1Click:Connect(function()
+                _G.WH_SpectateTable = tbl
+                _G.WH_LastSpectateText = ""
+                UpdateSpectateLive()
+                ShowToast("Watching Table " .. tbl.Name, "success")
+            end)
+        end
+    end
+end
+
+-- Optimized Live Update (only runs when needed)
+function UpdateSpectateLive()
+    if not _G.WH_SpectateActive or not _G.WH_SpectateTable then return end
+
+    local label = _G.WH_SpectateTable:FindFirstChild("Starting", true)
+    if not label or not label:IsA("TextLabel") then return end
+
+    local currentText = label.Text:lower():gsub("[%s%c]+", "")
+
+    if currentText ~= _G.WH_LastSpectateText and #currentText > 0 then
+        _G.WH_LastSpectateText = currentText
+
+        lastDetected = currentText
+        forceUpdateList = true
+
+        StatusText.Text = "Spectating: " .. currentText
+        StatusText.TextColor3 = Color3.fromRGB(100, 255, 200)
+        Tween(StatusDot, {BackgroundColor3 = Color3.fromRGB(100, 255, 200)})
+    end
+end
+
+-- Open GUI
+SpectateTablesBtn.MouseButton1Click:Connect(function()
+    SpectateFrame.Visible = not SpectateFrame.Visible
+    if SpectateFrame.Visible and _G.WH_SpectateActive then
+        RefreshSpectateList()
+    end
+end)
+
+-- Slower but much lighter auto-check (every 1 second instead of 0.5)
+task.spawn(function()
+    while true do
+        task.wait(1)           -- Changed from 0.5 to 1 second (less lag)
+        UpdateSpectateLive()
+    end
+end)
+
 inputConn = UserInputService.InputBegan:Connect(function(input)
+if input.KeyCode == Enum.KeyCode.Zero or input.KeyCode == Enum.KeyCode.KeypadZero then
+            if antiIntimidatorEnabled then
+                antiIntimidatorActive = not antiIntimidatorActive
+                ShowToast("Anti Intimidator Reversing: " .. (antiIntimidatorActive and "ON" or "OFF"), 
+                          antiIntimidatorActive and "success" or "warning")
+                forceUpdateList = true
+            end
+        end
 	if unloaded then return end
 	if input.KeyCode == TOGGLE_KEY then ScreenGui.Enabled = not ScreenGui.Enabled end
 end)
