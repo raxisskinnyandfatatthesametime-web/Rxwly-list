@@ -15,21 +15,29 @@ local TweenService = cloneref(game:GetService("TweenService"))
 local LogService = cloneref(game:GetService("LogService"))
 local GuiService = cloneref(game:GetService("GuiService"))
 
-local request = syn and syn.request 
+-- ==================== IMPROVED HTTP REQUEST ====================
+local request = (syn and syn.request) 
     or (http and http.request) 
     or http_request 
     or (fluxus and fluxus.request) 
+    or (getgenv and getgenv().request) 
     or request
 
--- Fallback for executors that only have getgenv().request or similar
+-- Extra safety for popular executors (Solara, Wave, etc.)
 if not request then
-    request = getgenv and getgenv().request or nil
+    local success, func = pcall(function()
+        return game:HttpGet  -- fallback using Roblox's own method (limited)
+    end)
+    if success then
+        request = function(tbl)
+            local body = game:HttpGet(tbl.Url)
+            return {Body = body or "", Success = true}
+        end
+    end
 end
 
--- Final safety check
 if not request then
-    warn("❌ HTTP Request function not found! Word list fetch will fail.")
-    -- Optional: Use a static cached list or notify user
+    warn("⚠️ No HTTP request function found! Word list will use cache only.")
 end
 
 local TOGGLE_KEY = Enum.KeyCode.RightControl
@@ -207,17 +215,32 @@ local function UpdateStatus(text, color)
 	game:GetService("RunService").RenderStepped:Wait()
 end
 
--- Startup: Always fetch fresh word list
+-- ==================== SAFE HTTP REQUEST ====================
+local function SafeRequest(url)
+	if not request then 
+		return {Body = ""}
+	end
+	local success, res = pcall(function()
+		return request({Url = url, Method = "GET"})
+	end)
+	if success and res and res.Body then
+		return res
+	end
+	return {Body = ""}
+end
+
 local function FetchWords()
-    UpdateStatus("Fetching latest word list...", THEME.Warning)
-    local res = SafeRequest(url)
-    if res.Body and #res.Body > 100 then
-        writefile(fileName, res.Body)
-        UpdateStatus("Fetched successfully!", THEME.Success)
-    else
-        UpdateStatus("Fetch failed! Using cached list.", Color3.fromRGB(255, 80, 80))
-    end
-    task.wait(0.5)
+	UpdateStatus("Fetching latest word list...", THEME.Warning)
+	
+	local res = SafeRequest(url)
+	
+	if res.Body and #res.Body > 5000 then
+		writefile(fileName, res.Body)
+		UpdateStatus("Fetched successfully! (" .. #res.Body .. " bytes)", THEME.Success)
+	else
+		UpdateStatus("Fetch failed → Using cached list", Color3.fromRGB(255, 100, 80))
+	end
+	task.wait(0.5)
 end
 
 FetchWords()
