@@ -1578,7 +1578,6 @@ ServerBrowserBtn.MouseButton1Click:Connect(function()
 end)
 
 -- ==================== REFRESH LIST BUTTON ====================
-
 local RefreshBtn = Instance.new("TextButton", TogglesFrame)
 RefreshBtn.Text = "Refresh List"
 RefreshBtn.Font = Enum.Font.GothamMedium
@@ -1586,32 +1585,21 @@ RefreshBtn.TextSize = 11
 RefreshBtn.TextColor3 = THEME.Success
 RefreshBtn.BackgroundColor3 = THEME.Background
 RefreshBtn.Size = UDim2.new(0, 265, 0, 24)
-RefreshBtn.Position = UDim2.new(0, 15, 0, 235)   -- Above Customize Sartre
+RefreshBtn.Position = UDim2.new(0, 15, 0, 235)
 Instance.new("UICorner", RefreshBtn).CornerRadius = UDim.new(0, 4)
 
 RefreshBtn.MouseButton1Click:Connect(function()
-    -- Clear used words so everything appears again
     UsedWords = {}
-    
-    -- Optional: Also clear blacklist (uncomment if you want)
-    -- Blacklist = {}
-    
-    RandomOrderCache = {}     -- Reset random cache
+    RandomOrderCache = {}
     RandomPriority = {}
-    
     forceUpdateList = true
     lastDetected = "---"
-    
-    ShowToast("List refreshed! All words are available again.", "success")
-    
-    -- Update the UI immediately
+    ShowToast("List refreshed!", "success")
     local _, reqLetter = GetTurnInfo()
-    if UpdateList then
-        UpdateList(lastDetected, reqLetter)
-    end
+    if UpdateList then UpdateList(lastDetected, reqLetter) end
 end)
 
--- ==================== SPECTATE TABLES (Clean Version) ====================
+-- ==================== SPECTATE TABLES (Fixed & Clean) ====================
 _G.WH_SpectateActive = false
 _G.WH_SpectateTable = nil
 _G.WH_LastSpectateText = ""
@@ -1623,7 +1611,7 @@ SpectateTablesBtn.TextSize = 11
 SpectateTablesBtn.TextColor3 = Color3.fromRGB(100, 200, 255)
 SpectateTablesBtn.BackgroundColor3 = THEME.Background
 SpectateTablesBtn.Size = UDim2.new(0, 265, 0, 24)
-SpectateTablesBtn.Position = UDim2.new(0, 15, 0, 265)  -- Below Refresh Button
+SpectateTablesBtn.Position = UDim2.new(0, 15, 0, 265) -- Below Refresh
 Instance.new("UICorner", SpectateTablesBtn).CornerRadius = UDim.new(0, 4)
 
 local SpectateFrame = Instance.new("Frame", ScreenGui)
@@ -1780,11 +1768,8 @@ task.spawn(function()
 	end
 end)
 
--- ==================== SPECTATE OVERRIDE IN RENDERSTEPPED ====================
--- Find this part in runConn:
--- elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
-
--- Replace it with:
+-- ==================== SPECTATE OVERRIDE ====================
+-- Inside runConn, replace the elseif line with this:
 
 		elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
 
