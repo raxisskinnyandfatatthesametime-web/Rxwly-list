@@ -1611,6 +1611,11 @@ RefreshBtn.MouseButton1Click:Connect(function()
     end
 end)
 
+-- ==================== SPECTATE TABLES (Clean Version) ====================
+_G.WH_SpectateActive = false
+_G.WH_SpectateTable = nil
+_G.WH_LastSpectateText = ""
+
 local SpectateTablesBtn = Instance.new("TextButton", TogglesFrame)
 SpectateTablesBtn.Text = "Spectate Tables"
 SpectateTablesBtn.Font = Enum.Font.GothamMedium
@@ -1618,7 +1623,7 @@ SpectateTablesBtn.TextSize = 11
 SpectateTablesBtn.TextColor3 = Color3.fromRGB(100, 200, 255)
 SpectateTablesBtn.BackgroundColor3 = THEME.Background
 SpectateTablesBtn.Size = UDim2.new(0, 265, 0, 24)
-SpectateTablesBtn.Position = UDim2.new(0, 15, 0, 235)
+SpectateTablesBtn.Position = UDim2.new(0, 15, 0, 265)  -- Below Refresh Button
 Instance.new("UICorner", SpectateTablesBtn).CornerRadius = UDim.new(0, 4)
 
 local SpectateFrame = Instance.new("Frame", ScreenGui)
