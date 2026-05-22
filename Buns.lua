@@ -171,7 +171,7 @@ LStroke.Thickness = 2
 local LoadingTitle = Instance.new("TextLabel", LoadingFrame)
 LoadingTitle.Size = UDim2.new(1, 0, 0, 40)
 LoadingTitle.BackgroundTransparency = 1
-LoadingTitle.Text = "Altver V25"
+LoadingTitle.Text = "WordHelper V25"
 LoadingTitle.TextColor3 = THEME.Accent
 LoadingTitle.Font = Enum.Font.GothamBold
 LoadingTitle.TextSize = 18
@@ -1042,13 +1042,6 @@ local HumanizeBtn = CreateToggle("Humanize: "..(useHumanization and "ON" or "OFF
 end)
 HumanizeBtn.TextColor3 = useHumanization and THEME.Success or Color3.fromRGB(255, 100, 100)
 
-local HumanizeBtn = CreateToggle("Humanize: "..(useHumanization and "ON" or "OFF"), UDim2.new(0, 15, 0, 5), function()
-	useHumanization = not useHumanization
-	Config.Humanize = useHumanization
-	return useHumanization, "Humanize: "..(useHumanization and "ON" or "OFF"), useHumanization and THEME.Success or Color3.fromRGB(255, 100, 100)
-end)
-HumanizeBtn.TextColor3 = useHumanization and THEME.Success or Color3.fromRGB(255, 100, 100)
-
 local FingerBtn = CreateToggle("10-Finger: "..(useFingerModel and "ON" or "OFF"), UDim2.new(0, 105, 0, 5), function()
 	useFingerModel = not useFingerModel
 	Config.FingerModel = useFingerModel
@@ -1063,22 +1056,22 @@ local KeyboardBtn = CreateToggle("Keyboard: "..(showKeyboard and "ON" or "OFF"),
 	return showKeyboard, "Keyboard: "..(showKeyboard and "ON" or "OFF"), showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
 end)
 KeyboardBtn.TextColor3 = showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
-KeyboardBtn.Size = UDim2.new(0, 130, 0, 24)   -- Slightly smaller to fit layout
+KeyboardBtn.Size = UDim2.new(0, 130, 0, 24)
 
--- New Refresh Button (Right of Keyboard)
+-- ==================== REFRESH BUTTON (Below Customize Sartre) ====================
 local RefreshBtn = Instance.new("TextButton", TogglesFrame)
-RefreshBtn.Text = "Refresh"
+RefreshBtn.Text = "Refresh List"
 RefreshBtn.Font = Enum.Font.GothamMedium
 RefreshBtn.TextSize = 11
 RefreshBtn.TextColor3 = THEME.Success
 RefreshBtn.BackgroundColor3 = THEME.Background
-RefreshBtn.Size = UDim2.new(0, 115, 0, 24)
-RefreshBtn.Position = UDim2.new(0, 195 + 115 + 5, 0, 5)  -- Right of Keyboard button
+RefreshBtn.Size = UDim2.new(0, 265, 0, 24)
+RefreshBtn.Position = UDim2.new(0, 15, 0, 295)   -- Below Sartre
 Instance.new("UICorner", RefreshBtn).CornerRadius = UDim.new(0, 4)
 
 RefreshBtn.MouseButton1Click:Connect(function()
-    UsedWords = {}                    -- Clear all used words
-    RandomOrderCache = {}             -- Clear random cache
+    UsedWords = {}
+    RandomOrderCache = {}
     RandomPriority = {}
     
     forceUpdateList = true
@@ -1886,33 +1879,6 @@ end
 
 -- Create the UI
 CreateSartreCustomizer()
-
--- ==================== REFRESH BUTTON (Below Customize Sartre) ====================
-local RefreshBtn = Instance.new("TextButton", TogglesFrame)
-RefreshBtn.Text = "Refresh List"
-RefreshBtn.Font = Enum.Font.GothamMedium
-RefreshBtn.TextSize = 11
-RefreshBtn.TextColor3 = THEME.Success
-RefreshBtn.BackgroundColor3 = THEME.Background
-RefreshBtn.Size = UDim2.new(0, 265, 0, 24)
-RefreshBtn.Position = UDim2.new(0, 15, 0, 295)   -- Below Sartre button
-Instance.new("UICorner", RefreshBtn).CornerRadius = UDim.new(0, 4)
-
-RefreshBtn.MouseButton1Click:Connect(function()
-    UsedWords = {}                    -- Clear all used words
-    RandomOrderCache = {}             -- Reset random cache
-    RandomPriority = {}
-    
-    forceUpdateList = true
-    lastDetected = "---"
-    
-    ShowToast("List Refreshed - All words restored!", "success")
-    
-    local _, req = GetTurnInfo()
-    if UpdateList then
-        UpdateList(lastDetected, req)
-    end
-end)
 
 do
 	local WordBrowserFrame = Instance.new("Frame", ScreenGui)
