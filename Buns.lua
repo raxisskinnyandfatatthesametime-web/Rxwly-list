@@ -1049,13 +1049,41 @@ local FingerBtn = CreateToggle("10-Finger: "..(useFingerModel and "ON" or "OFF")
 end)
 FingerBtn.TextColor3 = useFingerModel and THEME.Success or Color3.fromRGB(255, 100, 100)
 
+-- ==================== SMALLER KEYBOARD + REFRESH BUTTON ====================
 local KeyboardBtn = CreateToggle("Keyboard: "..(showKeyboard and "ON" or "OFF"), UDim2.new(0, 195, 0, 5), function()
 	showKeyboard = not showKeyboard
 	Config.ShowKeyboard = showKeyboard
 	KeyboardFrame.Visible = showKeyboard
 	return showKeyboard, "Keyboard: "..(showKeyboard and "ON" or "OFF"), showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
 end)
-KeyboardBtn.TextColor3 = showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
+KeyboardBtn.Size = UDim2.new(0, 110, 0, 24)  -- Made smaller
+
+-- New Refresh Button (Right of Keyboard)
+local RefreshBtn = Instance.new("TextButton", TogglesFrame)
+RefreshBtn.Text = "Refresh"
+RefreshBtn.Font = Enum.Font.GothamMedium
+RefreshBtn.TextSize = 11
+RefreshBtn.TextColor3 = THEME.Success
+RefreshBtn.BackgroundColor3 = THEME.Background
+RefreshBtn.Size = UDim2.new(0, 115, 0, 24)
+RefreshBtn.Position = UDim2.new(0, 195 + 115 + 5, 0, 5)  -- Right of Keyboard button
+Instance.new("UICorner", RefreshBtn).CornerRadius = UDim.new(0, 4)
+
+RefreshBtn.MouseButton1Click:Connect(function()
+    UsedWords = {}                    -- Clear all used words
+    RandomOrderCache = {}             -- Clear random cache
+    RandomPriority = {}
+    
+    forceUpdateList = true
+    lastDetected = "---"
+    
+    ShowToast("List Refreshed - All words restored!", "success")
+    
+    local _, req = GetTurnInfo()
+    if UpdateList then
+        UpdateList(lastDetected, req)
+    end
+end)
 
 local SortBtn = CreateToggle("Sort: "..sortMode, UDim2.new(0, 15, 0, 33), function()
 	if sortMode == "Random" then 
@@ -3210,15 +3238,31 @@ elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or force
 						end
 					end
 
-					if isCompleted then
-						StatusText.Text = "Completed: " .. detected .. " <font color=\"rgb(100,255,140)\">✓</font>"
-						StatusText.TextColor3 = THEME.Success
-						Tween(StatusDot, {BackgroundColor3 = THEME.Success})
-					else
-						StatusText.Text = "Input: " .. detected
-						StatusText.TextColor3 = THEME.Accent
-						Tween(StatusDot, {BackgroundColor3 = THEME.Warning})
-					end
+if isCompleted then
+    StatusText.Text = "Completed: " .. detected .. " <font color=\"rgb(100,255,140)\">✓</font>"
+    StatusText.TextColor3 = THEME.Success
+    Tween(StatusDot, {BackgroundColor3 = THEME.Success})
+
+    -- Automatically mark as used so it disappears from list
+    if detected and #detected > 0 then
+        UsedWords[detected] = true
+        
+        -- Also clean from random cache
+        for k, list in pairs(RandomOrderCache or {}) do
+            for i = #list, 1, -1 do
+                if list[i] == detected then
+                    table.remove(list, i)
+                end
+            end
+        end
+
+        forceUpdateList = true
+    end
+                     else
+                        StatusText.Text = "Input: " .. detected
+                        StatusText.TextColor3 = THEME.Accent
+                        Tween(StatusDot, {BackgroundColor3 = THEME.Warning})
+                    end
 				end
 
 				if forceUpdateList then
@@ -3417,7 +3461,7 @@ end)
 -- Slower but much lighter auto-check (every 1 second instead of 0.5)
 task.spawn(function()
     while true do
-        task.wait(1)           -- Changed from 0.5 to 1 second (less lag)
+        task.wait(0)           -- Changed from 0.5 to 1 second (less lag)
         UpdateSpectateLive()
     end
 end)
