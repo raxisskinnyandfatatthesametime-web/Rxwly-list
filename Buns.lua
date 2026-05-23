@@ -270,66 +270,31 @@ local function shuffleTable(t)
 end
 
 	local PriorityEndings = {
-		-- Original high-priority endings (1000 = highest)
-		arde = 100,
-		dii = 28,
-		nite = 1,
-		ged = 10,
-		ion = 4,
-		eka = 3,
-		resy = 21,
-		rer = 15,
-		hyr = 20,
-		dava = 19,
-		aeti = 25,
-		chen = 18,
-		kham = 26,
-		xera = 32,
-		yun = 35,
-		zal = 150,
-		oshi = 50,
-		tero = 50,
-		oya = 150,
-		eich = 150,
-		ist = 19,
-		eps = 18,
-		ker = 17,
-		ked = 3,
-		pher = 11,
-		kopa = 50,
-		ruri = 50,
-		ruta = 50,
-		korn = 150,
-		kool = 9,
-		bago = 40,
-		king = 35,
-		nia = 13,
-		ker = 5,
-		ting = 11,
-		inalacrity = 40, 
-		inal = 10,
-		chy = 20,
-		syns = 34,
-		ower = 5,
-		sia = 3,
-		illa = 21,
-		anos = 50,
-		mab = 35,
-		quae = 350,
-		hoch = 500,
-		isti = 5000,
-		["?"] = 5,
-		y = 1,
-		s = 1,
-		l = 1,
-		-- ──────── ADD YOUR CUSTOM MULTI-LETTER ENDINGS HERE ────────
-		-- Higher number = higher priority
-		ally   = 2,   -- ← your example
-		ely   = 20,   -- ← your example
-		diae   = 100,   -- ← your example
-		ness   = 7,   -- ← your example
-		addo  = 30,   -- ← your example
-		ines = 17,   -- ← your example
+    -- Original high-priority endings
+    umec = 10, etel = 10, hado = 10, eles = 30, halk = 15, zide = 15,
+    chhi = 27, fex = 20, jid = 8, ely = 2, zole = 10, etop = 10,
+    otch = 10, ibal = 10, esom = 19, imo = 10, ime = 10, kt = 15,
+    idel = 15, erda = 15, iyas = 15, acea = 15, pyle = 15, olan = 15,
+    dapa = 29, cles = 3, naci = 19, huo = 2, ator = 2, akti = 15,
+    nirs = 15, idar = 22, enza = 100, romo = 22, rux = 22, hojo = 10,
+    labs = 100, tams = 10, tsaw = 25, omot = 11, etan = 16, ibar = 16,
+    nii = 16, opic = 3, huka = 8, oned = 6, kkan = 9, adal = 9,
+    jjim = 15, jji = 15, jja = 15, yass = 17, vt = 30, akao = 17,
+    afel = 17, efa = 8, emap = 30, anif = 30, etes = 25, ipil = 25,
+    itol = 14, omal = 14, jaspes = 15, urel = 16, rax = 25, uste = 30,
+    vedo = 30, akht = 17, abuk = 15, adog = 25, akta = 21, aqs = 26,
+    dda = 14, ivac = 23, zang = 15, bied = 9, mies = 4, efin = 4, leic = 1, gier = 1, wla = 31,
+    ssir = 6, elke = 11, adim = 12, pex = 12, axic = 30, anja = 30,
+    anjan = 50, alvo = 3, ["o-be"] = 300, lons = 3, epia = 30,
+    eaux = 300, xim = 300, dyed = 30, aids = 30, anko = 30, zema = 30,
+    nage = 30, ilan = 100, ezza = 50, arty = 30, akia = 30, epot = 30,
+    ixit = 300, kimi = 50, mian = 30, edar = 30, lifo = 30, fifo = 30, acit = 40, xits = 30, esmo = 130, emt = 150, hsia = 25, esko = 40, oley = 30, mpu = 150, ndal = 27, ndam = 21,  
+
+    -- Custom endings
+    eze = 2,
+    rwa = 3,
+    anek = 4,
+    -- Add more here if you want
 }
 
 -- Single hard letters as fallback
