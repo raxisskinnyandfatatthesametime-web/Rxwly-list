@@ -146,7 +146,7 @@ logConn = LogService.MessageOut:Connect(function(message, type)
 	end
 end)
 
-local url = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Oneday.txt"
+local url = "https://github.com/raxisskinnyandfatatthesametime-web/Rxwly-list/blob/main/CasualMode.txt"
 local fileName = "ultimate_words_v4.txt"
 
 -- Temporary Loading UI
@@ -313,8 +313,13 @@ end
 		sia = 3,
 		illa = 21,
 		anos = 50,
-		mab = 35,
+		mab = 34,
+		aka = 55,
+		aux = 36,
+		aman = 36,
+		alic = 35,
 		quae = 350,
+		qiae = 350,
 		hoch = 500,
 		aque = 500,
 		lieb = 500,
