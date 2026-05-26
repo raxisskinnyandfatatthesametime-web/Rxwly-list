@@ -146,7 +146,7 @@ logConn = LogService.MessageOut:Connect(function(message, type)
 	end
 end)
 
-local url = "https://github.com/raxisskinnyandfatatthesametime-web/Rxwly-list/blob/main/CasualMode.txt"
+local url = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/CasualMode.txt"
 local fileName = "ultimate_words_v4.txt"
 
 -- Temporary Loading UI
