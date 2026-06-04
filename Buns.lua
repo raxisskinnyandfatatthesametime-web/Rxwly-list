@@ -127,7 +127,7 @@ local UpdateList
 local ButtonCache = {}
 local ButtonData = {}
 local JoinDebounce = {}
-local thinkDelayMin = 0.4
+local thinkDelayMin = 0.01
 local thinkDelayMax = 1.2
 
 local listUpdatePending = false
@@ -146,7 +146,7 @@ logConn = LogService.MessageOut:Connect(function(message, type)
 	end
 end)
 
-local url = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Oneday.txt"
+local url = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/CasualMode.txt"
 local fileName = "ultimate_words_v4.txt"
 
 -- Temporary Loading UI
@@ -171,7 +171,7 @@ LStroke.Thickness = 2
 local LoadingTitle = Instance.new("TextLabel", LoadingFrame)
 LoadingTitle.Size = UDim2.new(1, 0, 0, 40)
 LoadingTitle.BackgroundTransparency = 1
-LoadingTitle.Text = "WordHelper V5"
+LoadingTitle.Text = "WordHelper V25"
 LoadingTitle.TextColor3 = THEME.Accent
 LoadingTitle.Font = Enum.Font.GothamBold
 LoadingTitle.TextSize = 18
@@ -269,118 +269,125 @@ local function shuffleTable(t)
 	return t
 end
 
-local PriorityEndings = {
-    -- Original high-priority endings (1000 = highest)
-    ibre = 10,
-    brex = 10,
-    dmit = 10,
-    okto = 30,
-    qra = 15,
-    kost = 15,
-    lju = 27,
-    fex = 10,
-    nka = 8,
-    ism = 2, 
-    efin = 10,
-    ibre = 10,
-    vedo = 10,
-    ibal = 10,
-    esom = 19,
-	imo = 10,
-	osum = 10,
-	kt = 15,
-	ktun = 15,
-	kuji = 15,
-	tsus = 15,
-	acea = 15,
-	pyle = 15,
-	olan = 15,
-	dapa = 29,
-	cles = 3,
-	naci = 19,
-	huo = 2,
-	ator = 2,
-	akti = 15,
-	nirs = 15,
-	idar = 22,
-	martinoe = 100,
-	romo = 22,
-	rux = 22,
-	hojo = 1,
-	labs = 10,
-	tams = 10,
-	ymma = 25,
-	toku = 11,
-	oja = 16,
-	ibar = 16,
-	nii = 16,
-	opic = 3,
-	huka = 8,
-	oned = 6,
-	tral = 9,
-	adal = 9,
-	jjim = 15,
-	jji = 15,
-	jja = 15,
-	yass = 17,
-	vt = 30,
-	akao = 17,
-	afel = 17,
-	efa = 8,
-	emap = 30,
-	anif = 30,
-	etes = 25,
-	ipil = 25,
-	itol = 14,
-	omal = 14,
-    jaspes = 15,
-    urel = 16,
-	rax = 25,
-	uste = 30,
-	vedo = 30,
-	akht = 17,
-	abuk = 15,
-	adog = 25,
-	akta = 21,
-	aqs = 26,
-	dda = 14,
-	ivac = 23,
-	zang = 15,
-	bied = 9,
-	mies = 4,
-	wla = 31,
-	ssir = 6,
-	elke = 11,
-	adim = 12,
-	pex = 12,
-	axic = 30,
-	anja = 30,
-	anjan = 50,
-	lons = 3,
-	ils = 3,
+	local PriorityEndings = {
+		arde = 100,
+		dii = 28,
+		nite = 1,
+		ged = 10,
+		ion = 4,
+		eka = 3,
+		resy = 21,
+		rer = 15,
+		hyr = 20,
+		dava = 19,
+		aeti = 25,
+		chen = 18,
+		kham = 26,
+		xera = 32,
+		yun = 35,
+		zal = 150,
+		oshi = 50,
+		tero = 50,
+		oya = 150,
+		eich = 150,
+		ist = 19,
+		eps = 18,
+		ker = 17,
+		ked = 3,
+		pher = 11,
+		kopa = 50,
+		ruri = 50,
+		ruta = 50,
+		korn = 150,
+		kool = 9,
+		bago = 40,
+		king = 35,
+		nia = 13,
+		ker = 5,
+		ting = 11,
+		inalacrity = 40, 
+		inal = 10,
+		chy = 20,
+		syns = 34,
+		ower = 5,
+		sia = 3,
+		illa = 21,
+		anos = 50,
+		mab = 34,
+		aka = 55,
+		aux = 36,
+		aman = 36,
+		alic = 35,
+		quae = 350,
+		qiae = 350,
+		hoch = 500,
+		aque = 500,
+		lieb = 500,
+		adha = 500,
+		alha = 500,
+		shia = 500,
+		rifa = 500,
+		khar = 500,
+		hiro = 500,
+		ardi = 500,
+		isti = 5000,
+		["?"] = 5,
+		y = 1,
+		s = 1,
+		l = 1,
+		-- ──────── ADD YOUR CUSTOM MULTI-LETTER ENDINGS HERE ────────
+		-- Higher number = higher priority
+		ally   = 2,   -- ← your example
+		ely   = 20,   -- ← your example
+		diae   = 100,   -- ← your example
+		ness   = 7,   -- ← your example
+		addo  = 30,   -- ← your example
+		ines = 17,   -- ← your example
 
-
-
-    -- ──────── ADD YOUR CUSTOM MULTI-LETTER ENDINGS HERE ────────
-    -- Higher number = higher priority
-    eze   = 2,   -- ← your example
-    rwa  = 3,   -- ← your example
-    anek = 4,   -- ← your example
-
-    -- You can add as many as you want:
-    -- xyz = 2000,
-    -- tion = 1200,
-    -- ing = 800,
-    -- etc.
+		-- You can add as many as you want:
+		-- xyz = 2000,
+		-- tion = 1200,
+		-- ing = 800,
+		-- etc.
 }
 
 -- Single hard letters as fallback (still works)
 local HardLetterScores = {
-    x = 0, z = 0, q = 0, j = 0,
-    v = 0, k = 0,
-    b = 0, f = 0, w = 0,
-    y = 0, g = 0, p = 0,
+	x = 0, z = 0, q = 0, j = 0,
+	v = 0, k = 0,
+	b = 0, f = 0, w = 0,
+	y = 0, g = 0, p = 0,
 }
+
+-- ====================== ALTVER MODE ======================
+local AltverTriggers = {
+	"acop", "adaw", "adzer", "afifi", "agad", "albugo", "alkool", "amalg", "amedeo",
+	"ashur", "azox", "baja", "baku", "baru", "beal", "besa", "bhalu", "bibi", "biloxi",
+	"boba", "bogo", "boiko", "brei", "cabda", "calabur", "caughnawaga", "chigetais",
+	"clara", "clowre", "comd", "concurso", "cucupha", "darg", "darr", "deodara", "dhabb",
+	"dhoni", "dirhem", "dissait", "doup", "drinn", "engobe", "fagott", "fahrenhett", "fala",
+	"fike", "flambeed", "freiezlebenhe", "fuff", "garibaldi", "genepi", "gestapo", "giocoso",
+	"gruppo", "gunja", "hath", "hecte", "hydrangeas", "kaberu", "kadaya", "kajugaru", "keta",
+	"khepesh", "kiku", "kiwach", "knorr", "koch", "koda", "kokako", "kokila", "kora", "kuku",
+	"kwatuma", "lactescenle", "laet", "langeel", "leef", "leuco", "lludd", "lupe", "macrostachya",
+	"magh", "mayaca", "miki", "moit", "mondego", "muir", "mumjuma", "murumuru", "nevo", "ormazd",
+	"paha", "pashm", "pirr", "pisa", "primi", "probabl", "prut", "pyrameis", "rann", "ravindran",
+	"repro", "rubbisy", "saum", "sawt", "sbirro", "scaw", "schav", "schul", "snur", "sokoki",
+	"sradha", "stalko", "succisa", "supa", "svan", "taha", "tapul", "they", "topiwala", "travelog",
+	"tucutucu", "uvalha", "voorhuis", "wapp", "washo", "yare"
+}
+
+local function GetAltverPriority(word)
+	if not word or #word < 3 then return 0 end
+	local lower = word:lower()
+	
+	for _, trigger in ipairs(AltverTriggers) do
+		if lower:sub(1, #trigger) == trigger then
+			return 5
+		end
+	end
+	return 0
+end
 
 -- New unified function (replaces both old functions)
 local function GetEndingPriority(word)
@@ -400,6 +407,19 @@ local function GetEndingPriority(word)
     -- Fallback to single hard letter
     local last = word:sub(-1):lower()
     return HardLetterScores[last] or 0
+end
+
+local function HasHyphenOrApostrophe(word)
+    return word:find("[-']") ~= nil
+end
+
+local function GetHyphenatedPriority(word)
+    if HasHyphenOrApostrophe(word) then
+        local sartreScore = GetEndingPriority(word)
+        -- Big boost for hyphenated/apostrophe words
+        return 10000 + sartreScore
+    end
+    return GetEndingPriority(word)
 end
 
 local function Reverse(s)
@@ -653,7 +673,7 @@ Header.BackgroundColor3 = THEME.ItemBG
 Header.BorderSizePixel = 0
 
 local Title = Instance.new("TextLabel", Header)
-Title.Text = "Word<font color=\"rgb(196,40,28)\">Helper</font> V5"
+Title.Text = "Imitation Of<font color=\"rgb(196,40,28)\">Altver</font> V25"
 Title.RichText = true
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 18
@@ -1121,12 +1141,49 @@ local KeyboardBtn = CreateToggle("Keyboard: "..(showKeyboard and "ON" or "OFF"),
 	return showKeyboard, "Keyboard: "..(showKeyboard and "ON" or "OFF"), showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
 end)
 KeyboardBtn.TextColor3 = showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
+KeyboardBtn.Size = UDim2.new(0, 130, 0, 24)
+
+-- ==================== REFRESH BUTTON (Below Customize Sartre) ====================
+local RefreshBtn = Instance.new("TextButton", TogglesFrame)
+RefreshBtn.Text = "Refresh List"
+RefreshBtn.Font = Enum.Font.GothamMedium
+RefreshBtn.TextSize = 11
+RefreshBtn.TextColor3 = THEME.Success
+RefreshBtn.BackgroundColor3 = THEME.Background
+RefreshBtn.Size = UDim2.new(0, 265, 0, 24)
+RefreshBtn.Position = UDim2.new(0, 15, 0, 295)   -- Below Sartre
+Instance.new("UICorner", RefreshBtn).CornerRadius = UDim.new(0, 4)
+
+RefreshBtn.MouseButton1Click:Connect(function()
+    UsedWords = {}
+    RandomOrderCache = {}
+    RandomPriority = {}
+    
+    forceUpdateList = true
+    lastDetected = "---"
+    
+    ShowToast("List Refreshed - All words restored!", "success")
+    
+    local _, req = GetTurnInfo()
+    if UpdateList then
+        UpdateList(lastDetected, req)
+    end
+end)
 
 local SortBtn = CreateToggle("Sort: "..sortMode, UDim2.new(0, 15, 0, 33), function()
-	if sortMode == "Random" then sortMode = "Shortest"
-	elseif sortMode == "Shortest" then sortMode = "Longest"
-	elseif sortMode == "Longest" then sortMode = "Sartre"
-	else sortMode = "Random" end
+	if sortMode == "Random" then 
+		sortMode = "Shortest"
+	elseif sortMode == "Shortest" then 
+		sortMode = "Longest"
+	elseif sortMode == "Longest" then 
+		sortMode = "Sartre"
+	elseif sortMode == "Sartre" then 
+		sortMode = "Hyphenated"
+	elseif sortMode == "Hyphenated" then
+	    sortMode = "Altver"
+	else 
+		sortMode = "Random" 
+	end
 
 	Config.SortMode = sortMode
 	lastDetected = "---"
@@ -2802,22 +2859,33 @@ UpdateList = function(detectedText, requiredLetter)
 		end
 	end
 
-	if #matches > 0 then
-		if sortMode == "Longest" then
-			table.sort(matches, function(a, b) return #a > #b end)
-		elseif sortMode == "Shortest" then
-			table.sort(matches, function(a, b) return #a < #b end)
-		elseif sortMode == "Sartre" then
-			table.sort(matches, function(a, b)
-				local sA = GetEndingPriority(a)
-				local sB = GetEndingPriority(b)
-				if sA == sB then
-					return #a < #b
-				end
-				return sA > sB
-			end)
+if #matches > 0 then
+    if sortMode == "Longest" then
+        table.sort(matches, function(a, b) return #a > #b end)
+    elseif sortMode == "Shortest" then
+        table.sort(matches, function(a, b) return #a < #b end)
+    elseif sortMode == "Sartre" or sortMode == "Hyphenated" then
+        table.sort(matches, function(a, b)
+            local sA = (sortMode == "Hyphenated") and GetHyphenatedPriority(a) or GetEndingPriority(a)
+            local sB = (sortMode == "Hyphenated") and GetHyphenatedPriority(b) or GetEndingPriority(b)
+            
+            if sA == sB then
+                return #a < #b  -- tiebreaker: shorter first (like original Sartre)
+            end	
+            return sA > sB
+        end)
+		
+	elseif sortMode == "Altver" then
+	table.sort(matches, function(a, b)
+		local sA = GetAltverPriority(a)
+		local sB = GetAltverPriority(b)
+		if sA == sB then
+			return #a < #b  -- fallback to shortest if same priority
 		end
-	end
+		return sA > sB
+	    end)
+    end
+end
 
 	local displayList = {}
 	local maxDisplay = 40
@@ -2929,21 +2997,43 @@ UpdateList = function(detectedText, requiredLetter)
 
 			local textRGB = ColorToRGB(THEME.Text)
 
-			local displayText = ""
+local displayText = ""
+			local wordColor = textRGB  -- default white
+
+			-- === COLOR LOGIC ===
+			if sortMode == "Altver" then
+				if GetAltverPriority(w) > 0 then
+					wordColor = "255,60,60"  -- Bright Red for Altver
+				end
+			elseif sortMode == "Sartre" or sortMode == "Hyphenated" then
+				local prio = GetEndingPriority(w)
+				if prio >= 100 then
+					wordColor = "255,220,80"  -- Yellow for high Sartre priority
+				end
+			end
+
+			-- Make top word brighter
+			if i == 1 then
+				if sortMode == "Altver" and GetAltverPriority(w) > 0 then
+					wordColor = "255,40,40"
+				elseif (sortMode == "Sartre" or sortMode == "Hyphenated") and GetEndingPriority(w) >= 100 then
+					wordColor = "255,240,100"
+				end
+			end
+
 			if isBacktracked then
 				local prefix = w:sub(1, #searchPrefix)
 				local suffix = w:sub(#searchPrefix + 1)
 				displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-					.. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
+					.. "<font color=\"rgb(" .. wordColor .. ")\">" .. suffix .. "</font>"
 			else
 				local prefix = w:sub(1, #detectedText)
 				local suffix = w:sub(#detectedText + 1)
 				displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-					.. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
+					.. "<font color=\"rgb(" .. wordColor .. ")\">" .. suffix .. "</font>"
 			end
 
-			if lbl then lbl.Text = displayText end
-		else
+			if lbl then lbl.Text = displayText end		else
 			if btn then
 				btn.Visible = false
 				ButtonData[btn] = nil
@@ -3267,15 +3357,31 @@ elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or force
 						end
 					end
 
-					if isCompleted then
-						StatusText.Text = "Completed: " .. detected .. " <font color=\"rgb(100,255,140)\">✓</font>"
-						StatusText.TextColor3 = THEME.Success
-						Tween(StatusDot, {BackgroundColor3 = THEME.Success})
-					else
-						StatusText.Text = "Input: " .. detected
-						StatusText.TextColor3 = THEME.Accent
-						Tween(StatusDot, {BackgroundColor3 = THEME.Warning})
-					end
+if isCompleted then
+    StatusText.Text = "Completed: " .. detected .. " <font color=\"rgb(100,255,140)\">✓</font>"
+    StatusText.TextColor3 = THEME.Success
+    Tween(StatusDot, {BackgroundColor3 = THEME.Success})
+
+    -- Automatically mark as used so it disappears from list
+    if detected and #detected > 0 then
+        UsedWords[detected] = true
+        
+        -- Also clean from random cache
+        for k, list in pairs(RandomOrderCache or {}) do
+            for i = #list, 1, -1 do
+                if list[i] == detected then
+                    table.remove(list, i)
+                end
+            end
+        end
+
+        forceUpdateList = true
+    end
+                     else
+                        StatusText.Text = "Input: " .. detected
+                        StatusText.TextColor3 = THEME.Accent
+                        Tween(StatusDot, {BackgroundColor3 = THEME.Warning})
+                    end
 				end
 
 				if forceUpdateList then
@@ -3311,7 +3417,7 @@ elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or force
 	end)
 end)
 
--- ==================== SPECTATE TABLES - LIVE UPDATE (Ultra Lightweight) ====================
+-- ==================== SPECTATE TABLES - OPTIMIZED (Low Lag) ====================
 
 local SpectateFrame = Instance.new("Frame")
 SpectateFrame.Name = "SpectateTables"
@@ -3376,7 +3482,7 @@ SpectateModeBtn.Size = UDim2.new(0.45,0,0,35)
 SpectateModeBtn.Position = UDim2.new(0.52,0,1,-45)
 Instance.new("UICorner", SpectateModeBtn).CornerRadius = UDim.new(0,6)
 
--- Use _G to avoid local register limit
+-- Lightweight variables
 _G.WH_SpectateActive = false
 _G.WH_SpectateTable = nil
 _G.WH_LastSpectateText = ""
@@ -3384,17 +3490,14 @@ _G.WH_LastSpectateText = ""
 NormalBtn.MouseButton1Click:Connect(function()
     _G.WH_SpectateActive = false
     _G.WH_SpectateTable = nil
-    _G.WH_LastSpectateText = ""
     ShowToast("Normal Mode", "success")
     SpectateFrame.Visible = false
 end)
 
 SpectateModeBtn.MouseButton1Click:Connect(function()
     _G.WH_SpectateActive = true
-    _G.WH_SpectateTable = nil
-    _G.WH_LastSpectateText = ""
     RefreshSpectateList()
-    ShowToast("Spectate Mode - Live Update ON", "success")
+    ShowToast("Spectate Mode - Live (Optimized)", "success")
 end)
 
 function RefreshSpectateList()
@@ -3424,18 +3527,9 @@ function RefreshSpectateList()
             btn.Text = ""
             Instance.new("UICorner", btn).CornerRadius = UDim.new(0,6)
 
-            local title = Instance.new("TextLabel", btn)
-            title.Text = "Table " .. tbl.Name
-            title.Font = Enum.Font.GothamBold
-            title.TextSize = 15
-            title.TextColor3 = THEME.Text
-            title.BackgroundTransparency = 1
-            title.Size = UDim2.new(1,-20,0.5,0)
-            title.Position = UDim2.new(0,10,0,5)
-            title.TextXAlignment = Enum.TextXAlignment.Left
-
+            Instance.new("TextLabel", btn).Text = "Table " .. tbl.Name
             local status = Instance.new("TextLabel", btn)
-            status.Text = "Click to watch live"
+            status.Text = "Click to watch"
             status.Font = Enum.Font.Gotham
             status.TextSize = 12
             status.TextColor3 = THEME.SubText
@@ -3448,13 +3542,13 @@ function RefreshSpectateList()
                 _G.WH_SpectateTable = tbl
                 _G.WH_LastSpectateText = ""
                 UpdateSpectateLive()
-                ShowToast("Watching Table " .. tbl.Name .. " (Live)", "success")
+                ShowToast("Watching Table " .. tbl.Name, "success")
             end)
         end
     end
 end
 
--- Live Update Function
+-- Optimized Live Update (only runs when needed)
 function UpdateSpectateLive()
     if not _G.WH_SpectateActive or not _G.WH_SpectateTable then return end
 
@@ -3475,7 +3569,7 @@ function UpdateSpectateLive()
     end
 end
 
--- Open Button
+-- Open GUI
 SpectateTablesBtn.MouseButton1Click:Connect(function()
     SpectateFrame.Visible = not SpectateFrame.Visible
     if SpectateFrame.Visible and _G.WH_SpectateActive then
@@ -3483,10 +3577,10 @@ SpectateTablesBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Auto Live Checker (runs every 0.5s)
+-- Slower but much lighter auto-check (every 1 second instead of 0.5)
 task.spawn(function()
     while true do
-        task.wait(0.5)
+        task.wait(0)           -- Changed from 0.5 to 1 second (less lag)
         UpdateSpectateLive()
     end
 end)
