@@ -2998,34 +2998,42 @@ end
 			local textRGB = ColorToRGB(THEME.Text)
 
 local displayText = ""
-				local wordColor = textRGB  -- default white
+			local wordColor = textRGB  -- default white
 
-				-- === COLOR LOGIC ===
-				if sortMode == "Altver" then
-					if GetAltverPriority(w) > 0 then
-						wordColor = "255,80,80"  -- Red for Altver words
-					end
-				elseif sortMode == "Sartre" then
-					local prio = GetEndingPriority(w)
-					if prio >= 100 then
-						wordColor = "255,220,80"  -- Yellow/Gold for high Sartre priority
-					end
+			-- === COLOR LOGIC ===
+			if sortMode == "Altver" then
+				if GetAltverPriority(w) > 0 then
+					wordColor = "255,60,60"  -- Bright Red for Altver
 				end
-
-				if isBacktracked then
-					local prefix = w:sub(1, #searchPrefix)
-					local suffix = w:sub(#searchPrefix + 1)
-					displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-						.. "<font color=\"rgb(" .. wordColor .. ")\">" .. suffix .. "</font>"
-				else
-					local prefix = w:sub(1, #detectedText)
-					local suffix = w:sub(#detectedText + 1)
-					displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-						.. "<font color=\"rgb(" .. wordColor .. ")\">" .. suffix .. "</font>"
+			elseif sortMode == "Sartre" or sortMode == "Hyphenated" then
+				local prio = GetEndingPriority(w)
+				if prio >= 100 then
+					wordColor = "255,220,80"  -- Yellow for high Sartre priority
 				end
+			end
 
-				if lbl then lbl.Text = displayText end
-		else
+			-- Make top word brighter
+			if i == 1 then
+				if sortMode == "Altver" and GetAltverPriority(w) > 0 then
+					wordColor = "255,40,40"
+				elseif (sortMode == "Sartre" or sortMode == "Hyphenated") and GetEndingPriority(w) >= 100 then
+					wordColor = "255,240,100"
+				end
+			end
+
+			if isBacktracked then
+				local prefix = w:sub(1, #searchPrefix)
+				local suffix = w:sub(#searchPrefix + 1)
+				displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
+					.. "<font color=\"rgb(" .. wordColor .. ")\">" .. suffix .. "</font>"
+			else
+				local prefix = w:sub(1, #detectedText)
+				local suffix = w:sub(#detectedText + 1)
+				displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
+					.. "<font color=\"rgb(" .. wordColor .. ")\">" .. suffix .. "</font>"
+			end
+
+			if lbl then lbl.Text = displayText end		else
 			if btn then
 				btn.Visible = false
 				ButtonData[btn] = nil
