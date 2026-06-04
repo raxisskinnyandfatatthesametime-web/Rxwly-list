@@ -15,17 +15,22 @@ local TweenService = cloneref(game:GetService("TweenService"))
 local LogService = cloneref(game:GetService("LogService"))
 local GuiService = cloneref(game:GetService("GuiService"))
 
--- Improved request handler
+-- ==================== IMPROVED REQUEST HANDLER ====================
 local request = (syn and syn.request) 
              or (http and http.request) 
              or http_request 
              or (fluxus and fluxus.request) 
-             or (request)  -- fallback to global if exists
-             or function(args) 
-                 warn("No HTTP request function available!")
-                 return {Success = false, Body = ""}
-             end
-			
+             or request  -- fallback to global
+
+-- Final safety fallback
+if not request then
+    request = function(args)
+        warn("[WordHelper] No HTTP request function available in this executor!")
+        return {Success = false, Body = ""}
+    end
+end
+-- ============================================================
+
 local TOGGLE_KEY = Enum.KeyCode.RightControl
 local MIN_CPM = 50
 local MAX_CPM_LEGIT = 1500
@@ -70,8 +75,6 @@ local Config = {
 	ThinkDelay = 0.8,
 	RiskyMistakes = false,
 	CustomWords = {},
-	MinTypeSpeed = 50,
-	MaxTypeSpeed = 3000,
 	KeyboardLayout = "QWERTY"
 }
 
@@ -95,7 +98,7 @@ local currentCPM = Config.CPM
 local isBlatant = Config.Blatant
 local useHumanization = Config.Humanize
 local useFingerModel = Config.FingerModel
-local sortMode = Config.SortMode
+local sortMode = Config.SortMode or "Random"
 local suffixMode = Config.SuffixMode or ""
 local lengthMode = Config.LengthMode or 0
 local autoPlay = Config.AutoPlay
@@ -202,25 +205,25 @@ end
 
 -- Startup: Always fetch fresh word list
 local function FetchWords()
-    UpdateStatus("Fetching latest word list...", THEME.Warning)
-    
-    if not request then
-        UpdateStatus("No request function! Using cached list.", Color3.fromRGB(255, 80, 80))
-        task.wait(1)
-        return
-    end
+	UpdateStatus("Fetching latest word list...", THEME.Warning)
+	
+	if not request then
+		UpdateStatus("No request function available. Using cached list.", Color3.fromRGB(255, 80, 80))
+		task.wait(1)
+		return
+	end
 
-    local success, res = pcall(function()
-        return request({Url = url, Method = "GET"})
-    end)
+	local success, res = pcall(function()
+		return request({Url = url, Method = "GET"})
+	end)
 
-    if success and res and res.Body and res.Body ~= "" then
-        writefile(fileName, res.Body)
-        UpdateStatus("Fetched successfully!", THEME.Success)
-    else
-        UpdateStatus("Fetch failed! Using cached list.", Color3.fromRGB(255, 80, 80))
-    end
-    task.wait(0.5)
+	if success and res and res.Body and #res.Body > 100 then
+		writefile(fileName, res.Body)
+		UpdateStatus("Fetched successfully!", THEME.Success)
+	else
+		UpdateStatus("Fetch failed! Using cached list.", Color3.fromRGB(255, 80, 80))
+	end
+	task.wait(0.5)
 end
 
 FetchWords()
