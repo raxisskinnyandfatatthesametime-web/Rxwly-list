@@ -15,8 +15,17 @@ local TweenService = cloneref(game:GetService("TweenService"))
 local LogService = cloneref(game:GetService("LogService"))
 local GuiService = cloneref(game:GetService("GuiService"))
 
-local request = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
-
+-- Improved request handler
+local request = (syn and syn.request) 
+             or (http and http.request) 
+             or http_request 
+             or (fluxus and fluxus.request) 
+             or (request)  -- fallback to global if exists
+             or function(args) 
+                 warn("No HTTP request function available!")
+                 return {Success = false, Body = ""}
+             end
+			
 local TOGGLE_KEY = Enum.KeyCode.RightControl
 local MIN_CPM = 50
 local MAX_CPM_LEGIT = 1500
@@ -193,18 +202,25 @@ end
 
 -- Startup: Always fetch fresh word list
 local function FetchWords()
-	UpdateStatus("Fetching latest word list...", THEME.Warning)
-	local success, res = pcall(function()
-		return request({Url = url, Method = "GET"})
-	end)
+    UpdateStatus("Fetching latest word list...", THEME.Warning)
+    
+    if not request then
+        UpdateStatus("No request function! Using cached list.", Color3.fromRGB(255, 80, 80))
+        task.wait(1)
+        return
+    end
 
-	if success and res and res.Body then
-		writefile(fileName, res.Body)
-		UpdateStatus("Fetched successfully!", THEME.Success)
-	else
-		UpdateStatus("Fetch failed! Using cached.", Color3.fromRGB(255, 80, 80))
-	end
-	task.wait(0.5)
+    local success, res = pcall(function()
+        return request({Url = url, Method = "GET"})
+    end)
+
+    if success and res and res.Body and res.Body ~= "" then
+        writefile(fileName, res.Body)
+        UpdateStatus("Fetched successfully!", THEME.Success)
+    else
+        UpdateStatus("Fetch failed! Using cached list.", Color3.fromRGB(255, 80, 80))
+    end
+    task.wait(0.5)
 end
 
 FetchWords()
