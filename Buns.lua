@@ -15,21 +15,7 @@ local TweenService = cloneref(game:GetService("TweenService"))
 local LogService = cloneref(game:GetService("LogService"))
 local GuiService = cloneref(game:GetService("GuiService"))
 
--- ==================== IMPROVED REQUEST HANDLER ====================
-local request = (syn and syn.request) 
-             or (http and http.request) 
-             or http_request 
-             or (fluxus and fluxus.request) 
-             or request  -- fallback to global
-
--- Final safety fallback
-if not request then
-    request = function(args)
-        warn("[WordHelper] No HTTP request function available in this executor!")
-        return {Success = false, Body = ""}
-    end
-end
--- ============================================================
+local request = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 
 local TOGGLE_KEY = Enum.KeyCode.RightControl
 local MIN_CPM = 50
@@ -75,6 +61,8 @@ local Config = {
 	ThinkDelay = 0.8,
 	RiskyMistakes = false,
 	CustomWords = {},
+	MinTypeSpeed = 50,
+	MaxTypeSpeed = 3000,
 	KeyboardLayout = "QWERTY"
 }
 
@@ -98,7 +86,7 @@ local currentCPM = Config.CPM
 local isBlatant = Config.Blatant
 local useHumanization = Config.Humanize
 local useFingerModel = Config.FingerModel
-local sortMode = Config.SortMode or "Random"
+local sortMode = Config.SortMode
 local suffixMode = Config.SuffixMode or ""
 local lengthMode = Config.LengthMode or 0
 local autoPlay = Config.AutoPlay
@@ -206,22 +194,15 @@ end
 -- Startup: Always fetch fresh word list
 local function FetchWords()
 	UpdateStatus("Fetching latest word list...", THEME.Warning)
-	
-	if not request then
-		UpdateStatus("No request function available. Using cached list.", Color3.fromRGB(255, 80, 80))
-		task.wait(1)
-		return
-	end
-
 	local success, res = pcall(function()
 		return request({Url = url, Method = "GET"})
 	end)
 
-	if success and res and res.Body and #res.Body > 100 then
+	if success and res and res.Body then
 		writefile(fileName, res.Body)
 		UpdateStatus("Fetched successfully!", THEME.Success)
 	else
-		UpdateStatus("Fetch failed! Using cached list.", Color3.fromRGB(255, 80, 80))
+		UpdateStatus("Fetch failed! Using cached.", Color3.fromRGB(255, 80, 80))
 	end
 	task.wait(0.5)
 end
@@ -370,43 +351,12 @@ end
 		-- etc.
 }
 
--- Single hard letters as fallback (still works)
+-- Single hard letters as fallback
 local HardLetterScores = {
-	x = 0, z = 0, q = 0, j = 0,
-	v = 0, k = 0,
-	b = 0, f = 0, w = 0,
-	y = 0, g = 0, p = 0,
+    x = 0, z = 0, q = 0, j = 0,
+    v = 0, k = 0, b = 0, f = 0, w = 0,
+    y = 0, g = 0, p = 0,
 }
-
--- ====================== ALTVER MODE ======================
-local AltverTriggers = {
-	"acop", "adaw", "adzer", "afifi", "agad", "albugo", "alkool", "amalg", "amedeo",
-	"ashur", "azox", "baja", "baku", "baru", "beal", "besa", "bhalu", "bibi", "biloxi",
-	"boba", "bogo", "boiko", "brei", "cabda", "calabur", "caughnawaga", "chigetais",
-	"clara", "clowre", "comd", "concurso", "cucupha", "darg", "darr", "deodara", "dhabb",
-	"dhoni", "dirhem", "dissait", "doup", "drinn", "engobe", "fagott", "fahrenhett", "fala",
-	"fike", "flambeed", "freiezlebenhe", "fuff", "garibaldi", "genepi", "gestapo", "giocoso",
-	"gruppo", "gunja", "hath", "hecte", "hydrangeas", "kaberu", "kadaya", "kajugaru", "keta",
-	"khepesh", "kiku", "kiwach", "knorr", "koch", "koda", "kokako", "kokila", "kora", "kuku",
-	"kwatuma", "lactescenle", "laet", "langeel", "leef", "leuco", "lludd", "lupe", "macrostachya",
-	"magh", "mayaca", "miki", "moit", "mondego", "muir", "mumjuma", "murumuru", "nevo", "ormazd",
-	"paha", "pashm", "pirr", "pisa", "primi", "probabl", "prut", "pyrameis", "rann", "ravindran",
-	"repro", "rubbisy", "saum", "sawt", "sbirro", "scaw", "schav", "schul", "snur", "sokoki",
-	"sradha", "stalko", "succisa", "supa", "svan", "taha", "tapul", "they", "topiwala", "travelog",
-	"tucutucu", "uvalha", "voorhuis", "wapp", "washo", "yare"
-}
-
-local function GetAltverPriority(word)
-	if not word or #word < 3 then return 0 end
-	local lower = word:lower()
-	
-	for _, trigger in ipairs(AltverTriggers) do
-		if lower:sub(1, #trigger) == trigger then
-			return 5
-		end
-	end
-	return 0
-end
 
 -- New unified function (replaces both old functions)
 local function GetEndingPriority(word)
@@ -1198,8 +1148,6 @@ local SortBtn = CreateToggle("Sort: "..sortMode, UDim2.new(0, 15, 0, 33), functi
 		sortMode = "Sartre"
 	elseif sortMode == "Sartre" then 
 		sortMode = "Hyphenated"
-	elseif sortMode == "Hyphenated" then
-	    sortMode = "Altver"
 	else 
 		sortMode = "Random" 
 	end
@@ -2890,19 +2838,9 @@ if #matches > 0 then
             
             if sA == sB then
                 return #a < #b  -- tiebreaker: shorter first (like original Sartre)
-            end	
+            end
             return sA > sB
         end)
-		
-	elseif sortMode == "Altver" then
-	table.sort(matches, function(a, b)
-		local sA = GetAltverPriority(a)
-		local sB = GetAltverPriority(b)
-		if sA == sB then
-			return #a < #b  -- fallback to shortest if same priority
-		end
-		return sA > sB
-	    end)
     end
 end
 
@@ -3016,43 +2954,21 @@ end
 
 			local textRGB = ColorToRGB(THEME.Text)
 
-local displayText = ""
-			local wordColor = textRGB  -- default white
-
-			-- === COLOR LOGIC ===
-			if sortMode == "Altver" then
-				if GetAltverPriority(w) > 0 then
-					wordColor = "255,60,60"  -- Bright Red for Altver
-				end
-			elseif sortMode == "Sartre" or sortMode == "Hyphenated" then
-				local prio = GetEndingPriority(w)
-				if prio >= 100 then
-					wordColor = "255,220,80"  -- Yellow for high Sartre priority
-				end
-			end
-
-			-- Make top word brighter
-			if i == 1 then
-				if sortMode == "Altver" and GetAltverPriority(w) > 0 then
-					wordColor = "255,40,40"
-				elseif (sortMode == "Sartre" or sortMode == "Hyphenated") and GetEndingPriority(w) >= 100 then
-					wordColor = "255,240,100"
-				end
-			end
-
+			local displayText = ""
 			if isBacktracked then
 				local prefix = w:sub(1, #searchPrefix)
 				local suffix = w:sub(#searchPrefix + 1)
 				displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-					.. "<font color=\"rgb(" .. wordColor .. ")\">" .. suffix .. "</font>"
+					.. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
 			else
 				local prefix = w:sub(1, #detectedText)
 				local suffix = w:sub(#detectedText + 1)
 				displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-					.. "<font color=\"rgb(" .. wordColor .. ")\">" .. suffix .. "</font>"
+					.. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
 			end
 
-			if lbl then lbl.Text = displayText end		else
+			if lbl then lbl.Text = displayText end
+		else
 			if btn then
 				btn.Visible = false
 				ButtonData[btn] = nil
