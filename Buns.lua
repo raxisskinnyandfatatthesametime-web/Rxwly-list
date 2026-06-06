@@ -1119,83 +1119,14 @@ local FingerBtn = CreateToggle("10-Finger: "..(useFingerModel and "ON" or "OFF")
 end)
 FingerBtn.TextColor3 = useFingerModel and THEME.Success or Color3.fromRGB(255, 100, 100)
 
--- ==================== MINI WORD HELPER (Replaces Keyboard Button) ====================
-local miniMode = "TrapMenu"  -- Default
-local MiniWords = {}
-local MiniBuckets = {}
-local MiniSeenWords = {}
-local MiniFileNames = {
-    TrapMenu = "singularity_words.txt",
-    Spam2 = "spam2_words.txt",
-    Spam3 = "spam3_words.txt"
-}
-local MiniUrls = {
-    TrapMenu = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Singularity.txt",
-    Spam2 = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Spam2.txt",
-    Spam3 = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Spam3.txt"
-}
-
-local function LoadMiniList(mode)
-    local url = MiniUrls[mode]
-    local fname = MiniFileNames[mode]
-    
-    if not isfile(fname) then
-        ShowToast("Fetching " .. mode .. " dictionary...", "warning")
-        local success, res = pcall(function()
-            return request({Url = url, Method = "GET"})
-        end)
-        if success and res and res.Body then
-            writefile(fname, res.Body)
-            ShowToast(mode .. " dictionary loaded!", "success")
-        else
-            ShowToast("Failed to fetch " .. mode, "error")
-            return false
-        end
-    end
-
-    MiniWords = {}
-    MiniSeenWords = {}
-    local content = readfile(fname)
-    for w in content:gmatch("[^\r\n]+") do
-        local clean = w:gsub("[%s%c]+", ""):lower()
-        if #clean > 0 and not MiniSeenWords[clean] then
-            MiniSeenWords[clean] = true
-            table.insert(MiniWords, clean)
-        end
-    end
-
-    table.sort(MiniWords)
-    MiniBuckets = {}
-    for _, w in ipairs(MiniWords) do
-        local c = w:sub(1,1) or "#"
-        MiniBuckets[c] = MiniBuckets[c] or {}
-        table.insert(MiniBuckets[c], w)
-    end
-    ShowToast(mode .. ": " .. #MiniWords .. " words loaded", "success")
-    return true
-end
-
--- Initial load
-LoadMiniList(miniMode)
-
-local MiniHelperBtn = CreateToggle("MiniHelper: "..miniMode, UDim2.new(0, 195, 0, 5), function()
-    if miniMode == "TrapMenu" then 
-        miniMode = "Spam2"
-    elseif miniMode == "Spam2" then 
-        miniMode = "Spam3"
-    else 
-        miniMode = "TrapMenu" 
-    end
-    LoadMiniList(miniMode)
-    Config.MiniMode = miniMode  -- Save to config
-    return true, "MiniHelper: "..miniMode, THEME.Accent
+local KeyboardBtn = CreateToggle("Keyboard: "..(showKeyboard and "ON" or "OFF"), UDim2.new(0, 195, 0, 5), function()
+	showKeyboard = not showKeyboard
+	Config.ShowKeyboard = showKeyboard
+	KeyboardFrame.Visible = showKeyboard
+	return showKeyboard, "Keyboard: "..(showKeyboard and "ON" or "OFF"), showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
 end)
-MiniHelperBtn.TextColor3 = THEME.Accent
-MiniHelperBtn.Size = UDim2.new(0, 130, 0, 24)
-
--- Add to Config if not present
-if not Config.MiniMode then Config.MiniMode = "TrapMenu" end
-miniMode = Config.MiniMode
+KeyboardBtn.TextColor3 = showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
+KeyboardBtn.Size = UDim2.new(0, 130, 0, 24)
 
 -- ==================== REFRESH BUTTON (Below Customize Sartre) ====================
 local RefreshBtn = Instance.new("TextButton", TogglesFrame)
