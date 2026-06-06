@@ -2740,7 +2740,7 @@ local function CollectMatches(prefix, tryFallbackLengths)
     local exacts = {}
     local partials = {}
     local maxPartialLen = 0
-    local limit = 600
+    local limit = 650
 
     local bucket = Words
     local firstChar = prefix:sub(1,1):lower()
@@ -2754,10 +2754,7 @@ local function CollectMatches(prefix, tryFallbackLengths)
         if Blacklist[w] or UsedWords[w] then return false end
         if suffixMode ~= "" and w:sub(-#suffixMode) ~= suffixMode then return false end
 
-        local isLengthMatch = true
-        if lengthMode > 0 then
-            isLengthMatch = (#w == lengthMode)
-        end
+        local isLengthMatch = (lengthMode == 0 or #w == lengthMode)
         if not isLengthMatch then return false end
 
         local mLen = GetMatchLength(w, prefix)
@@ -2767,8 +2764,8 @@ local function CollectMatches(prefix, tryFallbackLengths)
         elseif #exacts == 0 and mLen > maxPartialLen then
             maxPartialLen = mLen
             partials = {w}
-        elseif #exacts == 0 and mLen == maxPartialLen then
-            if #partials < 80 then table.insert(partials, w) end
+        elseif #exacts == 0 and mLen == maxPartialLen and #partials < 100 then
+            table.insert(partials, w)
         end
         return false
     end
@@ -2784,7 +2781,7 @@ local function CollectMatches(prefix, tryFallbackLengths)
         end
     else
         for _, w in ipairs(bucket) do
-            if checkWord(w) and #exacts >= (forceFullScan and 1200 or limit) then
+            if checkWord(w) and #exacts >= (forceFullScan and 1500 or limit) then
                 break
             end
         end
@@ -2808,12 +2805,11 @@ UpdateList = function(detectedText, requiredLetter)
 
     local exacts, partials, pLen = CollectMatches(searchPrefix, false)
 
-    if (sortMode == "Altver" or sortMode == "Sartre") and #exacts < 80 then
+    -- Extra collection for priority modes
+    if (sortMode == "Altver" or sortMode == "Sartre") and #exacts < 100 then
         local more, _, _ = CollectMatches(searchPrefix, true)
         for _, w in ipairs(more) do
-            if not table.find(exacts, w) then
-                table.insert(exacts, w)
-            end
+            if not table.find(exacts, w) then table.insert(exacts, w) end
         end
     end
 
@@ -2830,7 +2826,7 @@ UpdateList = function(detectedText, requiredLetter)
         isBacktracked = true
     end
 
-    -- ==================== SORTING ====================
+    -- Sorting
     if #matches > 0 then
         if sortMode == "Longest" then
             table.sort(matches, function(a, b) return #a > #b end)
@@ -2860,27 +2856,21 @@ UpdateList = function(detectedText, requiredLetter)
         end
     end
 
-    -- ==================== DISPLAY ====================
+    -- Display logic
     local displayList = {}
     local maxDisplay = 40
-    for i = 1, math.min(maxDisplay, #matches) do 
-        table.insert(displayList, matches[i]) 
+    for i = 1, math.min(maxDisplay, #matches) do
+        table.insert(displayList, matches[i])
     end
 
+    -- Keyboard highlight, status, buttons (your existing code from here is fine)
     if showKeyboard and KeyboardFrame.Visible then
-        local colors = {
-            Color3.fromRGB(100, 255, 140),
-            Color3.fromRGB(255, 180, 200),
-            Color3.fromRGB(100, 200, 255)
-        }
+        local colors = {Color3.fromRGB(100,255,140), Color3.fromRGB(255,180,200), Color3.fromRGB(100,200,255)}
         local targetKeys = {}
         for i = 1, math.min(3, #displayList) do
             local w = displayList[i]
             local nextChar = w:sub(#searchPrefix + 1, #searchPrefix + 1)
-            if nextChar and nextChar ~= "" then
-                local char = nextChar:lower()
-                targetKeys[char] = i
-            end
+            if nextChar and nextChar ~= "" then targetKeys[nextChar:lower()] = i end
         end
         for char, k in pairs(Keys) do
             local prio = targetKeys[char]
@@ -2903,7 +2893,6 @@ UpdateList = function(detectedText, requiredLetter)
         local invalidPart = detectedText:sub(#searchPrefix + 1)
         local accentRGB = ColorToRGB(THEME.Accent)
         StatusText.Text = "No match: <font color=\"rgb(" .. accentRGB .. ")\">" .. validPart .. "</font><font color=\"rgb(255,80,80)\">" .. invalidPart .. "</font>"
-        StatusText.TextColor3 = THEME.SubText
     elseif #exacts == 0 and lengthMode > 0 and suffixMode ~= "" then
         StatusText.Text = "No len match (showing all)"
         StatusText.TextColor3 = THEME.Warning
