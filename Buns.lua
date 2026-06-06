@@ -1119,82 +1119,83 @@ local FingerBtn = CreateToggle("10-Finger: "..(useFingerModel and "ON" or "OFF")
 end)
 FingerBtn.TextColor3 = useFingerModel and THEME.Success or Color3.fromRGB(255, 100, 100)
 
--- ==================== MINI WORDHELPER DICTIONARY SWITCHERS ====================
-local currentMiniMode = "Main"
+-- ==================== MINI WORD HELPER (Replaces Keyboard Button) ====================
+local miniMode = "TrapMenu"  -- Default
+local MiniWords = {}
+local MiniBuckets = {}
+local MiniSeenWords = {}
+local MiniFileNames = {
+    TrapMenu = "singularity_words.txt",
+    Spam2 = "spam2_words.txt",
+    Spam3 = "spam3_words.txt"
+}
+local MiniUrls = {
+    TrapMenu = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Singularity.txt",
+    Spam2 = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Spam2.txt",
+    Spam3 = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Spam3.txt"
+}
 
-local function LoadMiniDictionary(mode, url, fileName)
-    ShowToast("Loading " .. mode .. " dictionary...", "warning")
-    local success, res = pcall(function()
-        return request({Url = url, Method = "GET"})
-    end)
+local function LoadMiniList(mode)
+    local url = MiniUrls[mode]
+    local fname = MiniFileNames[mode]
     
-    if success and res and res.Body then
-        writefile(fileName, res.Body)
-        -- Reload list for this mode (simple version - full integration possible)
-        ShowToast(mode .. " dictionary loaded successfully!", "success")
-        currentMiniMode = mode
-        forceUpdateList = true
-        lastDetected = "---"
-        
-        if UpdateList then
-            local _, req = GetTurnInfo()
-            UpdateList(lastDetected, req)
+    if not isfile(fname) then
+        ShowToast("Fetching " .. mode .. " dictionary...", "warning")
+        local success, res = pcall(function()
+            return request({Url = url, Method = "GET"})
+        end)
+        if success and res and res.Body then
+            writefile(fname, res.Body)
+            ShowToast(mode .. " dictionary loaded!", "success")
+        else
+            ShowToast("Failed to fetch " .. mode, "error")
+            return false
         end
-    else
-        ShowToast("Failed to load " .. mode, "error")
     end
+
+    MiniWords = {}
+    MiniSeenWords = {}
+    local content = readfile(fname)
+    for w in content:gmatch("[^\r\n]+") do
+        local clean = w:gsub("[%s%c]+", ""):lower()
+        if #clean > 0 and not MiniSeenWords[clean] then
+            MiniSeenWords[clean] = true
+            table.insert(MiniWords, clean)
+        end
+    end
+
+    table.sort(MiniWords)
+    MiniBuckets = {}
+    for _, w in ipairs(MiniWords) do
+        local c = w:sub(1,1) or "#"
+        MiniBuckets[c] = MiniBuckets[c] or {}
+        table.insert(MiniBuckets[c], w)
+    end
+    ShowToast(mode .. ": " .. #MiniWords .. " words loaded", "success")
+    return true
 end
 
--- TrapMenu Button
-local TrapBtn = Instance.new("TextButton", TogglesFrame)
-TrapBtn.Text = "TrapMenu"
-TrapBtn.Font = Enum.Font.GothamMedium
-TrapBtn.TextSize = 11
-TrapBtn.TextColor3 = THEME.Accent
-TrapBtn.BackgroundColor3 = THEME.Background
-TrapBtn.Size = UDim2.new(0, 85, 0, 24)
-TrapBtn.Position = UDim2.new(0, 195, 0, 5)
-Instance.new("UICorner", TrapBtn).CornerRadius = UDim.new(0, 4)
+-- Initial load
+LoadMiniList(miniMode)
 
-TrapBtn.MouseButton1Click:Connect(function()
-    LoadMiniDictionary("TrapMenu", 
-        "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Singularity.txt", 
-        "trapmenu.txt")
+local MiniHelperBtn = CreateToggle("MiniHelper: "..miniMode, UDim2.new(0, 195, 0, 5), function()
+    if miniMode == "TrapMenu" then 
+        miniMode = "Spam2"
+    elseif miniMode == "Spam2" then 
+        miniMode = "Spam3"
+    else 
+        miniMode = "TrapMenu" 
+    end
+    LoadMiniList(miniMode)
+    Config.MiniMode = miniMode  -- Save to config
+    return true, "MiniHelper: "..miniMode, THEME.Accent
 end)
+MiniHelperBtn.TextColor3 = THEME.Accent
+MiniHelperBtn.Size = UDim2.new(0, 130, 0, 24)
 
--- Spam2 Button
-local Spam2Btn = Instance.new("TextButton", TogglesFrame)
-Spam2Btn.Text = "Spam2"
-Spam2Btn.Font = Enum.Font.GothamMedium
-Spam2Btn.TextSize = 11
-Spam2Btn.TextColor3 = THEME.Accent
-Spam2Btn.BackgroundColor3 = THEME.Background
-Spam2Btn.Size = UDim2.new(0, 85, 0, 24)
-Spam2Btn.Position = UDim2.new(0, 195, 0, 35)
-Instance.new("UICorner", Spam2Btn).CornerRadius = UDim.new(0, 4)
-
-Spam2Btn.MouseButton1Click:Connect(function()
-    LoadMiniDictionary("Spam2", 
-        "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Spam2.txt", 
-        "spam2.txt")
-end)
-
--- Spam3 Button
-local Spam3Btn = Instance.new("TextButton", TogglesFrame)
-Spam3Btn.Text = "Spam3"
-Spam3Btn.Font = Enum.Font.GothamMedium
-Spam3Btn.TextSize = 11
-Spam3Btn.TextColor3 = THEME.Accent
-Spam3Btn.BackgroundColor3 = THEME.Background
-Spam3Btn.Size = UDim2.new(0, 85, 0, 24)
-Spam3Btn.Position = UDim2.new(0, 195, 0, 65)
-Instance.new("UICorner", Spam3Btn).CornerRadius = UDim.new(0, 4)
-
-Spam3Btn.MouseButton1Click:Connect(function()
-    LoadMiniDictionary("Spam3", 
-        "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Spam3.txt", 
-        "spam3.txt")
-end)
+-- Add to Config if not present
+if not Config.MiniMode then Config.MiniMode = "TrapMenu" end
+miniMode = Config.MiniMode
 
 -- ==================== REFRESH BUTTON (Below Customize Sartre) ====================
 local RefreshBtn = Instance.new("TextButton", TogglesFrame)
