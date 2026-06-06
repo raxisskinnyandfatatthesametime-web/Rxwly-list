@@ -2732,69 +2732,60 @@ UpdateList = function(detectedText, requiredLetter)
 		bucket = Words
 	end
 
+local function HasHyphenOrApostrophe(word)
+    return word:find("[-']") ~= nil
+end
+
 local function CollectMatches(prefix, tryFallbackLengths)
     local exacts = {}
-    local fallbackExacts = {}
     local partials = {}
     local maxPartialLen = 0
-    local limit = 500   -- Increased for better coverage
+    local limit = 600
 
     local bucket = Words
-    local firstChar = prefix:sub(1,1)
-    if firstChar and firstChar ~= "" and Buckets and Buckets[firstChar] then
+    local firstChar = prefix:sub(1,1):lower()
+    if firstChar ~= "" and Buckets and Buckets[firstChar] then
         bucket = Buckets[firstChar]
     end
 
-    if bucket then
-        local checkWord = function(w)
-            if Blacklist[w] or UsedWords[w] then return false end
+    local forceFullScan = (sortMode == "Altver" or sortMode == "Sartre")
 
-            if suffixMode ~= "" and w:sub(-#suffixMode) ~= suffixMode then return false end
+    local checkWord = function(w)
+        if Blacklist[w] or UsedWords[w] then return false end
+        if suffixMode ~= "" and w:sub(-#suffixMode) ~= suffixMode then return false end
 
-            local isLengthMatch = true
-            if not tryFallbackLengths and lengthMode > 0 then
-                isLengthMatch = (#w == lengthMode)
-            elseif tryFallbackLengths and lengthMode > 0 then
-                isLengthMatch = true
-            end
-            if not isLengthMatch then return false end
-
-            local mLen = GetMatchLength(w, prefix)
-            if mLen == #prefix then
-                table.insert(exacts, w)
-                return true
-            elseif #exacts == 0 then
-                if mLen > maxPartialLen then
-                    maxPartialLen = mLen
-                    partials = {w}
-                elseif mLen == maxPartialLen and mLen > 0 then
-                    if #partials < 100 then table.insert(partials, w) end
-                end
-            end
-            return false
+        local isLengthMatch = true
+        if lengthMode > 0 then
+            isLengthMatch = (#w == lengthMode)
         end
+        if not isLengthMatch then return false end
 
-        -- Force full scan for Altver / Sartre to catch high priority endings
-        local forceFullScan = (sortMode == "Altver" or sortMode == "Sartre")
+        local mLen = GetMatchLength(w, prefix)
+        if mLen == #prefix then
+            table.insert(exacts, w)
+            return true
+        elseif #exacts == 0 and mLen > maxPartialLen then
+            maxPartialLen = mLen
+            partials = {w}
+        elseif #exacts == 0 and mLen == maxPartialLen then
+            if #partials < 80 then table.insert(partials, w) end
+        end
+        return false
+    end
 
-        if #prefix > 0 and not forceFullScan then
-            local startIndex = BinarySearchStart(bucket, prefix)
-            if startIndex ~= -1 then
-                local count = 0
-                for i = startIndex, #bucket do
-                    local w = bucket[i]
-                    if w:sub(1, #prefix) ~= prefix then break end
-                    if checkWord(w) and #exacts >= limit then break end
-                    count = count + 1
-                    if count >= 4000 then break end
-                end
+    if #prefix > 0 and not forceFullScan then
+        local startIndex = BinarySearchStart(bucket, prefix)
+        if startIndex ~= -1 then
+            for i = startIndex, #bucket do
+                local w = bucket[i]
+                if w:sub(1, #prefix) ~= prefix then break end
+                if checkWord(w) and #exacts >= limit then break end
             end
-        else
-            -- Full scan when needed (especially for Altver)
-            for _, w in ipairs(bucket) do
-                if checkWord(w) and #exacts >= (forceFullScan and 800 or limit) then 
-                    break 
-                end
+        end
+    else
+        for _, w in ipairs(bucket) do
+            if checkWord(w) and #exacts >= (forceFullScan and 1200 or limit) then
+                break
             end
         end
     end
@@ -2802,263 +2793,195 @@ local function CollectMatches(prefix, tryFallbackLengths)
     return exacts, partials, maxPartialLen
 end
 
-			local useBinary = true
-			if prefix:find("#") or prefix:find("%*") then useBinary = false end
+UpdateList = function(detectedText, requiredLetter)
+    local matches = {}
+    local searchPrefix = detectedText
+    local isBacktracked = false
 
-			if useBinary and #prefix > 0 then
-				local startIndex = BinarySearchStart(bucket, prefix)
-
-				if startIndex ~= -1 then
-					local count = 0
-					for i = startIndex, #bucket do
-						local w = bucket[i]
-
-						if w:sub(1, #prefix) ~= prefix then break end
-
-						checkWord(w)
-
-						count = count + 1
-						if count >= 3000 then break end
-					end
-				end
-			else
-				local searchLimit = (sortMode == "Random") and 1000 or limit
-				for _, w in ipairs(bucket) do
-					checkWord(w)
-					if #exacts >= searchLimit then break end
-				end
-			end
-
-			if sortMode == "Random" and #exacts > 0 then
-				shuffleTable(exacts)
-			end
-		end
-		return exacts, partials, maxPartialLen
-	end
-
-	local exacts, partials, pLen = CollectMatches(searchPrefix, false)
-	-- Force more results for priority modes
-if (sortMode == "Altver" or sortMode == "Sartre") and #exacts < 50 then
-    local moreExacts, _, _ = CollectMatches(searchPrefix, true)
-    for _, w in ipairs(moreExacts) do
-        if not table.find(exacts, w) then table.insert(exacts, w) end
+    if SearchBox and SearchBox.Text ~= "" then
+        searchPrefix = SearchBox.Text:lower():gsub("[%s%c]+", "")
     end
-end
 
-	if #exacts == 0 and lengthMode > 0 then
-		local fallbackExacts, fallbackPartials, fallbackPLen = CollectMatches(searchPrefix, true)
-		if #fallbackExacts > 0 then
-			exacts = fallbackExacts
-		end
-	end
-
-	if #exacts > 0 then
-		matches = exacts
-	elseif pLen > 0 then
-		matches = partials
-		searchPrefix = searchPrefix:sub(1, pLen)
-		isBacktracked = true
-	elseif requiredLetter and #requiredLetter > 0 then
-		local reqChar = requiredLetter:sub(1,1):lower()
-		if searchPrefix:sub(1,1):lower() ~= reqChar then
-			local fallbackBucket = (Buckets and Buckets[reqChar]) or Words
-			if fallbackBucket then
-				for _, w in ipairs(fallbackBucket) do
-					if not Blacklist[w] and not UsedWords[w] then
-						local mLen = GetMatchLength(w, requiredLetter)
-						if mLen == #requiredLetter then
-							table.insert(matches, w)
-							if #matches >= 100 then break end
-						end
-					end
-				end
-			end
-
-			if #matches > 0 then
-				searchPrefix = requiredLetter
-				isBacktracked = true
-			end
-		end
-	end
-
-if #matches > 0 then
-    if sortMode == "Longest" then
-        table.sort(matches, function(a, b) return #a > #b end)
-    elseif sortMode == "Shortest" then
-        table.sort(matches, function(a, b) return #a < #b end)
-
-    elseif sortMode == "Sartre" then
-        table.sort(matches, function(a, b)
-            local sA = GetPriority(a, "Sartre")
-            local sB = GetPriority(b, "Sartre")
-            if sA == sB then return #a < #b end
-            return sA > sB
-        end)
-
-    elseif sortMode == "Altver" then
-        table.sort(matches, function(a, b)
-            local sA = GetPriority(a, "Altver")
-            local sB = GetPriority(b, "Altver")
-            if sA == sB then return #a < #b end   -- shorter first on tie
-            return sA > sB
-        end)
-
-    elseif sortMode == "Hyphenated" then
-        table.sort(matches, function(a, b)
-            local sA = GetHyphenatedPriority(a)
-            local sB = GetHyphenatedPriority(b)
-            if sA == sB then return #a < #b end
-            return sA > sB
-        end)
+    if requiredLetter and #requiredLetter > 0 and #searchPrefix == 0 then
+        searchPrefix = requiredLetter
     end
-end
-	local displayList = {}
-	local maxDisplay = 40
-	for i = 1, math.min(maxDisplay, #matches) do table.insert(displayList, matches[i]) end
 
-	if showKeyboard and KeyboardFrame.Visible then
-		local colors = {
-			Color3.fromRGB(100, 255, 140),
-			Color3.fromRGB(255, 180, 200),
-			Color3.fromRGB(100, 200, 255)
-		}
+    local exacts, partials, pLen = CollectMatches(searchPrefix, false)
 
-		local targetKeys = {}
-
-		for i = 1, math.min(3, #displayList) do
-			local w = displayList[i]
-			local nextChar = w:sub(#searchPrefix + 1, #searchPrefix + 1)
-			if nextChar and nextChar ~= "" then
-				local char = nextChar:lower()
-				if not targetKeys[char] then
-					targetKeys[char] = i
-				end
-			end
-		end
-
-		for char, k in pairs(Keys) do
-			local priority = targetKeys[char]
-			if priority then
-				k.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				Tween(k, {BackgroundColor3 = colors[priority]}, 0.3)
-			else
-				Tween(k, {BackgroundColor3 = THEME.ItemBG}, 0.2)
-			end
-		end
-	end
-
-	if #matches > 0 and not isBacktracked then
-		currentBestMatch = matches[1]
-	else
-		currentBestMatch = nil
-	end
-
-	if isBacktracked then
-		local validPart = searchPrefix
-		local invalidPart = detectedText:sub(#searchPrefix + 1)
-		local accentRGB = ColorToRGB(THEME.Accent)
-		StatusText.Text = "No match: <font color=\"rgb(" .. accentRGB .. ")\">" .. validPart .. "</font><font color=\"rgb(255,80,80)\">" .. invalidPart .. "</font>"
-		StatusText.TextColor3 = THEME.SubText
-	elseif #exacts == 0 and lengthMode > 0 and suffixMode ~= "" then
-		StatusText.Text = "No len match (showing all)"
-		StatusText.TextColor3 = THEME.Warning
-	end
-
-	for i = 1, math.max(#displayList, #ButtonCache) do
-		local w = displayList[i]
-		local btn = ButtonCache[i]
-
-		if w then
-			local lbl
-			if not btn then
-				btn = Instance.new("TextButton")
-				btn.Size = UDim2.new(1, -6, 0, 30)
-				btn.BackgroundColor3 = THEME.ItemBG
-				btn.Text = ""
-				btn.AutoButtonColor = false
-				Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
-
-				lbl = Instance.new("TextLabel", btn)
-				lbl.Name = "Label"
-				lbl.Size = UDim2.new(1, -20, 1, 0)
-				lbl.Position = UDim2.new(0, 10, 0, 0)
-				lbl.BackgroundTransparency = 1
-				lbl.Font = Enum.Font.GothamMedium
-				lbl.TextSize = 14
-				lbl.TextXAlignment = Enum.TextXAlignment.Left
-				lbl.RichText = true
-
-				btn.MouseEnter:Connect(function() Tween(btn, {BackgroundColor3 = Color3.fromRGB(45,45,55)}) end)
-				btn.MouseLeave:Connect(function() Tween(btn, {BackgroundColor3 = THEME.ItemBG}) end)
-
-				btn.MouseButton1Click:Connect(function()
-					local d = ButtonData[btn]
-					if d then
-						SmartType(d.word, d.detected, true)
-						local l = btn:FindFirstChild("Label")
-						if l then l.TextColor3 = THEME.Success end
-						Tween(btn, {BackgroundColor3 = Color3.fromRGB(30,60,40)})
-					end
-				end)
-
-				btn.Parent = ScrollList
-				table.insert(ButtonCache, btn)
-			else
-				lbl = btn:FindFirstChild("Label")
-				btn.Visible = true
-				btn.Parent = ScrollList
-				btn.BackgroundColor3 = THEME.ItemBG
-				if lbl then lbl.TextColor3 = THEME.Text end
-			end
-
-			ButtonData[btn] = {word = w, detected = detectedText}
-
-			local accentRGB = ColorToRGB(THEME.Accent)
-
-			if i == 1 then accentRGB = "100,255,140"
-			elseif i == 2 then accentRGB = "255,180,200"
-			elseif i == 3 then accentRGB = "100,200,255"
-			end
-
-			local textRGB = ColorToRGB(THEME.Text)
-
-local displayText = ""
-local isAltverTop = false
-
-if sortMode == "Altver" then
-    local prio = GetPriority(w, "Altver")
-    if prio >= 10 then  -- Strong Altver endings
-        isAltverTop = true
+    if (sortMode == "Altver" or sortMode == "Sartre") and #exacts < 80 then
+        local more, _, _ = CollectMatches(searchPrefix, true)
+        for _, w in ipairs(more) do
+            if not table.find(exacts, w) then
+                table.insert(exacts, w)
+            end
+        end
     end
-end
 
-if isBacktracked then
-    local prefix = w:sub(1, #searchPrefix)
-    local suffix = w:sub(#searchPrefix + 1)
-    displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-        .. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
-else
-    local prefix = w:sub(1, #detectedText)
-    local suffix = w:sub(#detectedText + 1)
-    displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-        .. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
-end
+    if #exacts == 0 and lengthMode > 0 then
+        local fallback, _, _ = CollectMatches(searchPrefix, true)
+        exacts = fallback
+    end
 
--- Yellow highlight for strong Altver words
-if isAltverTop and lbl then
-    displayText = "<font color=\"rgb(255, 255, 100)\">" .. displayText .. "</font>"  -- Bright Yellow
-end
+    if #exacts > 0 then
+        matches = exacts
+    elseif pLen > 0 then
+        matches = partials
+        searchPrefix = searchPrefix:sub(1, pLen)
+        isBacktracked = true
+    end
 
-			if lbl then lbl.Text = displayText end
-		else
-			if btn then
-				btn.Visible = false
-				ButtonData[btn] = nil
-			end
-		end
-	end
+    -- ==================== SORTING ====================
+    if #matches > 0 then
+        if sortMode == "Longest" then
+            table.sort(matches, function(a, b) return #a > #b end)
+        elseif sortMode == "Shortest" then
+            table.sort(matches, function(a, b) return #a < #b end)
+        elseif sortMode == "Sartre" then
+            table.sort(matches, function(a, b)
+                local sA = GetPriority(a, "Sartre")
+                local sB = GetPriority(b, "Sartre")
+                if sA == sB then return #a < #b end
+                return sA > sB
+            end)
+        elseif sortMode == "Altver" then
+            table.sort(matches, function(a, b)
+                local sA = GetPriority(a, "Altver")
+                local sB = GetPriority(b, "Altver")
+                if sA == sB then return #a < #b end
+                return sA > sB
+            end)
+        elseif sortMode == "Hyphenated" then
+            table.sort(matches, function(a, b)
+                local sA = GetHyphenatedPriority(a)
+                local sB = GetHyphenatedPriority(b)
+                if sA == sB then return #a < #b end
+                return sA > sB
+            end)
+        end
+    end
 
-	ScrollList.CanvasSize = UDim2.new(0,0,0, UIListLayout.AbsoluteContentSize.Y)
+    -- ==================== DISPLAY ====================
+    local displayList = {}
+    local maxDisplay = 40
+    for i = 1, math.min(maxDisplay, #matches) do 
+        table.insert(displayList, matches[i]) 
+    end
+
+    if showKeyboard and KeyboardFrame.Visible then
+        local colors = {
+            Color3.fromRGB(100, 255, 140),
+            Color3.fromRGB(255, 180, 200),
+            Color3.fromRGB(100, 200, 255)
+        }
+        local targetKeys = {}
+        for i = 1, math.min(3, #displayList) do
+            local w = displayList[i]
+            local nextChar = w:sub(#searchPrefix + 1, #searchPrefix + 1)
+            if nextChar and nextChar ~= "" then
+                local char = nextChar:lower()
+                targetKeys[char] = i
+            end
+        end
+        for char, k in pairs(Keys) do
+            local prio = targetKeys[char]
+            if prio then
+                Tween(k, {BackgroundColor3 = colors[prio]}, 0.3)
+            else
+                Tween(k, {BackgroundColor3 = THEME.ItemBG}, 0.2)
+            end
+        end
+    end
+
+    if #matches > 0 and not isBacktracked then
+        currentBestMatch = matches[1]
+    else
+        currentBestMatch = nil
+    end
+
+    if isBacktracked then
+        local validPart = searchPrefix
+        local invalidPart = detectedText:sub(#searchPrefix + 1)
+        local accentRGB = ColorToRGB(THEME.Accent)
+        StatusText.Text = "No match: <font color=\"rgb(" .. accentRGB .. ")\">" .. validPart .. "</font><font color=\"rgb(255,80,80)\">" .. invalidPart .. "</font>"
+        StatusText.TextColor3 = THEME.SubText
+    elseif #exacts == 0 and lengthMode > 0 and suffixMode ~= "" then
+        StatusText.Text = "No len match (showing all)"
+        StatusText.TextColor3 = THEME.Warning
+    end
+
+    for i = 1, math.max(#displayList, #ButtonCache) do
+        local w = displayList[i]
+        local btn = ButtonCache[i]
+
+        if w then
+            local lbl
+            if not btn then
+                btn = Instance.new("TextButton")
+                btn.Size = UDim2.new(1, -6, 0, 30)
+                btn.BackgroundColor3 = THEME.ItemBG
+                btn.Text = ""
+                btn.AutoButtonColor = false
+                Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+
+                lbl = Instance.new("TextLabel", btn)
+                lbl.Name = "Label"
+                lbl.Size = UDim2.new(1, -20, 1, 0)
+                lbl.Position = UDim2.new(0, 10, 0, 0)
+                lbl.BackgroundTransparency = 1
+                lbl.Font = Enum.Font.GothamMedium
+                lbl.TextSize = 14
+                lbl.TextXAlignment = Enum.TextXAlignment.Left
+                lbl.RichText = true
+
+                btn.MouseEnter:Connect(function() Tween(btn, {BackgroundColor3 = Color3.fromRGB(45,45,55)}) end)
+                btn.MouseLeave:Connect(function() Tween(btn, {BackgroundColor3 = THEME.ItemBG}) end)
+
+                btn.MouseButton1Click:Connect(function()
+                    local d = ButtonData[btn]
+                    if d then SmartType(d.word, d.detected, true) end
+                end)
+
+                btn.Parent = ScrollList
+                table.insert(ButtonCache, btn)
+            else
+                lbl = btn:FindFirstChild("Label")
+                btn.Visible = true
+                btn.BackgroundColor3 = THEME.ItemBG
+            end
+
+            ButtonData[btn] = {word = w, detected = detectedText}
+
+            local accentRGB = ColorToRGB(THEME.Accent)
+            if i == 1 then accentRGB = "100,255,140"
+            elseif i == 2 then accentRGB = "255,180,200"
+            elseif i == 3 then accentRGB = "100,200,255" end
+
+            local textRGB = ColorToRGB(THEME.Text)
+            local displayText = ""
+
+            local isAltverTop = (sortMode == "Altver" and GetPriority(w, "Altver") >= 10)
+
+            if isBacktracked then
+                local prefix = w:sub(1, #searchPrefix)
+                local suffix = w:sub(#searchPrefix + 1)
+                displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font><font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
+            else
+                local prefix = w:sub(1, #detectedText)
+                local suffix = w:sub(#detectedText + 1)
+                displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font><font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
+            end
+
+            if isAltverTop then
+                displayText = "<font color=\"rgb(255,255,100)\">" .. displayText .. "</font>"
+            end
+
+            if lbl then lbl.Text = displayText end
+        else
+            if btn then btn.Visible = false end
+        end
+    end
+
+    ScrollList.CanvasSize = UDim2.new(0,0,0, UIListLayout.AbsoluteContentSize.Y)
 end
 
 SetupSlider(SliderBtn, SliderBg, SliderFill, function(pct)
