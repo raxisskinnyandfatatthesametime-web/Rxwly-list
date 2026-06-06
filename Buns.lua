@@ -269,7 +269,7 @@ local function shuffleTable(t)
 	return t
 end
 
-	local PriorityEndings = {
+local PriorityEndings = {
 		arde = 100,
 		dii = 28,
 		nite = 1,
@@ -341,7 +341,7 @@ end
 		ely   = 20,   -- ← your example
 		diae   = 100,   -- ← your example
 		ness   = 7,   -- ← your example
-		addo  = 30,   -- ← your example
+		addo  = 30,   -- ← your examplec
 		ines = 17,   -- ← your example
 
 		-- You can add as many as you want:
@@ -351,6 +351,25 @@ end
 		-- etc.
 }
 
+local AltverPriorityEndings = {
+    acop = 10, adaw = 10, adzer = 10, afifi = 10, agad = 10, albugo = 10, alkool = 10,
+    amalg = 10, amedeo = 10, ashur = 10, azox = 10, baja = 10, baku = 10, baru = 10,
+    beal = 10, besa = 10, bhalu = 10, bibi = 10, biloxi = 10, boba = 10, bogo = 10, boiko = 10,
+    brei = 10, cabda = 10, calabur = 10, caughnawaga = 10, chigetais = 10, clara = 10, clowre = 10, comd = 10,
+    concurso = 10, cucupha = 10, darg = 10, darr = 10, deodara = 10, dhabb = 10, dhoni = 10,
+    dirhem = 10, dissait = 10, doup = 10, drinn = 10, engobe = 10, fahrenhett = 10, fala = 10, fike = 10,
+    flambeed = 10, freiezlebenhe = 10, fuff = 10, garibaldi = 10, genepi = 10, gestapo = 10, giocoso = 10,
+    gruppo = 10, gunja = 10, hath = 10, hecte = 10, hydrangeas = 10, kaberu = 10, kadaya = 10, kajugaru = 10, keta = 10, khepesh = 10,
+    kiku = 10, kiwach = 10, knorr = 10, koch = 10, koda = 10, kokako = 10, kokila = 10, kora = 10, kuku = 10, kwatuma = 10,
+    lactescenle = 10, laet = 10, langeel = 10, leef = 10, leuco = 10, lludd = 10, lupe = 10, macrostachya = 10, magh = 10,
+    mayaca = 10, miki = 10, moit = 10, mondego = 10, muir = 10, mumjuma = 10, murumuru = 10, nevo = 10, ormazd = 10,
+    paha = 10, pashm = 10, pirr = 10, pisa = 10, primi = 10, probabl = 10, prut = 10, pyrameis = 10, rann = 10, ravindran = 10,
+    repro = 10, rubbisy = 10, saum = 10, sawt = 10, sbirro = 10, scaw = 10, schav = 10, schul = 10, snur = 10, sokoki = 10, sradha = 10,
+    stalko = 10, succisa = 10, supa = 10, svan = 10, taha = 10, tapul = 10, they = 10, topiwala = 10,
+    travelog = 10, tucutucu = 10, uvalha = 10, voorhuis = 10, wapp = 10, washo = 10, yare = 10, ely = 1, ines = 1, nio = 5,
+	alic = 3,
+}
+
 -- Single hard letters as fallback
 local HardLetterScores = {
     x = 0, z = 0, q = 0, j = 0,
@@ -358,37 +377,33 @@ local HardLetterScores = {
     y = 0, g = 0, p = 0,
 }
 
--- New unified function (replaces both old functions)
-local function GetEndingPriority(word)
+-- Unified Priority System (Sartre + Altver)
+local function GetPriority(word, mode)
     if not word or #word < 2 then
         return 0
     end
 
     local len = #word
-    -- Check from longest to shortest (max 8 letters now)
+    local endings = (mode == "Altver") and AltverPriorityEndings or PriorityEndings
+
+    -- Check from longest to shortest ending
     for slen = math.min(8, len), 2, -1 do
         local ending = word:sub(-slen):lower()
-        if PriorityEndings[ending] then
-            return PriorityEndings[ending]   -- return immediately (longest wins)
+        if endings[ending] then
+            return endings[ending]
         end
     end
 
-    -- Fallback to single hard letter
+    -- Fallback to hard letters
     local last = word:sub(-1):lower()
     return HardLetterScores[last] or 0
 end
 
-local function HasHyphenOrApostrophe(word)
-    return word:find("[-']") ~= nil
-end
-
 local function GetHyphenatedPriority(word)
     if HasHyphenOrApostrophe(word) then
-        local sartreScore = GetEndingPriority(word)
-        -- Big boost for hyphenated/apostrophe words
-        return 10000 + sartreScore
+        return 10000 + GetPriority(word, "Sartre")  -- Still use Sartre for hyphen boost
     end
-    return GetEndingPriority(word)
+    return GetPriority(word, "Sartre")
 end
 
 local function Reverse(s)
@@ -1147,6 +1162,8 @@ local SortBtn = CreateToggle("Sort: "..sortMode, UDim2.new(0, 15, 0, 33), functi
 	elseif sortMode == "Longest" then 
 		sortMode = "Sartre"
 	elseif sortMode == "Sartre" then 
+		sortMode = "Altver"
+	elseif sortMode == "Altver" then 
 		sortMode = "Hyphenated"
 	else 
 		sortMode = "Random" 
@@ -2831,14 +2848,25 @@ if #matches > 0 then
         table.sort(matches, function(a, b) return #a > #b end)
     elseif sortMode == "Shortest" then
         table.sort(matches, function(a, b) return #a < #b end)
-    elseif sortMode == "Sartre" or sortMode == "Hyphenated" then
+    elseif sortMode == "Sartre" then
         table.sort(matches, function(a, b)
-            local sA = (sortMode == "Hyphenated") and GetHyphenatedPriority(a) or GetEndingPriority(a)
-            local sB = (sortMode == "Hyphenated") and GetHyphenatedPriority(b) or GetEndingPriority(b)
-            
-            if sA == sB then
-                return #a < #b  -- tiebreaker: shorter first (like original Sartre)
-            end
+            local sA = GetPriority(a, "Sartre")
+            local sB = GetPriority(b, "Sartre")
+            if sA == sB then return #a < #b end
+            return sA > sB
+        end)
+    elseif sortMode == "Altver" then
+        table.sort(matches, function(a, b)
+            local sA = GetPriority(a, "Altver")
+            local sB = GetPriority(b, "Altver")
+            if sA == sB then return #a < #b end
+            return sA > sB
+        end)
+    elseif sortMode == "Hyphenated" then
+        table.sort(matches, function(a, b)
+            local sA = GetHyphenatedPriority(a)
+            local sB = GetHyphenatedPriority(b)
+            if sA == sB then return #a < #b end
             return sA > sB
         end)
     end
@@ -2954,18 +2982,32 @@ end
 
 			local textRGB = ColorToRGB(THEME.Text)
 
-			local displayText = ""
-			if isBacktracked then
-				local prefix = w:sub(1, #searchPrefix)
-				local suffix = w:sub(#searchPrefix + 1)
-				displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-					.. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
-			else
-				local prefix = w:sub(1, #detectedText)
-				local suffix = w:sub(#detectedText + 1)
-				displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
-					.. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
-			end
+local displayText = ""
+local isAltverTop = false
+
+if sortMode == "Altver" then
+    local prio = GetPriority(w, "Altver")
+    if prio >= 10 then  -- Strong Altver endings
+        isAltverTop = true
+    end
+end
+
+if isBacktracked then
+    local prefix = w:sub(1, #searchPrefix)
+    local suffix = w:sub(#searchPrefix + 1)
+    displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
+        .. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
+else
+    local prefix = w:sub(1, #detectedText)
+    local suffix = w:sub(#detectedText + 1)
+    displayText = "<font color=\"rgb(" .. accentRGB .. ")\">" .. prefix .. "</font>"
+        .. "<font color=\"rgb(" .. textRGB .. ")\">" .. suffix .. "</font>"
+end
+
+-- Yellow highlight for strong Altver words
+if isAltverTop and lbl then
+    displayText = "<font color=\"rgb(255, 255, 100)\">" .. displayText .. "</font>"  -- Bright Yellow
+end
 
 			if lbl then lbl.Text = displayText end
 		else
