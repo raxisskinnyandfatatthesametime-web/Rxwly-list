@@ -1119,14 +1119,82 @@ local FingerBtn = CreateToggle("10-Finger: "..(useFingerModel and "ON" or "OFF")
 end)
 FingerBtn.TextColor3 = useFingerModel and THEME.Success or Color3.fromRGB(255, 100, 100)
 
-local KeyboardBtn = CreateToggle("Keyboard: "..(showKeyboard and "ON" or "OFF"), UDim2.new(0, 195, 0, 5), function()
-	showKeyboard = not showKeyboard
-	Config.ShowKeyboard = showKeyboard
-	KeyboardFrame.Visible = showKeyboard
-	return showKeyboard, "Keyboard: "..(showKeyboard and "ON" or "OFF"), showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
+-- ==================== MINI WORDHELPER DICTIONARY SWITCHERS ====================
+local currentMiniMode = "Main"
+
+local function LoadMiniDictionary(mode, url, fileName)
+    ShowToast("Loading " .. mode .. " dictionary...", "warning")
+    local success, res = pcall(function()
+        return request({Url = url, Method = "GET"})
+    end)
+    
+    if success and res and res.Body then
+        writefile(fileName, res.Body)
+        -- Reload list for this mode (simple version - full integration possible)
+        ShowToast(mode .. " dictionary loaded successfully!", "success")
+        currentMiniMode = mode
+        forceUpdateList = true
+        lastDetected = "---"
+        
+        if UpdateList then
+            local _, req = GetTurnInfo()
+            UpdateList(lastDetected, req)
+        end
+    else
+        ShowToast("Failed to load " .. mode, "error")
+    end
+end
+
+-- TrapMenu Button
+local TrapBtn = Instance.new("TextButton", TogglesFrame)
+TrapBtn.Text = "TrapMenu"
+TrapBtn.Font = Enum.Font.GothamMedium
+TrapBtn.TextSize = 11
+TrapBtn.TextColor3 = THEME.Accent
+TrapBtn.BackgroundColor3 = THEME.Background
+TrapBtn.Size = UDim2.new(0, 85, 0, 24)
+TrapBtn.Position = UDim2.new(0, 195, 0, 5)
+Instance.new("UICorner", TrapBtn).CornerRadius = UDim.new(0, 4)
+
+TrapBtn.MouseButton1Click:Connect(function()
+    LoadMiniDictionary("TrapMenu", 
+        "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Singularity.txt", 
+        "trapmenu.txt")
 end)
-KeyboardBtn.TextColor3 = showKeyboard and THEME.Success or Color3.fromRGB(255, 100, 100)
-KeyboardBtn.Size = UDim2.new(0, 130, 0, 24)
+
+-- Spam2 Button
+local Spam2Btn = Instance.new("TextButton", TogglesFrame)
+Spam2Btn.Text = "Spam2"
+Spam2Btn.Font = Enum.Font.GothamMedium
+Spam2Btn.TextSize = 11
+Spam2Btn.TextColor3 = THEME.Accent
+Spam2Btn.BackgroundColor3 = THEME.Background
+Spam2Btn.Size = UDim2.new(0, 85, 0, 24)
+Spam2Btn.Position = UDim2.new(0, 195, 0, 35)
+Instance.new("UICorner", Spam2Btn).CornerRadius = UDim.new(0, 4)
+
+Spam2Btn.MouseButton1Click:Connect(function()
+    LoadMiniDictionary("Spam2", 
+        "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Spam2.txt", 
+        "spam2.txt")
+end)
+
+-- Spam3 Button
+local Spam3Btn = Instance.new("TextButton", TogglesFrame)
+Spam3Btn.Text = "Spam3"
+Spam3Btn.Font = Enum.Font.GothamMedium
+Spam3Btn.TextSize = 11
+Spam3Btn.TextColor3 = THEME.Accent
+Spam3Btn.BackgroundColor3 = THEME.Background
+Spam3Btn.Size = UDim2.new(0, 85, 0, 24)
+Spam3Btn.Position = UDim2.new(0, 195, 0, 65)
+Instance.new("UICorner", Spam3Btn).CornerRadius = UDim.new(0, 4)
+
+Spam3Btn.MouseButton1Click:Connect(function()
+    LoadMiniDictionary("Spam3", 
+        "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/Spam3.txt", 
+        "spam3.txt")
+end)
 
 -- ==================== REFRESH BUTTON (Below Customize Sartre) ====================
 local RefreshBtn = Instance.new("TextButton", TogglesFrame)
