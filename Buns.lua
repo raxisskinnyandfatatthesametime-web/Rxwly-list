@@ -366,8 +366,8 @@ local AltverPriorityEndings = {
     paha = 10, pashm = 10, pirr = 10, pisa = 10, primi = 10, probabl = 10, prut = 10, pyrameis = 10, rann = 10, ravindran = 10,
     repro = 10, rubbisy = 10, saum = 10, sawt = 10, sbirro = 10, scaw = 10, schav = 10, schul = 10, snur = 10, sokoki = 10, sradha = 10,
     stalko = 10, succisa = 10, supa = 10, svan = 10, taha = 10, tapul = 10, they = 10, topiwala = 10,
-    travelog = 10, tucutucu = 10, uvalha = 10, voorhuis = 10, wapp = 10, washo = 10, yare = 10, ely = 1, ines = 1, nio = 5,
-	alic = 3,
+    travelog = 10, tucutucu = 10, uvalha = 10, voorhuis = 10, wapp = 10, washo = 10, yare = 10, isti = 100, mab = 100, nio = 5,
+	alai = 30,
 }
 
 -- Single hard letters as fallback
@@ -2732,41 +2732,75 @@ UpdateList = function(detectedText, requiredLetter)
 		bucket = Words
 	end
 
-	local function CollectMatches(prefix, tryFallbackLengths)
-		local exacts = {}
-		local fallbackExacts = {}
-		local partials = {}
-		local maxPartialLen = 0
-		local limit = 100
+local function CollectMatches(prefix, tryFallbackLengths)
+    local exacts = {}
+    local fallbackExacts = {}
+    local partials = {}
+    local maxPartialLen = 0
+    local limit = 500   -- Increased for better coverage
 
-		if bucket then
-			local checkWord = function(w)
-				if Blacklist[w] or UsedWords[w] then return end
+    local bucket = Words
+    local firstChar = prefix:sub(1,1)
+    if firstChar and firstChar ~= "" and Buckets and Buckets[firstChar] then
+        bucket = Buckets[firstChar]
+    end
 
-				-- Check for main list filtering (suffix/length)
-				if suffixMode ~= "" and w:sub(-#suffixMode) ~= suffixMode then return end
+    if bucket then
+        local checkWord = function(w)
+            if Blacklist[w] or UsedWords[w] then return false end
 
-				local isLengthMatch = true
-				if not tryFallbackLengths and lengthMode > 0 then
-					isLengthMatch = (#w == lengthMode)
-				elseif tryFallbackLengths and lengthMode > 0 then
-					isLengthMatch = true
-				end
+            if suffixMode ~= "" and w:sub(-#suffixMode) ~= suffixMode then return false end
 
-				if not isLengthMatch then return end
+            local isLengthMatch = true
+            if not tryFallbackLengths and lengthMode > 0 then
+                isLengthMatch = (#w == lengthMode)
+            elseif tryFallbackLengths and lengthMode > 0 then
+                isLengthMatch = true
+            end
+            if not isLengthMatch then return false end
 
-				local mLen = GetMatchLength(w, prefix)
-				if mLen == #prefix then
-					table.insert(exacts, w)
-				elseif #exacts == 0 then
-					if mLen > maxPartialLen then
-						maxPartialLen = mLen
-						partials = {w}
-					elseif mLen == maxPartialLen and mLen > 0 then
-						if #partials < 50 then table.insert(partials, w) end
-					end
-				end
-			end
+            local mLen = GetMatchLength(w, prefix)
+            if mLen == #prefix then
+                table.insert(exacts, w)
+                return true
+            elseif #exacts == 0 then
+                if mLen > maxPartialLen then
+                    maxPartialLen = mLen
+                    partials = {w}
+                elseif mLen == maxPartialLen and mLen > 0 then
+                    if #partials < 100 then table.insert(partials, w) end
+                end
+            end
+            return false
+        end
+
+        -- Force full scan for Altver / Sartre to catch high priority endings
+        local forceFullScan = (sortMode == "Altver" or sortMode == "Sartre")
+
+        if #prefix > 0 and not forceFullScan then
+            local startIndex = BinarySearchStart(bucket, prefix)
+            if startIndex ~= -1 then
+                local count = 0
+                for i = startIndex, #bucket do
+                    local w = bucket[i]
+                    if w:sub(1, #prefix) ~= prefix then break end
+                    if checkWord(w) and #exacts >= limit then break end
+                    count = count + 1
+                    if count >= 4000 then break end
+                end
+            end
+        else
+            -- Full scan when needed (especially for Altver)
+            for _, w in ipairs(bucket) do
+                if checkWord(w) and #exacts >= (forceFullScan and 800 or limit) then 
+                    break 
+                end
+            end
+        end
+    end
+
+    return exacts, partials, maxPartialLen
+end
 
 			local useBinary = true
 			if prefix:find("#") or prefix:find("%*") then useBinary = false end
@@ -2803,6 +2837,13 @@ UpdateList = function(detectedText, requiredLetter)
 	end
 
 	local exacts, partials, pLen = CollectMatches(searchPrefix, false)
+	-- Force more results for priority modes
+if (sortMode == "Altver" or sortMode == "Sartre") and #exacts < 50 then
+    local moreExacts, _, _ = CollectMatches(searchPrefix, true)
+    for _, w in ipairs(moreExacts) do
+        if not table.find(exacts, w) then table.insert(exacts, w) end
+    end
+end
 
 	if #exacts == 0 and lengthMode > 0 then
 		local fallbackExacts, fallbackPartials, fallbackPLen = CollectMatches(searchPrefix, true)
