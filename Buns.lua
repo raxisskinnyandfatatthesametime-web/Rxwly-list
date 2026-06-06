@@ -379,14 +379,12 @@ local HardLetterScores = {
 
 -- Unified Priority System (Sartre + Altver)
 local function GetPriority(word, mode)
-    if not word or #word < 2 then
-        return 0
-    end
+    if not word or #word < 2 then return 0 end
 
     local len = #word
     local endings = (mode == "Altver") and AltverPriorityEndings or PriorityEndings
 
-    -- Check from longest to shortest ending
+    -- Longest ending first
     for slen = math.min(8, len), 2, -1 do
         local ending = word:sub(-slen):lower()
         if endings[ending] then
@@ -394,14 +392,13 @@ local function GetPriority(word, mode)
         end
     end
 
-    -- Fallback to hard letters
     local last = word:sub(-1):lower()
     return HardLetterScores[last] or 0
 end
 
 local function GetHyphenatedPriority(word)
     if HasHyphenOrApostrophe(word) then
-        return 10000 + GetPriority(word, "Sartre")  -- Still use Sartre for hyphen boost
+        return 10000 + GetPriority(word, "Sartre")
     end
     return GetPriority(word, "Sartre")
 end
@@ -2848,6 +2845,7 @@ if #matches > 0 then
         table.sort(matches, function(a, b) return #a > #b end)
     elseif sortMode == "Shortest" then
         table.sort(matches, function(a, b) return #a < #b end)
+
     elseif sortMode == "Sartre" then
         table.sort(matches, function(a, b)
             local sA = GetPriority(a, "Sartre")
@@ -2855,13 +2853,15 @@ if #matches > 0 then
             if sA == sB then return #a < #b end
             return sA > sB
         end)
+
     elseif sortMode == "Altver" then
         table.sort(matches, function(a, b)
             local sA = GetPriority(a, "Altver")
             local sB = GetPriority(b, "Altver")
-            if sA == sB then return #a < #b end
+            if sA == sB then return #a < #b end   -- shorter first on tie
             return sA > sB
         end)
+
     elseif sortMode == "Hyphenated" then
         table.sort(matches, function(a, b)
             local sA = GetHyphenatedPriority(a)
@@ -2871,7 +2871,6 @@ if #matches > 0 then
         end)
     end
 end
-
 	local displayList = {}
 	local maxDisplay = 40
 	for i = 1, math.min(maxDisplay, #matches) do table.insert(displayList, matches[i]) end
