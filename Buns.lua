@@ -367,7 +367,7 @@ local AltverPriorityEndings = {
     repro = 10, rubbisy = 10, saum = 10, sawt = 10, sbirro = 10, scaw = 10, schav = 10, schul = 10, snur = 10, sokoki = 10, sradha = 10,
     stalko = 10, succisa = 10, supa = 10, svan = 10, taha = 10, tapul = 10, they = 10, topiwala = 10,
     travelog = 10, tucutucu = 10, uvalha = 10, voorhuis = 10, wapp = 10, washo = 10, yare = 10, isti = 100, mab = 100, nio = 5,
-	alai = 30, kas = 30, kos = 30, kus = 30, coel = 30, isti = 300,
+	alai = 30, kas = 30, kos = 30, kus = 30, coel = 30, aman = 300, osh = 300, aux = 3, kia = 5,
 }
 
 -- Single hard letters as fallback
