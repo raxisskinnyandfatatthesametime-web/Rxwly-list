@@ -2697,78 +2697,91 @@ UpdateList = function(detectedText, requiredLetter)
 		bucket = Words
 	end
 
-	local function CollectMatches(prefix, tryFallbackLengths)
-		local exacts = {}
-		local partials = {}
-		local maxPartialLen = 0
-		local limit = 100
+local function CollectMatches(prefix, tryFallbackLengths)
+    local exacts = {}
+    local partials = {}
+    local maxPartialLen = 0
+    local limit = 100
 
-		-- We are sorting by priority (Sartre/Altver/Hyphenated). We MUST collect ALL matches.
-		local isPrioritySort = (sortMode == "Sartre" or sortMode == "Altver" or sortMode == "Hyphenated")
+    local isPrioritySort = (sortMode == "Sartre" or sortMode == "Altver" or sortMode == "Hyphenated")
 
-		if bucket then
-			local checkWord = function(w)
-				if Blacklist[w] or UsedWords[w] then return end
+    if bucket then
+        local checkWord = function(w)
+            if Blacklist[w] or UsedWords[w] then return end
+            if suffixMode ~= "" and w:sub(-#suffixMode) ~= suffixMode then return end
 
-				if suffixMode ~= "" and w:sub(-#suffixMode) ~= suffixMode then return end
+            local isLengthMatch = true
+            if not tryFallbackLengths and lengthMode > 0 then
+                isLengthMatch = (#w == lengthMode)
+            elseif tryFallbackLengths and lengthMode > 0 then
+                isLengthMatch = true
+            end
+            if not isLengthMatch then return end
 
-				local isLengthMatch = true
-				if not tryFallbackLengths and lengthMode > 0 then
-					isLengthMatch = (#w == lengthMode)
-				elseif tryFallbackLengths and lengthMode > 0 then
-					isLengthMatch = true
-				end
+            local mLen = GetMatchLength(w, prefix)
+            if mLen == #prefix then
+                table.insert(exacts, w)
+            elseif #exacts == 0 then
+                if mLen > maxPartialLen then
+                    maxPartialLen = mLen
+                    partials = { w }
+                elseif mLen == maxPartialLen and mLen > 0 then
+                    if #partials < 50 then
+                        table.insert(partials, w)
+                    end
+                end
+            end
+        end
 
-				if not isLengthMatch then return end
+        local useBinary = true
+        if prefix:find("#") or prefix:find("%*") then
+            useBinary = false
+        end
 
-				local mLen = GetMatchLength(w, prefix)
-				if mLen == #prefix then
-					table.insert(exacts, w)
-				elseif #exacts == 0 then
-					if mLen > maxPartialLen then
-						maxPartialLen = mLen
-						partials = {w}
-					elseif mLen == maxPartialLen and mLen > 0 then
-						if #partials < 50 then table.insert(partials, w) end
-					end
-				end
-			end
+        if useBinary and #prefix > 0 then
+            local startIndex = BinarySearchStart(bucket, prefix)
 
-			local useBinary = true
-			if prefix:find("#") or prefix:find("%*") then useBinary = false end
+            if startIndex ~= -1 then
+                local count = 0
 
-			if useBinary and #prefix > 0 then
-				local startIndex = BinarySearchStart(bucket, prefix)
+                -- KEY FIX: Only uncap for priority sorts when prefix is specific (length > 1).
+                -- A single-char prefix matches an entire letter's bucket (thousands of words),
+                -- so we keep a hard cap to prevent frame-rate drops.
+                local hardCap
+                if isPrioritySort and #prefix > 1 then
+                    hardCap = math.huge  -- precise prefix: safe to scan all matches
+                elseif isPrioritySort and #prefix == 1 then
+                    hardCap = 3000       -- single-char: limit to avoid lag, still enough to rank well
+                else
+                    hardCap = 3000
+                end
 
-				if startIndex ~= -1 then
-					local count = 0
-					-- Bypass arbitrary alphabetical limits when trying to sort by priority
-					local hardCap = isPrioritySort and math.huge or 3000
-					for i = startIndex, #bucket do
-						local w = bucket[i]
+                for i = startIndex, #bucket do
+                    local w = bucket[i]
+                    if w:sub(1, #prefix) ~= prefix then break end
 
-						if w:sub(1, #prefix) ~= prefix then break end
+                    checkWord(w)
 
-						checkWord(w)
+                    count = count + 1
+                    if count >= hardCap then break end
+                end
+            end
 
-						count = count + 1
-						if count >= hardCap then break end
-					end
-				end
-			else
-				local searchLimit = (sortMode == "Random") and 1000 or limit
-				for _, w in ipairs(bucket) do
-					checkWord(w)
-					if #exacts >= searchLimit then break end
-				end
-			end
+        else
+            local searchLimit = (sortMode == "Random") and 1000 or limit
+            for _, w in ipairs(bucket) do
+                checkWord(w)
+                if #exacts >= searchLimit then break end
+            end
+        end
 
-			if sortMode == "Random" and #exacts > 0 then
-				shuffleTable(exacts)
-			end
-		end
-		return exacts, partials, maxPartialLen
-	end
+        if sortMode == "Random" and #exacts > 0 then
+            shuffleTable(exacts)
+        end
+    end
+
+    return exacts, partials, maxPartialLen
+end
 
 	local exacts, partials, pLen = CollectMatches(searchPrefix, false)
 
