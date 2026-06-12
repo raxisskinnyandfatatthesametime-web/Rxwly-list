@@ -291,7 +291,7 @@ end
 		oya = 150,
 		eich = 150,
 		ist = 19,
-		eps = 18,
+		pex = 1,
 		ker = 17,
 		ked = 3,
 		pher = 11,
@@ -334,25 +334,19 @@ end
 		tsuk = 5000,
 		zha = 5000,
 		bwa = 5000,
-		kia = 5000,
-		["?"] = 5,
+		kia = 56,
+		["?"] = 50000,
 		y = 1,
 		s = 1,
 		l = 1,
 		-- ──────── ADD YOUR CUSTOM MULTI-LETTER ENDINGS HERE ────────
 		-- Higher number = higher priority
-		ally   = 2,   -- ← your example
-		ely   = 20,   -- ← your example
-		diae   = 100,   -- ← your example
-		ness   = 7,   -- ← your example
-		addo  = 30,   -- ← your example
-		ines = 17,   -- ← your example
-
-		-- You can add as many as you want:
-		-- xyz = 2000,
-		-- tion = 1200,
-		-- ing = 800,
-		-- etc.
+		ally   = 2,   -- Your example
+		ely   = 20,   -- Your example
+		diae   = 100,   -- Your example
+		ness   = 7,   -- Your example
+		addo  = 30,   -- Your example
+		ines = 17,   -- Your example
 }
 
 local AltverPriorityEndings = {
@@ -367,7 +361,7 @@ local AltverPriorityEndings = {
     kiku = 10, kiwach = 10, knorr = 10, koch = 10, koda = 10, kokako = 10, kokila = 10, kora = 10, kuku = 10, kwatuma = 10,
     lactescenle = 10, laet = 10, langeel = 10, leef = 10, leuco = 10, lludd = 10, lupe = 10, macrostachya = 10, magh = 10,
     mayaca = 10, miki = 10, moit = 10, mondego = 10, muir = 10, mumjuma = 10, murumuru = 10, nevo = 10, ormazd = 10,
-    paha = 10, pashm = 10, pirr = 10, pisa = 10, primi = 10, probabl = 10, prut = 10, pyrameis = 10, rann = 10, ravindran = 10,
+    paha = 10, pashm = 10, pirr = 10, pisa = 10, primi = 10, probabl = 10, prut = 10, pyrameis = 10, rann = 10,
     repro = 10, rubbisy = 10, saum = 10, sawt = 10, sbirro = 10, scaw = 10, schav = 10, schul = 10, snur = 10, sokoki = 10, sradha = 10,
     stalko = 10, succisa = 10, supa = 10, svan = 10, taha = 10, tapul = 10, they = 10, topiwala = 10,
     travelog = 10, tucutucu = 10, uvalha = 10, voorhuis = 10, wapp = 10, washo = 10, yare = 10, isti = 100, mab = 100, nio = 5,
@@ -1310,44 +1304,6 @@ SpectateTablesBtn.Size = UDim2.new(0, 265, 0, 24)
 SpectateTablesBtn.Position = UDim2.new(0, 15, 0, 235)
 Instance.new("UICorner", SpectateTablesBtn).CornerRadius = UDim.new(0, 4)
 
-local CustomWordsFrame = Instance.new("Frame", ScreenGui)
-CustomWordsFrame.Name = "CustomWordsFrame"
-CustomWordsFrame.Size = UDim2.new(0, 250, 0, 350)
-CustomWordsFrame.Position = UDim2.new(0.5, -125, 0.5, -175)
-CustomWordsFrame.BackgroundColor3 = THEME.Background
-CustomWordsFrame.Visible = false
-CustomWordsFrame.ClipsDescendants = true
-EnableDragging(CustomWordsFrame)
-Instance.new("UICorner", CustomWordsFrame).CornerRadius = UDim.new(0, 8)
-local CWStroke = Instance.new("UIStroke", CustomWordsFrame)
-CWStroke.Color = THEME.Accent
-CWStroke.Transparency = 0.5
-CWStroke.Thickness = 2
-
-local CWHeader = Instance.new("TextLabel", CustomWordsFrame)
-CWHeader.Text = "Custom Words Manager"
-CWHeader.Font = Enum.Font.GothamBold
-CWHeader.TextSize = 14
-CWHeader.TextColor3 = THEME.Text
-CWHeader.Size = UDim2.new(1, 0, 0, 35)
-CWHeader.BackgroundTransparency = 1
-
-local CWCloseBtn = Instance.new("TextButton", CustomWordsFrame)
-CWCloseBtn.Text = "X"
-CWCloseBtn.Font = Enum.Font.GothamBold
-CWCloseBtn.TextSize = 14
-CWCloseBtn.TextColor3 = Color3.fromRGB(255, 100, 100)
-CWCloseBtn.Size = UDim2.new(0, 30, 0, 30)
-CWCloseBtn.Position = UDim2.new(1, -30, 0, 2)
-CWCloseBtn.BackgroundTransparency = 1
-CWCloseBtn.MouseButton1Click:Connect(function() CustomWordsFrame.Visible = false end)
-
-ManageWordsBtn.MouseButton1Click:Connect(function()
-	CustomWordsFrame.Visible = not CustomWordsFrame.Visible
-	CustomWordsFrame.Parent = nil
-	CustomWordsFrame.Parent = ScreenGui
-end)
-
 local function SetupPhantomBox(box, placeholder)
 	box.Text = placeholder
 	box.TextColor3 = THEME.SubText
@@ -1367,326 +1323,368 @@ local function SetupPhantomBox(box, placeholder)
 	end)
 end
 
-local CWSearchBox = Instance.new("TextBox", CustomWordsFrame)
-CWSearchBox.Font = Enum.Font.Gotham
-CWSearchBox.TextSize = 12
-CWSearchBox.BackgroundColor3 = THEME.ItemBG
-CWSearchBox.Size = UDim2.new(1, -20, 0, 24)
-CWSearchBox.Position = UDim2.new(0, 10, 0, 35)
-Instance.new("UICorner", CWSearchBox).CornerRadius = UDim.new(0, 4)
-SetupPhantomBox(CWSearchBox, "Search words...")
+-- ==================== SCOPED PANEL CREATION (Prevents 200 Local Register Overflows) ====================
 
-local CWScroll = Instance.new("ScrollingFrame", CustomWordsFrame)
-CWScroll.Size = UDim2.new(1, -10, 1, -110)
-CWScroll.Position = UDim2.new(0, 5, 0, 65)
-CWScroll.BackgroundTransparency = 1
-CWScroll.ScrollBarThickness = 2
-CWScroll.ScrollBarImageColor3 = THEME.Accent
-CWScroll.CanvasSize = UDim2.new(0,0,0,0)
+do -- Custom Words Scope
+	local CustomWordsFrame = Instance.new("Frame", ScreenGui)
+	CustomWordsFrame.Name = "CustomWordsFrame"
+	CustomWordsFrame.Size = UDim2.new(0, 250, 0, 350)
+	CustomWordsFrame.Position = UDim2.new(0.5, -125, 0.5, -175)
+	CustomWordsFrame.BackgroundColor3 = THEME.Background
+	CustomWordsFrame.Visible = false
+	CustomWordsFrame.ClipsDescendants = true
+	EnableDragging(CustomWordsFrame)
+	Instance.new("UICorner", CustomWordsFrame).CornerRadius = UDim.new(0, 8)
+	local CWStroke = Instance.new("UIStroke", CustomWordsFrame)
+	CWStroke.Color = THEME.Accent
+	CWStroke.Transparency = 0.5
+	CWStroke.Thickness = 2
 
-local CWListLayout = Instance.new("UIListLayout", CWScroll)
-CWListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-CWListLayout.Padding = UDim.new(0, 2)
+	local CWHeader = Instance.new("TextLabel", CustomWordsFrame)
+	CWHeader.Text = "Custom Words Manager"
+	CWHeader.Font = Enum.Font.GothamBold
+	CWHeader.TextSize = 14
+	CWHeader.TextColor3 = THEME.Text
+	CWHeader.Size = UDim2.new(1, 0, 0, 35)
+	CWHeader.BackgroundTransparency = 1
 
-local CWAddBox = Instance.new("TextBox", CustomWordsFrame)
-CWAddBox.Font = Enum.Font.Gotham
-CWAddBox.TextSize = 12
-CWAddBox.BackgroundColor3 = THEME.ItemBG
-CWAddBox.Size = UDim2.new(0, 170, 0, 24)
-CWAddBox.Position = UDim2.new(0, 10, 1, -35)
-Instance.new("UICorner", CWAddBox).CornerRadius = UDim.new(0, 4)
-SetupPhantomBox(CWAddBox, "Add new word...")
+	local CWCloseBtn = Instance.new("TextButton", CustomWordsFrame)
+	CWCloseBtn.Text = "X"
+	CWCloseBtn.Font = Enum.Font.GothamBold
+	CWCloseBtn.TextSize = 14
+	CWCloseBtn.TextColor3 = Color3.fromRGB(255, 100, 100)
+	CWCloseBtn.Size = UDim2.new(0, 30, 0, 30)
+	CWCloseBtn.Position = UDim2.new(1, -30, 0, 2)
+	CWCloseBtn.BackgroundTransparency = 1
+	CWCloseBtn.MouseButton1Click:Connect(function() CustomWordsFrame.Visible = false end)
 
-local CWAddBtn = Instance.new("TextButton", CustomWordsFrame)
-CWAddBtn.Text = "Add"
-CWAddBtn.Font = Enum.Font.GothamBold
-CWAddBtn.TextSize = 11
-CWAddBtn.TextColor3 = THEME.Success
-CWAddBtn.BackgroundColor3 = THEME.ItemBG
-CWAddBtn.Size = UDim2.new(0, 50, 0, 24)
-CWAddBtn.Position = UDim2.new(1, -60, 1, -35)
-Instance.new("UICorner", CWAddBtn).CornerRadius = UDim.new(0, 4)
+	ManageWordsBtn.MouseButton1Click:Connect(function()
+		CustomWordsFrame.Visible = not CustomWordsFrame.Visible
+		CustomWordsFrame.Parent = nil
+		CustomWordsFrame.Parent = ScreenGui
+	end)
 
-local function RefreshCustomWords()
-	for _, c in ipairs(CWScroll:GetChildren()) do
-		if c:IsA("Frame") then c:Destroy() end
-	end
+	local CWSearchBox = Instance.new("TextBox", CustomWordsFrame)
+	CWSearchBox.Font = Enum.Font.Gotham
+	CWSearchBox.TextSize = 12
+	CWSearchBox.BackgroundColor3 = THEME.ItemBG
+	CWSearchBox.Size = UDim2.new(1, -20, 0, 24)
+	CWSearchBox.Position = UDim2.new(0, 10, 0, 35)
+	Instance.new("UICorner", CWSearchBox).CornerRadius = UDim.new(0, 4)
+	SetupPhantomBox(CWSearchBox, "Search words...")
 
-	local queryRaw = CWSearchBox.Text
-	local query = (queryRaw == "Search words...") and "" or queryRaw:lower():gsub("[%s%c]+", "")
+	local CWScroll = Instance.new("ScrollingFrame", CustomWordsFrame)
+	CWScroll.Size = UDim2.new(1, -10, 1, -110)
+	CWScroll.Position = UDim2.new(0, 5, 0, 65)
+	CWScroll.BackgroundTransparency = 1
+	CWScroll.ScrollBarThickness = 2
+	CWScroll.ScrollBarImageColor3 = THEME.Accent
+	CWScroll.CanvasSize = UDim2.new(0,0,0,0)
 
-	local list = Config.CustomWords or {}
-	local shownCount = 0
+	local CWListLayout = Instance.new("UIListLayout", CWScroll)
+	CWListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	CWListLayout.Padding = UDim.new(0, 2)
 
-	for i, w in ipairs(list) do
-		if query == "" or w:find(query, 1, true) then
-			shownCount = shownCount + 1
-			local row = Instance.new("TextButton", CWScroll)
-			row.Size = UDim2.new(1, -6, 0, 22)
-			row.BackgroundColor3 = (shownCount % 2 == 0) and Color3.fromRGB(25,25,30) or Color3.fromRGB(30,30,35)
-			row.BorderSizePixel = 0
-			row.Text = ""
-			row.AutoButtonColor = false
-			Instance.new("UICorner", row).CornerRadius = UDim.new(0, 4)
+	local CWAddBox = Instance.new("TextBox", CustomWordsFrame)
+	CWAddBox.Font = Enum.Font.Gotham
+	CWAddBox.TextSize = 12
+	CWAddBox.BackgroundColor3 = THEME.ItemBG
+	CWAddBox.Size = UDim2.new(0, 170, 0, 24)
+	CWAddBox.Position = UDim2.new(0, 10, 1, -35)
+	Instance.new("UICorner", CWAddBox).CornerRadius = UDim.new(0, 4)
+	SetupPhantomBox(CWAddBox, "Add new word...")
 
-			row.MouseButton1Click:Connect(function()
-				SmartType(w, lastDetected, true, true)
-				Tween(row, {BackgroundColor3 = THEME.Accent}, 0.2)
-				task.delay(0.2, function()
-					Tween(row, {BackgroundColor3 = (shownCount % 2 == 0) and Color3.fromRGB(25,25,30) or Color3.fromRGB(30,30,35)}, 0.2)
-				end)
-			end)
+	local CWAddBtn = Instance.new("TextButton", CustomWordsFrame)
+	CWAddBtn.Text = "Add"
+	CWAddBtn.Font = Enum.Font.GothamBold
+	CWAddBtn.TextSize = 11
+	CWAddBtn.TextColor3 = THEME.Success
+	CWAddBtn.BackgroundColor3 = THEME.ItemBG
+	CWAddBtn.Size = UDim2.new(0, 50, 0, 24)
+	CWAddBtn.Position = UDim2.new(1, -60, 1, -35)
+	Instance.new("UICorner", CWAddBtn).CornerRadius = UDim.new(0, 4)
 
-			local lbl = Instance.new("TextLabel", row)
-			lbl.Text = w
-			lbl.Font = Enum.Font.Gotham
-			lbl.TextSize = 12
-			lbl.TextColor3 = THEME.Text
-			lbl.Size = UDim2.new(1, -30, 1, 0)
-			lbl.Position = UDim2.new(0, 5, 0, 0)
-			lbl.BackgroundTransparency = 1
-			lbl.TextXAlignment = Enum.TextXAlignment.Left
-
-			-- Removed nested invisible button to fix click handling
-
-			local del = Instance.new("TextButton", row)
-			del.Text = "X"
-			del.Font = Enum.Font.GothamBold
-			del.TextSize = 11
-			del.TextColor3 = Color3.fromRGB(255, 80, 80)
-			del.Size = UDim2.new(0, 22, 1, 0)
-			del.Position = UDim2.new(1, -22, 0, 0)
-			del.BackgroundTransparency = 1
-
-			del.MouseButton1Click:Connect(function()
-				table.remove(Config.CustomWords, i)
-				SaveConfig()
-				Blacklist[w] = true
-				RefreshCustomWords()
-				ShowToast("Removed: " .. w, "warning")
-			end)
+	local function RefreshCustomWords()
+		for _, c in ipairs(CWScroll:GetChildren()) do
+			if c:IsA("Frame") then c:Destroy() end
 		end
+
+		local queryRaw = CWSearchBox.Text
+		local query = (queryRaw == "Search words...") and "" or queryRaw:lower():gsub("[%s%c]+", "")
+
+		local list = Config.CustomWords or {}
+		local shownCount = 0
+
+		for i, w in ipairs(list) do
+			if query == "" or w:find(query, 1, true) then
+				shownCount = shownCount + 1
+				local row = Instance.new("TextButton", CWScroll)
+				row.Size = UDim2.new(1, -6, 0, 22)
+				row.BackgroundColor3 = (shownCount % 2 == 0) and Color3.fromRGB(25,25,30) or Color3.fromRGB(30,30,35)
+				row.BorderSizePixel = 0
+				row.Text = ""
+				row.AutoButtonColor = false
+				Instance.new("UICorner", row).CornerRadius = UDim.new(0, 4)
+
+				row.MouseButton1Click:Connect(function()
+					SmartType(w, lastDetected, true, true)
+					Tween(row, {BackgroundColor3 = THEME.Accent}, 0.2)
+					task.delay(0.2, function()
+						Tween(row, {BackgroundColor3 = (shownCount % 2 == 0) and Color3.fromRGB(25,25,30) or Color3.fromRGB(30,30,35)}, 0.2)
+					end)
+				end)
+
+				local lbl = Instance.new("TextLabel", row)
+				lbl.Text = w
+				lbl.Font = Enum.Font.Gotham
+				lbl.TextSize = 12
+				lbl.TextColor3 = THEME.Text
+				lbl.Size = UDim2.new(1, -30, 1, 0)
+				lbl.Position = UDim2.new(0, 5, 0, 0)
+				lbl.BackgroundTransparency = 1
+				lbl.TextXAlignment = Enum.TextXAlignment.Left
+
+				local del = Instance.new("TextButton", row)
+				del.Text = "X"
+				del.Font = Enum.Font.GothamBold
+				del.TextSize = 11
+				del.TextColor3 = Color3.fromRGB(255, 80, 80)
+				del.Size = UDim2.new(0, 22, 1, 0)
+				del.Position = UDim2.new(1, -22, 0, 0)
+				del.BackgroundTransparency = 1
+
+				del.MouseButton1Click:Connect(function()
+					table.remove(Config.CustomWords, i)
+					SaveConfig()
+					Blacklist[w] = true
+					RefreshCustomWords()
+					ShowToast("Removed: " .. w, "warning")
+				end)
+			end
+		end
+		CWScroll.CanvasSize = UDim2.new(0, 0, 0, shownCount * 24)
 	end
-	CWScroll.CanvasSize = UDim2.new(0, 0, 0, shownCount * 24)
-end
 
-CWSearchBox:GetPropertyChangedSignal("Text"):Connect(RefreshCustomWords)
+	CWSearchBox:GetPropertyChangedSignal("Text"):Connect(RefreshCustomWords)
 
-CWAddBtn.MouseButton1Click:Connect(function()
-	local text = CWAddBox.Text
-	if text == "Add new word..." then return end
+	CWAddBtn.MouseButton1Click:Connect(function()
+		local text = CWAddBox.Text
+		if text == "Add new word..." then return end
 
-	text = text:gsub("[%s%c]+", ""):lower()
-	if #text < 2 then return end
+		text = text:gsub("[%s%c]+", ""):lower()
+		if #text < 2 then return end
 
-	if not Config.CustomWords then Config.CustomWords = {} end
+		if not Config.CustomWords then Config.CustomWords = {} end
 
-	for _, w in ipairs(Config.CustomWords) do
-		if w == text then
-			ShowToast("Word already in custom list!", "warning")
+		for _, w in ipairs(Config.CustomWords) do
+			if w == text then
+				ShowToast("Word already in custom list!", "warning")
+				return
+			end
+		end
+
+		local existsInMain = false
+		local c = text:sub(1,1)
+		if Buckets and Buckets[c] then
+			for _, w in ipairs(Buckets[c]) do
+				if w == text then existsInMain = true break end
+			end
+		end
+
+		if existsInMain then
+			ShowToast("Word already in main dictionary!", "error")
 			return
 		end
-	end
 
-	local existsInMain = false
-	local c = text:sub(1,1)
-	if Buckets and Buckets[c] then
-		for _, w in ipairs(Buckets[c]) do
-			if w == text then existsInMain = true break end
-		end
-	end
+		table.insert(Config.CustomWords, text)
+		SaveConfig()
 
-	if existsInMain then
-		ShowToast("Word already in main dictionary!", "error")
-		return
-	end
+		table.insert(Words, text)
+		if c == "" then c = "#" end
+		Buckets[c] = Buckets[c] or {}
+		table.insert(Buckets[c], text)
 
-	table.insert(Config.CustomWords, text)
-	SaveConfig()
-
-	table.insert(Words, text)
-	if c == "" then c = "#" end
-	Buckets[c] = Buckets[c] or {}
-	table.insert(Buckets[c], text)
-
-	CWAddBox.Text = ""
-	CWAddBox:ReleaseFocus()
-	RefreshCustomWords()
-	ShowToast("Added custom word: " .. text, "success")
-end)
-
-RefreshCustomWords()
-
-local ServerFrame = Instance.new("Frame", ScreenGui)
-ServerFrame.Name = "ServerBrowser"
-ServerFrame.Size = UDim2.new(0, 350, 0, 400)
-ServerFrame.Position = UDim2.new(0.5, -175, 0.5, -200)
-ServerFrame.BackgroundColor3 = THEME.Background
-ServerFrame.Visible = false
-ServerFrame.ClipsDescendants = true
-EnableDragging(ServerFrame)
-Instance.new("UICorner", ServerFrame).CornerRadius = UDim.new(0, 8)
-local SBStroke = Instance.new("UIStroke", ServerFrame)
-SBStroke.Color = THEME.Accent
-SBStroke.Transparency = 0.5
-SBStroke.Thickness = 2
-
-local SBHeader = Instance.new("TextLabel", ServerFrame)
-SBHeader.Text = "Server Browser"
-SBHeader.Font = Enum.Font.GothamBold
-SBHeader.TextSize = 16
-SBHeader.TextColor3 = THEME.Text
-SBHeader.Size = UDim2.new(1, 0, 0, 40)
-SBHeader.BackgroundTransparency = 1
-
-local SBClose = Instance.new("TextButton", ServerFrame)
-SBClose.Text = "X"
-SBClose.Font = Enum.Font.GothamBold
-SBClose.TextSize = 16
-SBClose.TextColor3 = Color3.fromRGB(255, 100, 100)
-SBClose.Size = UDim2.new(0, 40, 0, 40)
-SBClose.Position = UDim2.new(1, -40, 0, 0)
-SBClose.BackgroundTransparency = 1
-SBClose.MouseButton1Click:Connect(function() ServerFrame.Visible = false end)
-
-local SBList = Instance.new("ScrollingFrame", ServerFrame)
-SBList.Size = UDim2.new(1, -20, 1, -90)
-SBList.Position = UDim2.new(0, 10, 0, 50)
-SBList.BackgroundTransparency = 1
-SBList.ScrollBarThickness = 3
-SBList.ScrollBarImageColor3 = THEME.Accent
-
-local SBLayout = Instance.new("UIListLayout", SBList)
-SBLayout.Padding = UDim.new(0, 5)
-SBLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-local ServerSortMode = "Smallest"
-
-local SBSortBtn = Instance.new("TextButton", ServerFrame)
-SBSortBtn.Text = "Sort: Smallest"
-SBSortBtn.Font = Enum.Font.GothamBold
-SBSortBtn.TextSize = 12
-SBSortBtn.BackgroundColor3 = THEME.ItemBG
-SBSortBtn.TextColor3 = THEME.SubText
-SBSortBtn.Size = UDim2.new(0.5, -15, 0, 30)
-SBSortBtn.Position = UDim2.new(0, 10, 1, -40)
-Instance.new("UICorner", SBSortBtn).CornerRadius = UDim.new(0, 6)
-
-local SBRefresh = Instance.new("TextButton", ServerFrame)
-SBRefresh.Text = "Refresh"
-SBRefresh.Font = Enum.Font.GothamBold
-SBRefresh.TextSize = 12
-SBRefresh.BackgroundColor3 = THEME.Accent
-SBRefresh.Size = UDim2.new(0.5, -15, 0, 30)
-SBRefresh.Position = UDim2.new(0.5, 5, 1, -40)
-Instance.new("UICorner", SBRefresh).CornerRadius = UDim.new(0, 6)
-
-local function FetchServers()
-	SBRefresh.Text = "..."
-
-	for _, c in ipairs(SBList:GetChildren()) do
-		if c:IsA("Frame") then c:Destroy() end
-	end
-
-	task.spawn(function()
-		local success, result = pcall(function()
-			return request({
-				Url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100",
-				Method = "GET"
-			})
-		end)
-
-		if success and result and result.Body then
-			local data = HttpService:JSONDecode(result.Body)
-			if data and data.data then
-				local servers = data.data
-
-				if ServerSortMode == "Smallest" then
-					table.sort(servers, function(a,b) return (a.playing or 0) < (b.playing or 0) end)
-				else
-					table.sort(servers, function(a,b) return (a.playing or 0) > (b.playing or 0) end)
-				end
-
-				for _, srv in ipairs(servers) do
-					if srv.playing and srv.maxPlayers and srv.id ~= game.JobId then
-						local row = Instance.new("Frame", SBList)
-						row.Size = UDim2.new(1, -6, 0, 45)
-						row.BackgroundColor3 = THEME.ItemBG
-						Instance.new("UICorner", row).CornerRadius = UDim.new(0, 6)
-
-						local info = Instance.new("TextLabel", row)
-						info.Text = "Players: " .. srv.playing .. " / " .. srv.maxPlayers .. "\nPing: " .. (srv.ping or "?") .. "ms"
-						info.Size = UDim2.new(0.6, 0, 1, 0)
-						info.Position = UDim2.new(0, 10, 0, 0)
-						info.BackgroundTransparency = 1
-						info.TextColor3 = THEME.Text
-						info.Font = Enum.Font.Gotham
-						info.TextSize = 12
-						info.TextXAlignment = Enum.TextXAlignment.Left
-
-						local join = Instance.new("TextButton", row)
-						join.Text = "Join"
-						join.BackgroundColor3 = Color3.fromRGB(100, 200, 100)
-						join.Size = UDim2.new(0, 80, 0, 25)
-						join.Position = UDim2.new(1, -90, 0.5, -12.5)
-						join.Font = Enum.Font.GothamBold
-						join.TextSize = 12
-						join.TextColor3 = Color3.fromRGB(255,255,255)
-						Instance.new("UICorner", join).CornerRadius = UDim.new(0, 4)
-
-						join.MouseButton1Click:Connect(function()
-							join.Text = "Joining..."
-							ShowToast("Teleporting...", "success")
-
-							if queue_on_teleport then
-								queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/skrylor/Last-Letter-Script/refs/heads/main/Last%20Letter.lua"))()')
-							end
-
-							task.spawn(function()
-								local success, err = pcall(function()
-									game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, srv.id, Players.LocalPlayer)
-								end)
-								if not success then
-									join.Text = "Failed"
-									ShowToast("Teleport Failed: " .. tostring(err), "error")
-									task.wait(2)
-									join.Text = "Join"
-								end
-							end)
-						end)
-					end
-				end
-
-				SBList.CanvasSize = UDim2.new(0,0,0, SBLayout.AbsoluteContentSize.Y)
-			end
-		else
-			ShowToast("Failed to fetch servers", "error")
-		end
-		SBRefresh.Text = "Refresh"
+		CWAddBox.Text = ""
+		CWAddBox:ReleaseFocus()
+		RefreshCustomWords()
+		ShowToast("Added custom word: " .. text, "success")
 	end)
+
+	RefreshCustomWords()
 end
 
-SBSortBtn.MouseButton1Click:Connect(function()
-	if ServerSortMode == "Smallest" then
-		ServerSortMode = "Largest"
-	else
-		ServerSortMode = "Smallest"
+do -- Server Browser Scope
+	local ServerFrame = Instance.new("Frame", ScreenGui)
+	ServerFrame.Name = "ServerBrowser"
+	ServerFrame.Size = UDim2.new(0, 350, 0, 400)
+	ServerFrame.Position = UDim2.new(0.5, -175, 0.5, -200)
+	ServerFrame.BackgroundColor3 = THEME.Background
+	ServerFrame.Visible = false
+	ServerFrame.ClipsDescendants = true
+	EnableDragging(ServerFrame)
+	Instance.new("UICorner", ServerFrame).CornerRadius = UDim.new(0, 8)
+	local SBStroke = Instance.new("UIStroke", ServerFrame)
+	SBStroke.Color = THEME.Accent
+	SBStroke.Transparency = 0.5
+	SBStroke.Thickness = 2
+
+	local SBHeader = Instance.new("TextLabel", ServerFrame)
+	SBHeader.Text = "Server Browser"
+	SBHeader.Font = Enum.Font.GothamBold
+	SBHeader.TextSize = 16
+	SBHeader.TextColor3 = THEME.Text
+	SBHeader.Size = UDim2.new(1, 0, 0, 40)
+	SBHeader.BackgroundTransparency = 1
+
+	local SBClose = Instance.new("TextButton", ServerFrame)
+	SBClose.Text = "X"
+	SBClose.Font = Enum.Font.GothamBold
+	SBClose.TextSize = 16
+	SBClose.TextColor3 = Color3.fromRGB(255, 100, 100)
+	SBClose.Size = UDim2.new(0, 40, 0, 40)
+	SBClose.Position = UDim2.new(1, -40, 0, 0)
+	SBClose.BackgroundTransparency = 1
+	SBClose.MouseButton1Click:Connect(function() ServerFrame.Visible = false end)
+
+	local SBList = Instance.new("ScrollingFrame", ServerFrame)
+	SBList.Size = UDim2.new(1, -20, 1, -90)
+	SBList.Position = UDim2.new(0, 10, 0, 50)
+	SBList.BackgroundTransparency = 1
+	SBList.ScrollBarThickness = 3
+	SBList.ScrollBarImageColor3 = THEME.Accent
+
+	local SBLayout = Instance.new("UIListLayout", SBList)
+	SBLayout.Padding = UDim.new(0, 5)
+	SBLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	local ServerSortMode = "Smallest"
+
+	local SBSortBtn = Instance.new("TextButton", ServerFrame)
+	SBSortBtn.Text = "Sort: Smallest"
+	SBSortBtn.Font = Enum.Font.GothamBold
+	SBSortBtn.TextSize = 12
+	SBSortBtn.BackgroundColor3 = THEME.ItemBG
+	SBSortBtn.TextColor3 = THEME.SubText
+	SBSortBtn.Size = UDim2.new(0.5, -15, 0, 30)
+	SBSortBtn.Position = UDim2.new(0, 10, 1, -40)
+	Instance.new("UICorner", SBSortBtn).CornerRadius = UDim.new(0, 6)
+
+	local SBRefresh = Instance.new("TextButton", ServerFrame)
+	SBRefresh.Text = "Refresh"
+	SBRefresh.Font = Enum.Font.GothamBold
+	SBRefresh.TextSize = 12
+	SBRefresh.BackgroundColor3 = THEME.Accent
+	SBRefresh.Size = UDim2.new(0.5, -15, 0, 30)
+	SBRefresh.Position = UDim2.new(0.5, 5, 1, -40)
+	Instance.new("UICorner", SBRefresh).CornerRadius = UDim.new(0, 6)
+
+	local function FetchServers()
+		SBRefresh.Text = "..."
+
+		for _, c in ipairs(SBList:GetChildren()) do
+			if c:IsA("Frame") then c:Destroy() end
+		end
+
+		task.spawn(function()
+			local success, result = pcall(function()
+				return request({
+					Url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100",
+					Method = "GET"
+				})
+			end)
+
+			if success and result and result.Body then
+				local data = HttpService:JSONDecode(result.Body)
+				if data and data.data then
+					local servers = data.data
+
+					if ServerSortMode == "Smallest" then
+						table.sort(servers, function(a,b) return (a.playing or 0) < (b.playing or 0) end)
+					else
+						table.sort(servers, function(a,b) return (a.playing or 0) > (b.playing or 0) end)
+					end
+
+					for _, srv in ipairs(servers) do
+						if srv.playing and srv.maxPlayers and srv.id ~= game.JobId then
+							local row = Instance.new("Frame", SBList)
+							row.Size = UDim2.new(1, -6, 0, 45)
+							row.BackgroundColor3 = THEME.ItemBG
+							Instance.new("UICorner", row).CornerRadius = UDim.new(0, 6)
+
+							local info = Instance.new("TextLabel", row)
+							info.Text = "Players: " .. srv.playing .. " / " .. srv.maxPlayers .. "\nPing: " .. (srv.ping or "?") .. "ms"
+							info.Size = UDim2.new(0.6, 0, 1, 0)
+							info.Position = UDim2.new(0, 10, 0, 0)
+							info.BackgroundTransparency = 1
+							info.TextColor3 = THEME.Text
+							info.Font = Enum.Font.Gotham
+							info.TextSize = 12
+							info.TextXAlignment = Enum.TextXAlignment.Left
+
+							local join = Instance.new("TextButton", row)
+							join.Text = "Join"
+							join.BackgroundColor3 = Color3.fromRGB(100, 200, 100)
+							join.Size = UDim2.new(0, 80, 0, 25)
+							join.Position = UDim2.new(1, -90, 0.5, -12.5)
+							join.Font = Enum.Font.GothamBold
+							join.TextSize = 12
+							join.TextColor3 = Color3.fromRGB(255,255,255)
+							Instance.new("UICorner", join).CornerRadius = UDim.new(0, 4)
+
+							join.MouseButton1Click:Connect(function()
+								join.Text = "Joining..."
+								ShowToast("Teleporting...", "success")
+
+								if queue_on_teleport then
+									queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/skrylor/Last-Letter-Script/refs/heads/main/Last%20Letter.lua"))()')
+								end
+
+								task.spawn(function()
+									local success, err = pcall(function()
+										game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, srv.id, Players.LocalPlayer)
+									end)
+									if not success then
+										join.Text = "Failed"
+										ShowToast("Teleport Failed: " .. tostring(err), "error")
+										task.wait(2)
+										join.Text = "Join"
+									end
+								end)
+							end)
+						end
+					end
+
+					SBList.CanvasSize = UDim2.new(0,0,0, SBLayout.AbsoluteContentSize.Y)
+				end
+			else
+				ShowToast("Failed to fetch servers", "error")
+			end
+			SBRefresh.Text = "Refresh"
+		end)
 	end
-	SBSortBtn.Text = "Sort: " .. ServerSortMode
-	FetchServers()
-end)
 
-SBRefresh.MouseButton1Click:Connect(FetchServers)
-
-ServerBrowserBtn.MouseButton1Click:Connect(function()
-	ServerFrame.Visible = not ServerFrame.Visible
-	ServerFrame.Parent = nil
-	ServerFrame.Parent = ScreenGui
-
-	if ServerFrame.Visible then
+	SBSortBtn.MouseButton1Click:Connect(function()
+		if ServerSortMode == "Smallest" then
+			ServerSortMode = "Largest"
+		else
+			ServerSortMode = "Smallest"
+		end
+		SBSortBtn.Text = "Sort: " .. ServerSortMode
 		FetchServers()
-	end
-end)
+	end)
+
+	SBRefresh.MouseButton1Click:Connect(FetchServers)
+
+	ServerBrowserBtn.MouseButton1Click:Connect(function()
+		ServerFrame.Visible = not ServerFrame.Visible
+		ServerFrame.Parent = nil
+		ServerFrame.Parent = ScreenGui
+
+		if ServerFrame.Visible then
+			FetchServers()
+		end
+	end)
+end
 
 -- ==================== CUSTOMIZE SARTRE UI (Optimized) ====================
 
@@ -1856,7 +1854,6 @@ end)
             nameLabel.TextSize = 14
             nameLabel.TextColor3 = THEME.Text
 
-            -- FIXED PRIORITY TEXTBOX
             local prioBox = Instance.new("TextBox", row)
             prioBox.Size = UDim2.new(0, 70, 0, 26)
             prioBox.Position = UDim2.new(0.42, 0, 0.5, -13)
@@ -1885,7 +1882,6 @@ end)
             delBtn.TextColor3 = Color3.new(1,1,1)
             Instance.new("UICorner", delBtn).CornerRadius = UDim.new(0, 5)
 
-            -- Fix for TextBox visibility
             prioBox.Focused:Connect(function()
                 prioBox.TextColor3 = Color3.fromRGB(255, 255, 255)
             end)
@@ -1895,11 +1891,11 @@ end)
                     local num = tonumber(prioBox.Text)
                     if num then
                         PriorityEndings[item.ending] = num
-                        RefreshList()   -- refresh to show new value
+                        RefreshList()
                         forceUpdateList = true
                         ShowToast(item.ending .. " = " .. num, "success")
                     else
-                        prioBox.Text = tostring(item.priority) -- revert if invalid
+                        prioBox.Text = tostring(item.priority)
                     end
                 end
             end)
@@ -1925,7 +1921,6 @@ end)
         scroll.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y)
     end
 
-    -- Connections
     searchBox:GetPropertyChangedSignal("Text"):Connect(RefreshList)
 
     addBtn.MouseButton1Click:Connect(function()
@@ -1947,16 +1942,15 @@ end)
     SartreBtn.MouseButton1Click:Connect(function()
         SartreFrame.Visible = not SartreFrame.Visible
         if SartreFrame.Visible then
-            task.wait(0.05)   -- small delay to help rendering
+            task.wait(0.05)
             RefreshList()
         end
     end)
 end
 
--- Create the UI
 CreateSartreCustomizer()
 
-do
+do -- Word Browser Scope
 	local WordBrowserFrame = Instance.new("Frame", ScreenGui)
 	WordBrowserFrame.Name = "WordBrowser"
 	WordBrowserFrame.Size = UDim2.new(0, 300, 0, 400)
@@ -2068,7 +2062,6 @@ do
 		lengthMode = lVal or 0
 		Config.LengthMode = lengthMode
 
-		-- Trigger main list update (good to keep)
 		if UpdateList then
 			UpdateList(lastDetected, lastRequiredLetter)
 		end
@@ -2086,9 +2079,6 @@ do
 			end
 		end
 
-		-- ──────────────────────────────────────────────────────────────
-		-- Phase 1: Try to find words ending exactly with the desired suffix
-		-- ──────────────────────────────────────────────────────────────
 		local exactSuffixMatches = {}
 		if eVal ~= "" then
 			for _, w in ipairs(bucket) do
@@ -2103,16 +2093,12 @@ do
 			end
 		end
 
-		-- ──────────────────────────────────────────────────────────────
-		-- Phase 2: Fallback — if no (or very few) exact matches → show prefix matches
-		-- ──────────────────────────────────────────────────────────────
 		local fallbackMatches = {}
-		if #exactSuffixMatches < 5 and sVal ~= "" then   -- only fallback if almost no results
+		if #exactSuffixMatches < 5 and sVal ~= "" then
 			for _, w in ipairs(bucket) do
 				local matchStart = w:sub(1, #sVal) == sVal
 				local matchLen   = (not lVal) or (#w == lVal)
 
-				-- We ignore ending here — just prefix + optional length
 				if matchStart and matchLen then
 					table.insert(fallbackMatches, w)
 					if #fallbackMatches >= limit then break end
@@ -2120,9 +2106,6 @@ do
 			end
 		end
 
-		-- ──────────────────────────────────────────────────────────────
-		-- Decide what to show
-		-- ──────────────────────────────────────────────────────────────
 		local finalResults = {}
 		if #exactSuffixMatches == 0 and #finalResults > 0 then
 			FallbackLabel.Text = "No words ending in '" .. eVal .. "' — showing prefix matches instead"
@@ -2131,7 +2114,6 @@ do
 			FallbackLabel.Visible = false
 		end
 
-		-- Display
 		for i, w in ipairs(finalResults) do
 			local row = Instance.new("TextButton", WBList)
 			row.Size = UDim2.new(1, -6, 0, 22)
@@ -2158,10 +2140,9 @@ do
 			lbl.BackgroundTransparency = 1
 			lbl.TextXAlignment = Enum.TextXAlignment.Left
 
-			-- Optional: visual hint when it's fallback results
 			if #exactSuffixMatches == 0 and #finalResults > 0 then
 				lbl.Text = w .. "   (no ely words found — showing prefix matches)"
-				lbl.TextColor3 = Color3.fromRGB(180, 180, 100)  -- yellowish hint
+				lbl.TextColor3 = Color3.fromRGB(180, 180, 100)
 			end
 		end
 
@@ -2265,10 +2246,7 @@ local function GetKeyCode(char)
 			if char == "q" then return Enum.KeyCode.A end
 			if char == "z" then return Enum.KeyCode.W end
 			if char == "w" then return Enum.KeyCode.Z end
-			if char == "m" then return Enum.KeyCode.Semicolon end -- M is often next to L
-			-- NOTE: AZERTY is tricky because M can vary, but standard AZERTY FR places M right of L (where semi-colon is on QWERTY)
-			-- However, many games might use scan codes where M is actually comma or something else depending on the specific AZERTY variant.
-			-- For standard AZERTY (France), M is indeed usually where ; is.
+			if char == "m" then return Enum.KeyCode.Semicolon end
 		end
 		return Enum.KeyCode[char:upper()]
 	end
@@ -2283,7 +2261,6 @@ local function SimulateKey(input)
 		end)
 
 		if not vimSuccess then
-			-- Fallback for executors that don't support SendTextInput or for keycodes
 			local key
 			pcall(function() key = GetKeyCode(input) end)
 			if not key then pcall(function() key = Enum.KeyCode[input:upper()] end) end
@@ -2380,7 +2357,6 @@ local function SmartType(targetWord, currentDetected, isCorrection, bypassTurn)
         end
     end
 
-    -- ANTI INTIMIDATOR: Only reverse the word we TYPE when feature + active
     local wordToType = targetWord
     if antiIntimidatorEnabled and antiIntimidatorActive then
         wordToType = Reverse(targetWord)
@@ -2398,19 +2374,6 @@ local function SmartType(targetWord, currentDetected, isCorrection, bypassTurn)
     StatusText.Text = "Typing..."
     StatusText.TextColor3 = THEME.Accent
     Tween(StatusDot, {BackgroundColor3 = THEME.Accent})
-
-	isTyping = true
-	lastTypingStart = tick()
-
-	local targetBox = GetGameTextBox()
-	if targetBox then
-		targetBox:CaptureFocus()
-		task.wait(0.1)
-	end
-
-	StatusText.Text = "Typing..."
-	StatusText.TextColor3 = THEME.Accent
-	Tween(StatusDot, {BackgroundColor3 = THEME.Accent})
 
 	local success, err = pcall(function()
 		if isCorrection then
@@ -2433,7 +2396,6 @@ local function SmartType(targetWord, currentDetected, isCorrection, bypassTurn)
 			local toType = targetWord:sub(commonLen + 1)
 			for i = 1, #toType do
 				if not bypassTurn and not GetTurnInfo() then
-					-- Double check if turn info is just flickering
 					task.wait(0.05)
 					if not GetTurnInfo() then break end
 				end
@@ -2446,7 +2408,6 @@ local function SmartType(targetWord, currentDetected, isCorrection, bypassTurn)
 				end
 			end
 
-			-- Pre-submission verify
 			local finalCheck = GetGameTextBox()
 			if not riskyMistakes then
 				task.wait(0.1)
@@ -2524,7 +2485,6 @@ local function SmartType(targetWord, currentDetected, isCorrection, bypassTurn)
 			local letters = "abcdefghijklmnopqrstuvwxyz"
 			for i = 1, #missingPart do
 				if not bypassTurn and not GetTurnInfo() then
-					-- Double check if turn info is just flickering
 					task.wait(0.05)
 					if not GetTurnInfo() then break end
 				end
@@ -2562,9 +2522,7 @@ local function SmartType(targetWord, currentDetected, isCorrection, bypassTurn)
 				end
 			end
 
-			-- Pre-submission verify
 			if not riskyMistakes then
-				-- Wait a moment for last character to register
 				task.wait(0.1)
 				local finalCheck = GetGameTextBox()
 				if finalCheck and finalCheck.Text ~= targetWord then
@@ -2574,7 +2532,6 @@ local function SmartType(targetWord, currentDetected, isCorrection, bypassTurn)
 
 					isTyping = false
 					forceUpdateList = true
-					-- Return without blacklisting
 					return
 				end
 			end
@@ -2693,10 +2650,10 @@ local function BinarySearchStart(list, prefix)
 	return result
 end
 
+-- ==================== CRITICAL SARTRE LOOKUP FIX ====================
 UpdateList = function(detectedText, requiredLetter)
     local matches = {}
     
-    -- ANTI INTIMIDATOR: Only reverse when both feature is enabled AND active
     local searchText = detectedText
     local searchRequired = requiredLetter or ""
 
@@ -2742,16 +2699,17 @@ UpdateList = function(detectedText, requiredLetter)
 
 	local function CollectMatches(prefix, tryFallbackLengths)
 		local exacts = {}
-		local fallbackExacts = {}
 		local partials = {}
 		local maxPartialLen = 0
 		local limit = 100
+
+		-- We are sorting by priority (Sartre/Altver/Hyphenated). We MUST collect ALL matches.
+		local isPrioritySort = (sortMode == "Sartre" or sortMode == "Altver" or sortMode == "Hyphenated")
 
 		if bucket then
 			local checkWord = function(w)
 				if Blacklist[w] or UsedWords[w] then return end
 
-				-- Check for main list filtering (suffix/length)
 				if suffixMode ~= "" and w:sub(-#suffixMode) ~= suffixMode then return end
 
 				local isLengthMatch = true
@@ -2784,6 +2742,8 @@ UpdateList = function(detectedText, requiredLetter)
 
 				if startIndex ~= -1 then
 					local count = 0
+					-- Bypass arbitrary alphabetical limits when trying to sort by priority
+					local hardCap = isPrioritySort and math.huge or 3000
 					for i = startIndex, #bucket do
 						local w = bucket[i]
 
@@ -2792,7 +2752,7 @@ UpdateList = function(detectedText, requiredLetter)
 						checkWord(w)
 
 						count = count + 1
-						if count >= 3000 then break end
+						if count >= hardCap then break end
 					end
 				end
 			else
@@ -2848,7 +2808,6 @@ UpdateList = function(detectedText, requiredLetter)
 		end
 	end
 
--- === FIXED SORTING BLOCK (Sartre + Altver) ===
 if #matches > 0 then
     if sortMode == "Longest" then
         table.sort(matches, function(a, b) return #a > #b end)
@@ -2867,7 +2826,7 @@ if #matches > 0 then
         table.sort(matches, function(a, b)
             local sA = GetPriority(a, "Altver")
             local sB = GetPriority(b, "Altver")
-            if sA == sB then return #a < #b end   -- shorter first on tie
+            if sA == sB then return #a < #b end
             return sA > sB
         end)
 
@@ -3281,32 +3240,30 @@ runConn = RunService.RenderStepped:Connect(function()
 				StatsData.Count.Text = "Words: 0"
 			end
 			lastDetected = "---"
-elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
+		elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or forceUpdateList then
 
-    -- Spectate Live Override
-    if _G.WH_SpectateActive and _G.WH_SpectateTable then
-        detected = _G.WH_LastSpectateText
-    end
-	
-    -- Spectate Override
-    if _G.WordHelper_SpectateActive and _G.WordHelper_SpectateWord ~= "" then
-        detected = _G.WordHelper_SpectateWord
-    end    
-    -- SPECTATE OVERRIDE - This makes spectating actually work live
-    if isSpectating and spectateOverrideWord ~= "" then
-        detected = spectateOverrideWord
-        requiredLetter = spectateOverrideWord:sub(1,1)
-    end
+			if _G.WH_SpectateActive and _G.WH_SpectateTable then
+				detected = _G.WH_LastSpectateText
+			end
+			
+			if _G.WordHelper_SpectateActive and _G.WordHelper_SpectateWord ~= "" then
+				detected = _G.WordHelper_SpectateWord
+			end    
+			
+			if isSpectating and spectateOverrideWord ~= "" then
+				detected = spectateOverrideWord
+				requiredLetter = spectateOverrideWord:sub(1,1)
+			end
 
-    currentBestMatch = nil
-    lastDetected = detected
-    lastRequiredLetter = requiredLetter
+			currentBestMatch = nil
+			lastDetected = detected
+			lastRequiredLetter = requiredLetter
 
-    if detected == "" and not forceUpdateList then
-        StatusText.Text = "Waiting..."
-        StatusText.TextColor3 = THEME.SubText
-        Tween(StatusDot, {BackgroundColor3 = THEME.SubText})
-        UpdateList("", requiredLetter)
+			if detected == "" and not forceUpdateList then
+				StatusText.Text = "Waiting..."
+				StatusText.TextColor3 = THEME.SubText
+				Tween(StatusDot, {BackgroundColor3 = THEME.SubText})
+				UpdateList("", requiredLetter)
 				listUpdatePending = false
 
 				local visCount = 0
@@ -3329,31 +3286,29 @@ elseif detected ~= lastDetected or requiredLetter ~= lastRequiredLetter or force
 						end
 					end
 
-if isCompleted then
-    StatusText.Text = "Completed: " .. detected .. " <font color=\"rgb(100,255,140)\">✓</font>"
-    StatusText.TextColor3 = THEME.Success
-    Tween(StatusDot, {BackgroundColor3 = THEME.Success})
+					if isCompleted then
+						StatusText.Text = "Completed: " .. detected .. " <font color=\"rgb(100,255,140)\">✓</font>"
+						StatusText.TextColor3 = THEME.Success
+						Tween(StatusDot, {BackgroundColor3 = THEME.Success})
 
-    -- Automatically mark as used so it disappears from list
-    if detected and #detected > 0 then
-        UsedWords[detected] = true
-        
-        -- Also clean from random cache
-        for k, list in pairs(RandomOrderCache or {}) do
-            for i = #list, 1, -1 do
-                if list[i] == detected then
-                    table.remove(list, i)
-                end
-            end
-        end
+						if detected and #detected > 0 then
+							UsedWords[detected] = true
+							
+							for k, list in pairs(RandomOrderCache or {}) do
+								for i = #list, 1, -1 do
+									if list[i] == detected then
+										table.remove(list, i)
+									end
+								end
+							end
 
-        forceUpdateList = true
-    end
-                     else
-                        StatusText.Text = "Input: " .. detected
-                        StatusText.TextColor3 = THEME.Accent
-                        Tween(StatusDot, {BackgroundColor3 = THEME.Warning})
-                    end
+							forceUpdateList = true
+						end
+					else
+						StatusText.Text = "Input: " .. detected
+						StatusText.TextColor3 = THEME.Accent
+						Tween(StatusDot, {BackgroundColor3 = THEME.Warning})
+					end
 				end
 
 				if forceUpdateList then
@@ -3389,183 +3344,181 @@ if isCompleted then
 	end)
 end)
 
--- ==================== SPECTATE TABLES - OPTIMIZED (Low Lag) ====================
+-- ==================== SPECTATE TABLES - OPTIMIZED SCOPE (No Register Overflow) ====================
 
-local SpectateFrame = Instance.new("Frame")
-SpectateFrame.Name = "SpectateTables"
-SpectateFrame.Size = UDim2.new(0, 320, 0, 420)
-SpectateFrame.Position = UDim2.new(0.5, -160, 0.5, -210)
-SpectateFrame.BackgroundColor3 = THEME.Background
-SpectateFrame.Visible = false
-SpectateFrame.ClipsDescendants = true
-SpectateFrame.Parent = ScreenGui
+do
+	local SpectateFrame = Instance.new("Frame")
+	SpectateFrame.Name = "SpectateTables"
+	SpectateFrame.Size = UDim2.new(0, 320, 0, 420)
+	SpectateFrame.Position = UDim2.new(0.5, -160, 0.5, -210)
+	SpectateFrame.BackgroundColor3 = THEME.Background
+	SpectateFrame.Visible = false
+	SpectateFrame.ClipsDescendants = true
+	SpectateFrame.Parent = ScreenGui
 
-EnableDragging(SpectateFrame)
-Instance.new("UICorner", SpectateFrame).CornerRadius = UDim.new(0, 8)
+	EnableDragging(SpectateFrame)
+	Instance.new("UICorner", SpectateFrame).CornerRadius = UDim.new(0, 8)
 
-local SpecStroke = Instance.new("UIStroke", SpectateFrame)
-SpecStroke.Color = THEME.Accent
-SpecStroke.Thickness = 2
+	local SpecStroke = Instance.new("UIStroke", SpectateFrame)
+	SpecStroke.Color = THEME.Accent
+	SpecStroke.Thickness = 2
 
-local SpecHeader = Instance.new("TextLabel", SpectateFrame)
-SpecHeader.Text = "Spectate Tables"
-SpecHeader.Font = Enum.Font.GothamBold
-SpecHeader.TextSize = 16
-SpecHeader.TextColor3 = THEME.Text
-SpecHeader.Size = UDim2.new(1, 0, 0, 40)
-SpecHeader.BackgroundTransparency = 1
+	local SpecHeader = Instance.new("TextLabel", SpectateFrame)
+	SpecHeader.Text = "Spectate Tables"
+	SpecHeader.Font = Enum.Font.GothamBold
+	SpecHeader.TextSize = 16
+	SpecHeader.TextColor3 = THEME.Text
+	SpecHeader.Size = UDim2.new(1, 0, 0, 40)
+	SpecHeader.BackgroundTransparency = 1
 
-local SpecCloseBtn = Instance.new("TextButton", SpectateFrame)
-SpecCloseBtn.Text = "X"
-SpecCloseBtn.Font = Enum.Font.GothamBold
-SpecCloseBtn.TextSize = 16
-SpecCloseBtn.TextColor3 = Color3.fromRGB(255,100,100)
-SpecCloseBtn.Size = UDim2.new(0,40,0,40)
-SpecCloseBtn.Position = UDim2.new(1,-40,0,0)
-SpecCloseBtn.BackgroundTransparency = 1
-SpecCloseBtn.MouseButton1Click:Connect(function() SpectateFrame.Visible = false end)
+	local SpecCloseBtn = Instance.new("TextButton", SpectateFrame)
+	SpecCloseBtn.Text = "X"
+	SpecCloseBtn.Font = Enum.Font.GothamBold
+	SpecCloseBtn.TextSize = 16
+	SpecCloseBtn.TextColor3 = Color3.fromRGB(255,100,100)
+	SpecCloseBtn.Size = UDim2.new(0,40,0,40)
+	SpecCloseBtn.Position = UDim2.new(1,-40,0,0)
+	SpecCloseBtn.BackgroundTransparency = 1
+	SpecCloseBtn.MouseButton1Click:Connect(function() SpectateFrame.Visible = false end)
 
-local SpecScroll = Instance.new("ScrollingFrame", SpectateFrame)
-SpecScroll.Size = UDim2.new(1,-20,1,-90)
-SpecScroll.Position = UDim2.new(0,10,0,50)
-SpecScroll.BackgroundTransparency = 1
-SpecScroll.ScrollBarThickness = 4
-SpecScroll.ScrollBarImageColor3 = THEME.Accent
+	local SpecScroll = Instance.new("ScrollingFrame", SpectateFrame)
+	SpecScroll.Size = UDim2.new(1,-20,1,-90)
+	SpecScroll.Position = UDim2.new(0,10,0,50)
+	SpecScroll.BackgroundTransparency = 1
+	SpecScroll.ScrollBarThickness = 4
+	SpecScroll.ScrollBarImageColor3 = THEME.Accent
 
-Instance.new("UIListLayout", SpecScroll).Padding = UDim.new(0,6)
+	Instance.new("UIListLayout", SpecScroll).Padding = UDim.new(0,6)
 
-local NormalBtn = Instance.new("TextButton", SpectateFrame)
-NormalBtn.Text = "Normal Mode"
-NormalBtn.Font = Enum.Font.GothamBold
-NormalBtn.TextSize = 13
-NormalBtn.BackgroundColor3 = THEME.ItemBG
-NormalBtn.TextColor3 = THEME.Success
-NormalBtn.Size = UDim2.new(0.45,0,0,35)
-NormalBtn.Position = UDim2.new(0,15,1,-45)
-Instance.new("UICorner", NormalBtn).CornerRadius = UDim.new(0,6)
+	local NormalBtn = Instance.new("TextButton", SpectateFrame)
+	NormalBtn.Text = "Normal Mode"
+	NormalBtn.Font = Enum.Font.GothamBold
+	NormalBtn.TextSize = 13
+	NormalBtn.BackgroundColor3 = THEME.ItemBG
+	NormalBtn.TextColor3 = THEME.Success
+	NormalBtn.Size = UDim2.new(0.45,0,0,35)
+	NormalBtn.Position = UDim2.new(0,15,1,-45)
+	Instance.new("UICorner", NormalBtn).CornerRadius = UDim.new(0,6)
 
-local SpectateModeBtn = Instance.new("TextButton", SpectateFrame)
-SpectateModeBtn.Text = "Spectate Mode"
-SpectateModeBtn.Font = Enum.Font.GothamBold
-SpectateModeBtn.TextSize = 13
-SpectateModeBtn.BackgroundColor3 = THEME.ItemBG
-SpectateModeBtn.TextColor3 = THEME.Accent
-SpectateModeBtn.Size = UDim2.new(0.45,0,0,35)
-SpectateModeBtn.Position = UDim2.new(0.52,0,1,-45)
-Instance.new("UICorner", SpectateModeBtn).CornerRadius = UDim.new(0,6)
+	local SpectateModeBtn = Instance.new("TextButton", SpectateFrame)
+	SpectateModeBtn.Text = "Spectate Mode"
+	SpectateModeBtn.Font = Enum.Font.GothamBold
+	SpectateModeBtn.TextSize = 13
+	SpectateModeBtn.BackgroundColor3 = THEME.ItemBG
+	SpectateModeBtn.TextColor3 = THEME.Accent
+	SpectateModeBtn.Size = UDim2.new(0.45,0,0,35)
+	SpectateModeBtn.Position = UDim2.new(0.52,0,1,-45)
+	Instance.new("UICorner", SpectateModeBtn).CornerRadius = UDim.new(0,6)
 
--- Lightweight variables
-_G.WH_SpectateActive = false
-_G.WH_SpectateTable = nil
-_G.WH_LastSpectateText = ""
+	_G.WH_SpectateActive = false
+	_G.WH_SpectateTable = nil
+	_G.WH_LastSpectateText = ""
 
-NormalBtn.MouseButton1Click:Connect(function()
-    _G.WH_SpectateActive = false
-    _G.WH_SpectateTable = nil
-    ShowToast("Normal Mode", "success")
-    SpectateFrame.Visible = false
-end)
+	NormalBtn.MouseButton1Click:Connect(function()
+		_G.WH_SpectateActive = false
+		_G.WH_SpectateTable = nil
+		ShowToast("Normal Mode", "success")
+		SpectateFrame.Visible = false
+	end)
 
-SpectateModeBtn.MouseButton1Click:Connect(function()
-    _G.WH_SpectateActive = true
-    RefreshSpectateList()
-    ShowToast("Spectate Mode - Live (Optimized)", "success")
-end)
+	SpectateModeBtn.MouseButton1Click:Connect(function()
+		_G.WH_SpectateActive = true
+		RefreshSpectateList()
+		ShowToast("Spectate Mode - Live (Optimized)", "success")
+	end)
 
-function RefreshSpectateList()
-    for _, v in ipairs(SpecScroll:GetChildren()) do
-        if v:IsA("GuiObject") then v:Destroy() end
-    end
+	function RefreshSpectateList()
+		for _, v in ipairs(SpecScroll:GetChildren()) do
+			if v:IsA("GuiObject") then v:Destroy() end
+		end
 
-    local folder = workspace:FindFirstChild("Tables")
-    if not folder then
-        local lbl = Instance.new("TextLabel", SpecScroll)
-        lbl.Text = "Tables folder not found"
-        lbl.Size = UDim2.new(1,0,0,50)
-        lbl.BackgroundTransparency = 1
-        lbl.TextColor3 = THEME.Warning
-        lbl.TextSize = 14
-        return
-    end
+		local folder = workspace:FindFirstChild("Tables")
+		if not folder then
+			local lbl = Instance.new("TextLabel", SpecScroll)
+			lbl.Text = "Tables folder not found"
+			lbl.Size = UDim2.new(1,0,0,50)
+			lbl.BackgroundTransparency = 1
+			lbl.TextColor3 = THEME.Warning
+			lbl.TextSize = 14
+			return
+		end
 
-    local list = folder:GetChildren()
-    table.sort(list, function(a,b) return (tonumber(a.Name) or 0) < (tonumber(b.Name) or 0) end)
+		local list = folder:GetChildren()
+		table.sort(list, function(a,b) return (tonumber(a.Name) or 0) < (tonumber(b.Name) or 0) end)
 
-    for _, tbl in ipairs(list) do
-        if tbl:IsA("Model") or tbl:IsA("Folder") then
-            local btn = Instance.new("TextButton", SpecScroll)
-            btn.Size = UDim2.new(1,-10,0,50)
-            btn.BackgroundColor3 = THEME.ItemBG
-            btn.Text = ""
-            Instance.new("UICorner", btn).CornerRadius = UDim.new(0,6)
+		for _, tbl in ipairs(list) do
+			if tbl:IsA("Model") or tbl:IsA("Folder") then
+				local btn = Instance.new("TextButton", SpecScroll)
+				btn.Size = UDim2.new(1,-10,0,50)
+				btn.BackgroundColor3 = THEME.ItemBG
+				btn.Text = ""
+				Instance.new("UICorner", btn).CornerRadius = UDim.new(0,6)
 
-            Instance.new("TextLabel", btn).Text = "Table " .. tbl.Name
-            local status = Instance.new("TextLabel", btn)
-            status.Text = "Click to watch"
-            status.Font = Enum.Font.Gotham
-            status.TextSize = 12
-            status.TextColor3 = THEME.SubText
-            status.BackgroundTransparency = 1
-            status.Size = UDim2.new(1,-20,0.5,0)
-            status.Position = UDim2.new(0,10,0.5,0)
-            status.TextXAlignment = Enum.TextXAlignment.Left
+				Instance.new("TextLabel", btn).Text = "Table " .. tbl.Name
+				local status = Instance.new("TextLabel", btn)
+				status.Text = "Click to watch"
+				status.Font = Enum.Font.Gotham
+				status.TextSize = 12
+				status.TextColor3 = THEME.SubText
+				status.BackgroundTransparency = 1
+				status.Size = UDim2.new(1,-20,0.5,0)
+				status.Position = UDim2.new(0,10,0.5,0)
+				status.TextXAlignment = Enum.TextXAlignment.Left
 
-            btn.MouseButton1Click:Connect(function()
-                _G.WH_SpectateTable = tbl
-                _G.WH_LastSpectateText = ""
-                UpdateSpectateLive()
-                ShowToast("Watching Table " .. tbl.Name, "success")
-            end)
-        end
-    end
+				btn.MouseButton1Click:Connect(function()
+					_G.WH_SpectateTable = tbl
+					_G.WH_LastSpectateText = ""
+					UpdateSpectateLive()
+					ShowToast("Watching Table " .. tbl.Name, "success")
+				end)
+			end
+		end
+	end
+
+	function UpdateSpectateLive()
+		if not _G.WH_SpectateActive or not _G.WH_SpectateTable then return end
+
+		local label = _G.WH_SpectateTable:FindFirstChild("Starting", true)
+		if not label or not label:IsA("TextLabel") then return end
+
+		local currentText = label.Text:lower():gsub("[%s%c]+", "")
+
+		if currentText ~= _G.WH_LastSpectateText and #currentText > 0 then
+			_G.WH_LastSpectateText = currentText
+
+			lastDetected = currentText
+			forceUpdateList = true
+
+			StatusText.Text = "Spectating: " .. currentText
+			StatusText.TextColor3 = Color3.fromRGB(100, 255, 200)
+			Tween(StatusDot, {BackgroundColor3 = Color3.fromRGB(100, 255, 200)})
+		end
+	end
+
+	SpectateTablesBtn.MouseButton1Click:Connect(function()
+		SpectateFrame.Visible = not SpectateFrame.Visible
+		if SpectateFrame.Visible and _G.WH_SpectateActive then
+			RefreshSpectateList()
+		end
+	end)
+
+	task.spawn(function()
+		while true do
+			task.wait(1)
+			UpdateSpectateLive()
+		end
+	end)
 end
-
--- Optimized Live Update (only runs when needed)
-function UpdateSpectateLive()
-    if not _G.WH_SpectateActive or not _G.WH_SpectateTable then return end
-
-    local label = _G.WH_SpectateTable:FindFirstChild("Starting", true)
-    if not label or not label:IsA("TextLabel") then return end
-
-    local currentText = label.Text:lower():gsub("[%s%c]+", "")
-
-    if currentText ~= _G.WH_LastSpectateText and #currentText > 0 then
-        _G.WH_LastSpectateText = currentText
-
-        lastDetected = currentText
-        forceUpdateList = true
-
-        StatusText.Text = "Spectating: " .. currentText
-        StatusText.TextColor3 = Color3.fromRGB(100, 255, 200)
-        Tween(StatusDot, {BackgroundColor3 = Color3.fromRGB(100, 255, 200)})
-    end
-end
-
--- Open GUI
-SpectateTablesBtn.MouseButton1Click:Connect(function()
-    SpectateFrame.Visible = not SpectateFrame.Visible
-    if SpectateFrame.Visible and _G.WH_SpectateActive then
-        RefreshSpectateList()
-    end
-end)
-
--- Slower but much lighter auto-check (every 1 second instead of 0.5)
-task.spawn(function()
-    while true do
-        task.wait(0)           -- Changed from 0.5 to 1 second (less lag)
-        UpdateSpectateLive()
-    end
-end)
 
 inputConn = UserInputService.InputBegan:Connect(function(input)
-if input.KeyCode == Enum.KeyCode.Zero or input.KeyCode == Enum.KeyCode.KeypadZero then
-            if antiIntimidatorEnabled then
-                antiIntimidatorActive = not antiIntimidatorActive
-                ShowToast("Anti Intimidator Reversing: " .. (antiIntimidatorActive and "ON" or "OFF"), 
-                          antiIntimidatorActive and "success" or "warning")
-                forceUpdateList = true
-            end
-        end
+	if input.KeyCode == Enum.KeyCode.Zero or input.KeyCode == Enum.KeyCode.KeypadZero then
+		if antiIntimidatorEnabled then
+			antiIntimidatorActive = not antiIntimidatorActive
+			ShowToast("Anti Intimidator Reversing: " .. (antiIntimidatorActive and "ON" or "OFF"), 
+					  antiIntimidatorActive and "success" or "warning")
+			forceUpdateList = true
+		end
+	end
 	if unloaded then return end
 	if input.KeyCode == TOGGLE_KEY then ScreenGui.Enabled = not ScreenGui.Enabled end
 end)
