@@ -270,6 +270,21 @@ local function shuffleTable(t)
 end
 
 	local PriorityEndings = {
+	    acop = 100, adaw = 100, adzer = 101, afifi = 10, agad = 100, albugo = 100, alkool = 101,
+    amalg = 100, amedeo = 101, ashur = 100, azox = 100, baja = 100, baku = 101, baru = 100,
+    beal = 100, besa = 101, bhalu = 100, bibi = 100, biloxi = 101, boba = 100, bogo = 101, boiko = 102,
+    brei = 100, cabda = 100, calabur = 101, caughnawaga = 102, chigetais = 100, clara = 100, clowre = 101, comd = 101,
+    concurso = 102, cucupha = 103, darg = 101, darr = 102, deodara = 101, dhabb = 101, dhoni = 102,
+    dirhem = 101, dissait = 101, doup = 102, drinn = 101, engobe = 101, fahrenhett = 101, fala = 100, fike = 101,
+    flambeed = 101, freiezlebenhe = 101, fuff = 101, garibaldi = 101, genepi = 101, gestapo = 102, giocoso = 101,
+    gruppo = 101, gunja = 101, hath = 101, hecte = 101, hydrangeas = 101, kaberu = 101, kadaya = 102, kajugaru = 103, keta = 101, khepesh = 101,
+    kiku = 101, kiwach = 102, knorr = 101, koch = 101, koda = 102, kokako = 103, kokila = 104, kora = 105, kuku = 101, kwatuma = 101,
+    lactescenle = 101, laet = 102, langeel = 103, leef = 104, leuco = 101, lludd = 101, lupe = 101, macrostachya = 101, magh = 101,
+    mayaca = 101, miki = 101, moit = 101, mondego = 100, muir = 101, mumjuma = 102, murumuru = 103, nevo = 101, ormazd = 101,
+    paha = 101, pashm = 102, pirr = 101, pisa = 102, primi = 101, probabl = 102, prut = 103, pyrameis = 101, rann = 101, ravindran = 101,
+    repro = 101, rubbisy = 101, saum = 101, sawt = 102, sbirro = 101, scaw = 101, schav = 102, schul = 103, snur = 101, sokoki = 101, sradha = 101,
+    stalko = 101, succisa = 101, supa = 102, svan = 101, taha = 101, tapul = 102, they = 101, topiwala = 101,
+    travelog = 101, tucutucu = 101, uvalha = 101, voorhuis = 101, wapp = 101, washo = 101, yare = 101,
 		arde = 100,
 		dii = 28,
 		nite = 1,
