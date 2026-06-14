@@ -4,7 +4,6 @@ heiltsuk
 utsuk
 sawbwa
 alappuzha
-azha
 masing
 acop
 adaw
@@ -1473,7 +1472,6 @@ abundantia
 abundantly
 abune
 abura
-aburabozu
 aburagiri
 aburban
 aburst
@@ -5043,9 +5041,7 @@ adnation
 adnations
 adnephrine
 adnerval
-adnescent
 adneural
-adnex
 adnexa
 adnexal
 adnexed
@@ -7221,7 +7217,6 @@ agelong
 agemate
 agemates
 agen
-agena
 agencies
 agency
 agencys
@@ -7272,8 +7267,6 @@ ageratum
 ageratums
 agers
 ages
-aget
-agete
 ageusia
 ageusias
 ageusic
@@ -23062,7 +23055,6 @@ ardentness
 arder
 ardhamagadhi
 ardhanari
-ardilla
 ardish
 ardisia
 ardisiaceae
@@ -26618,15 +26610,12 @@ astutest
 astutious
 astyanax
 astylar
-astyllen (x)
-astylospongia (x)
 astylosternus
 asuang
 asudden
 asunder
 asura
 asuras
-asuri
 aswail
 aswarm
 aswash
@@ -322056,7 +322045,6 @@ qabbalah
 qadarite
 qadi
 qadis
-qaf
 qaid
 qaids
 qaimaqam
@@ -350200,7 +350188,6 @@ sazes
 sazhen
 sazhens
 sazzes
-sb
 sbaikian
 sbirri
 sblood
@@ -455436,7 +455423,6 @@ brides-to-be
 grooms-to-be
 bride-to-be
 groom-to-be
-burangaite
 burbankite
 burckhardtite
 burgessite
