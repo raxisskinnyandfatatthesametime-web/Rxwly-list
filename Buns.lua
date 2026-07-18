@@ -432,7 +432,7 @@ local AltverPriorityEndings = {
 local BenzenePriority = { lah = 50, ted = 15, aji = 51, rams = 14, bans = 13, tans = 16, mans = 17, wur = 40, alal = 52, caps = 5, aces = 6, quod = 70, rans = 14, dja = 56, dje = 67, epia = 200, xera = 96, ang = 3, aran = 53, adin = 72, cisa = 51, geel = 100, epig = 5000 }
 local YawnPriority = { illa = 20, acan = 21, aiic = 22, ged = 15, tory = 16, ary = 2, lepp = 50, skibidi = 100, oric = 1, yclic = 1, inos = 16 }
 local CoinyPriority = { bia = 21, ion = 5, ting = 6, bug = 50, note = 25, sing = 12, test = 3, ing = 2, nia = 6, fish = 13, king = 9, like = 12, ons = 1, x = 1 }
-local HxzePriority = { ary = 1, }
+local HxzePriority = { zer = 10, ion = 1, ely = 1, zero = 15, epia = 20, ["n-a"] = 100, isti = 50, jja = 5, jji = 5, jian = 12, jia = 11, xia = 13, brex = 15, aka = 8, tio = 15 }
 local UnlistoPriority = { s = 10000 }
 
 -- Single hard letters as fallback
