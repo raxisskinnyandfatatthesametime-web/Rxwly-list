@@ -50,11 +50,7 @@ local Config = {
 	LengthMode = 0,
 	AutoPlay = false,
 	AutoJoin = false,
-	AutoJoinSettings = {
-		_1v1 = true,
-		_4p = true,
-		_8p = true
-	},
+	AutoJoinSettings = { _1v1 = true, _4p = true, _8p = true },
 	PanicMode = true,
 	ShowKeyboard = false,
 	ErrorRate = 5,
@@ -67,17 +63,13 @@ local Config = {
 }
 
 local function SaveConfig()
-	if writefile then
-		writefile(ConfigFile, HttpService:JSONEncode(Config))
-	end
+	if writefile then writefile(ConfigFile, HttpService:JSONEncode(Config)) end
 end
 
 local function LoadConfig()
 	if isfile and isfile(ConfigFile) then
 		local success, decoded = pcall(function() return HttpService:JSONDecode(readfile(ConfigFile)) end)
-		if success and decoded then
-			for k, v in pairs(decoded) do Config[k] = v end
-		end
+		if success and decoded then for k, v in pairs(decoded) do Config[k] = v end end
 	end
 end
 LoadConfig()
@@ -99,7 +91,6 @@ local riskyMistakes = Config.RiskyMistakes
 local keyboardLayout = Config.KeyboardLayout or "QWERTY"
 local antiIntimidatorEnabled = Config.AntiIntimidator or false
 local antiIntimidatorActive = false
-local isSpectating = false
 
 local isTyping = false
 local isAutoPlayScheduled = false
@@ -121,8 +112,6 @@ local lastAutoJoinCheck = 0
 local lastWordCheck = 0
 local cachedDetected = ""
 local cachedCensored = false
-local LOGIC_RATE = 0.1
-local AUTO_JOIN_RATE = 0.5
 local UpdateList
 local ButtonCache = {}
 local ButtonData = {}
@@ -149,41 +138,20 @@ end)
 local url = "https://raw.githubusercontent.com/raxisskinnyandfatatthesametime-web/Rxwly-list/refs/heads/main/CasualMode.txt"
 local fileName = "ultimate_words_v4.txt"
 
--- Temporary Loading UI
-local LoadingGui = Instance.new("ScreenGui")
-LoadingGui.Name = "WordHelperLoading"
+-- Loading UI (unchanged)
+local LoadingGui = Instance.new("ScreenGui") LoadingGui.Name = "WordHelperLoading"
 local success, parent = pcall(function() return gethui() end)
 if not success or not parent then parent = game:GetService("CoreGui") end
 LoadingGui.Parent = parent
 LoadingGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-local LoadingFrame = Instance.new("Frame", LoadingGui)
-LoadingFrame.Size = UDim2.new(0, 300, 0, 100)
-LoadingFrame.Position = UDim2.new(0.5, -150, 0.4, 0)
-LoadingFrame.BackgroundColor3 = THEME.Background
-LoadingFrame.BorderSizePixel = 0
-Instance.new("UICorner", LoadingFrame).CornerRadius = UDim.new(0, 10)
-local LStroke = Instance.new("UIStroke", LoadingFrame)
-LStroke.Color = THEME.Accent
-LStroke.Transparency = 0.5
-LStroke.Thickness = 2
+local LoadingFrame = Instance.new("Frame", LoadingGui) LoadingFrame.Size = UDim2.new(0, 300, 0, 100) LoadingFrame.Position = UDim2.new(0.5, -150, 0.4, 0)
+LoadingFrame.BackgroundColor3 = THEME.Background Instance.new("UICorner", LoadingFrame).CornerRadius = UDim.new(0, 10)
+local LStroke = Instance.new("UIStroke", LoadingFrame) LStroke.Color = THEME.Accent LStroke.Thickness = 2
 
-local LoadingTitle = Instance.new("TextLabel", LoadingFrame)
-LoadingTitle.Size = UDim2.new(1, 0, 0, 40)
-LoadingTitle.BackgroundTransparency = 1
-LoadingTitle.Text = "WordHelper V25"
-LoadingTitle.TextColor3 = THEME.Accent
-LoadingTitle.Font = Enum.Font.GothamBold
-LoadingTitle.TextSize = 18
+local LoadingTitle = Instance.new("TextLabel", LoadingFrame) LoadingTitle.Size = UDim2.new(1, 0, 0, 40) LoadingTitle.Text = "WordHelper V25" LoadingTitle.TextColor3 = THEME.Accent LoadingTitle.Font = Enum.Font.GothamBold LoadingTitle.TextSize = 18
 
-local LoadingStatus = Instance.new("TextLabel", LoadingFrame)
-LoadingStatus.Size = UDim2.new(1, -20, 0, 30)
-LoadingStatus.Position = UDim2.new(0, 10, 0, 50)
-LoadingStatus.BackgroundTransparency = 1
-LoadingStatus.Text = "Initializing..."
-LoadingStatus.TextColor3 = THEME.Text
-LoadingStatus.Font = Enum.Font.Gotham
-LoadingStatus.TextSize = 14
+local LoadingStatus = Instance.new("TextLabel", LoadingFrame) LoadingStatus.Size = UDim2.new(1, -20, 0, 30) LoadingStatus.Position = UDim2.new(0, 10, 0, 50) LoadingStatus.Text = "Initializing..." LoadingStatus.TextColor3 = THEME.Text LoadingStatus.Font = Enum.Font.Gotham LoadingStatus.TextSize = 14
 
 local function UpdateStatus(text, color)
 	LoadingStatus.Text = text
@@ -191,13 +159,9 @@ local function UpdateStatus(text, color)
 	game:GetService("RunService").RenderStepped:Wait()
 end
 
--- Startup: Always fetch fresh word list
 local function FetchWords()
 	UpdateStatus("Fetching latest word list...", THEME.Warning)
-	local success, res = pcall(function()
-		return request({Url = url, Method = "GET"})
-	end)
-
+	local success, res = pcall(function() return request({Url = url, Method = "GET"}) end)
 	if success and res and res.Body then
 		writefile(fileName, res.Body)
 		UpdateStatus("Fetched successfully!", THEME.Success)
@@ -231,7 +195,6 @@ local function LoadList(fname)
 end
 
 LoadList(fileName)
-
 if LoadingGui then LoadingGui:Destroy() end
 
 table.sort(Words)
@@ -257,7 +220,6 @@ if Config.CustomWords then
 	end
 end
 
--- Clear memory
 SeenWords = nil
 
 local function shuffleTable(t)
@@ -286,6 +248,19 @@ end
     stalko = 101, succisa = 101, supa = 102, svan = 101, taha = 101, tapul = 102, they = 101, topiwala = 101,
     travelog = 101, tucutucu = 101, uvalha = 101, voorhuis = 101, wapp = 101, washo = 101, yare = 101,
 		arde = 100,
+		lith = 100,
+		arch = 15,
+		zie = 100,
+		dja = 100,
+		dje = 100,
+		dja = 100,
+		koor = 1000,
+		epro = 1000,
+		ebur = 1000,
+		anha = 500,
+		dris = 500,
+		oku = 5000,
+		coso = 5000,
 		dii = 28,
 		nite = 1,
 		ged = 10,
@@ -309,12 +284,11 @@ end
 		pex = 1,
 		ker = 17,
 		ked = 3,
-		pher = 11,
+		pher = 27,
 		kopa = 50,
 		ruri = 50,
 		ruta = 50,
 		korn = 150,
-		kool = 9,
 		bago = 40,
 		king = 35,
 		nia = 13,
@@ -365,23 +339,101 @@ end
 }
 
 local AltverPriorityEndings = {
-    acop = 10, adaw = 10, adzer = 10, afifi = 10, agad = 10, albugo = 10, alkool = 10,
-    amalg = 10, amedeo = 10, ashur = 10, azox = 10, baja = 10, baku = 10, baru = 10,
-    beal = 10, besa = 10, bhalu = 10, bibi = 10, biloxi = 10, boba = 10, bogo = 10, boiko = 10,
-    brei = 10, cabda = 10, calabur = 10, caughnawaga = 10, chigetais = 10, clara = 10, clowre = 10, comd = 10,
-    concurso = 10, cucupha = 10, darg = 10, darr = 10, deodara = 10, dhabb = 10, dhoni = 10,
-    dirhem = 10, dissait = 10, doup = 10, drinn = 10, engobe = 10, fahrenhett = 10, fala = 10, fike = 10,
-    flambeed = 10, freiezlebenhe = 10, fuff = 10, garibaldi = 10, genepi = 10, gestapo = 10, giocoso = 10,
-    gruppo = 10, gunja = 10, hath = 10, hecte = 10, hydrangeas = 10, kaberu = 10, kadaya = 10, kajugaru = 10, keta = 10, khepesh = 10,
-    kiku = 10, kiwach = 10, knorr = 10, koch = 10, koda = 10, kokako = 10, kokila = 10, kora = 10, kuku = 10, kwatuma = 10,
-    lactescenle = 10, laet = 10, langeel = 10, leef = 10, leuco = 10, lludd = 10, lupe = 10, macrostachya = 10, magh = 10,
-    mayaca = 10, miki = 10, moit = 10, mondego = 10, muir = 10, mumjuma = 10, murumuru = 10, nevo = 10, ormazd = 10,
-    paha = 10, pashm = 10, pirr = 10, pisa = 10, primi = 10, probabl = 10, prut = 10, pyrameis = 10, rann = 10,
-    repro = 10, rubbisy = 10, saum = 10, sawt = 10, sbirro = 10, scaw = 10, schav = 10, schul = 10, snur = 10, sokoki = 10, sradha = 10,
-    stalko = 10, succisa = 10, supa = 10, svan = 10, taha = 10, tapul = 10, they = 10, topiwala = 10,
-    travelog = 10, tucutucu = 10, uvalha = 10, voorhuis = 10, wapp = 10, washo = 10, yare = 10, isti = 100, mab = 100, nio = 5,
-	alai = 30, kas = 30, kos = 30, kus = 30, coel = 30, aman = 300, osh = 300, aux = 3, kia = 5,
+    	    acop = 100, adaw = 100, adzer = 101, afifi = 10, agad = 100, albugo = 100, masing = 101,
+    amalg = 100, amedeo = 101, ashur = 100, azox = 100, baja = 100, baku = 101, baru = 100,
+    beal = 100, besa = 101, bhalu = 100, bibi = 100, biloxi = 101, boba = 100, bogo = 101, boiko = 102,
+    brei = 100, cabda = 100, calabur = 101, caughnawaga = 102, chigetais = 100, clara = 100, clowre = 101, comd = 101,
+    concurso = 102, cucupha = 103, darg = 101, darr = 102, deodara = 101, dhabb = 101, dhoni = 102,
+    dirhem = 101, dissait = 101, doup = 102, drinn = 101, engobe = 101, fahrenhett = 101, fala = 100, fike = 101,
+    flambeed = 101, freiezlebenhe = 101, fuff = 101, garibaldi = 101, genepi = 101, gestapo = 102, giocoso = 101,
+    gruppo = 101, gunja = 101, hath = 101, hecte = 101, hydrangeas = 101, kaberu = 101, kadaya = 102, kajugaru = 103, keta = 101, khepesh = 101,
+    kiku = 101, kiwach = 102, knorr = 101, koch = 101, koda = 102, kokako = 103, kokila = 104, kora = 105, kuku = 101, kwatuma = 101,
+    lactescenle = 101, laet = 102, langeel = 103, leef = 104, leuco = 101, lludd = 101, lupe = 101, macrostachya = 101, magh = 101,
+    mayaca = 101, miki = 101, moit = 101, mondego = 100, muir = 101, mumjuma = 102, murumuru = 103, nevo = 101, ormazd = 101,
+    paha = 101, pashm = 102, pirr = 101, pisa = 102, primi = 101, probabl = 102, prut = 103, pyrameis = 101, rann = 101, ravindran = 101,
+    repro = 101, rubbisy = 101, saum = 101, sawt = 102, sbirro = 101, scaw = 101, schav = 102, schul = 103, snur = 101, sokoki = 101, sradha = 101,
+    stalko = 101, succisa = 101, supa = 102, svan = 101, taha = 101, tapul = 102, they = 101, topiwala = 101,
+    travelog = 101, tucutucu = 101, uvalha = 101, voorhuis = 101, wapp = 101, washo = 101, yare = 101,
+		hyss = 100,
+		dii = 28,
+		nite = 1,
+		ged = 10,
+		ion = 4,
+		eka = 60,
+		resy = 21,
+		rer = 15,
+		hyr = 20,
+		dava = 19,
+		aeti = 25,
+		chen = 18,
+		kham = 26,
+		lith = 260,
+	    mata = 150,
+		xera = 32,
+		yun = 35,
+		rick = 150,
+		oshi = 50,
+		tero = 50,
+		oya = 150,
+		eich = 150,
+		ist = 19,
+		pex = 1,
+		ker = 17,	
+		ked = 3,
+		pher = 11,
+		kopa = 50,
+		ruri = 50,
+		ruta = 50,
+		thia = 150,
+		bago = 40,
+		kha = 35,
+		nia = 13,
+		ker = 5,
+		ting = 11,
+		inalacrity = 40, 
+		inal = 10,
+		chy = 20,
+		syns = 34,
+		ower = 5,
+		sia = 3,
+		illa = 21,
+		tsu = 50,
+		mab = 34,
+		aka = 55,
+		aux = 36,
+		post = 36,
+		lag = 35,
+		quae = 350,
+		mias = 71,
+		mia = 70,
+		qiae = 350,
+		hoch = 500,
+		aque = 500,
+		lieb = 500,
+		adha = 500,
+		alha = 500,
+		shia = 500,
+		rifa = 500,
+		khar = 500,
+		rick = 500,
+		ardi = 500,
+		isti = 5000,
+		tsuk = 5000,
+		zha = 5000,
+		bwa = 5000,
+		tian = 55,
+		skia = 56,
+		["?"] = 50000,
+		y = 1,
+		s = 1,
+		l = 1,
 }
+
+local BenzenePriority = { lah = 50, ted = 15, aji = 51, rams = 14, bans = 13, tans = 16, mans = 17, wur = 40, alal = 52, caps = 5, aces = 6, quod = 70, rans = 14, dja = 56, dje = 67, epia = 200, xera = 96, ang = 3, aran = 53, adin = 72, cisa = 51, geel = 100, epig = 5000 }
+local YawnPriority = { illa = 20, acan = 21, aiic = 22, ged = 15, tory = 16, ary = 2, lepp = 50, skibidi = 100, oric = 1, yclic = 1, inos = 16 }
+local CoinyPriority = { bia = 21, ion = 5, ting = 6, bug = 50, note = 25, sing = 12, test = 3, ing = 2, nia = 6, fish = 13, king = 9, like = 12, ons = 1, x = 1 }
+local HxzePriority = { ary = 1, }
+local UnlistoPriority = { s = 10000 }
 
 -- Single hard letters as fallback
 local HardLetterScores = {
@@ -390,23 +442,24 @@ local HardLetterScores = {
     y = 0, g = 0, p = 0,
 }
 
--- New unified function (replaces both old functions)
 local function GetPriority(word, mode)
-    if not word or #word < 2 then return 0 end
+	if not word or #word < 2 then return 0 end
+	local len = #word
+	local endings
+	if mode == "Altver" then endings = AltverPriorityEndings
+	elseif mode == "Benzene" then endings = BenzenePriority
+	elseif mode == "Yawn" then endings = YawnPriority
+	elseif mode == "Coiny" then endings = CoinyPriority
+	elseif mode == "Hxze" then endings = HxzePriority
+	elseif mode == "Unlisto" then endings = UnlistoPriority
+	else endings = PriorityEndings end
 
-    local len = #word
-    local endings = (mode == "Altver") and AltverPriorityEndings or PriorityEndings
-
-    -- Longest ending first
-    for slen = math.min(8, len), 2, -1 do
-        local ending = word:sub(-slen):lower()
-        if endings[ending] then
-            return endings[ending]
-        end
-    end
-
-    local last = word:sub(-1):lower()
-    return HardLetterScores[last] or 0
+	for slen = math.min(8, len), 2, -1 do
+		local ending = word:sub(-slen):lower()
+		if endings[ending] then return endings[ending] end
+	end
+	local last = word:sub(-1):lower()
+	return HardLetterScores[last] or 0
 end
 
 local function HasHyphenOrApostrophe(word)
@@ -1169,22 +1222,22 @@ RefreshBtn.MouseButton1Click:Connect(function()
 end)
 
 local SortBtn = CreateToggle("Sort: "..sortMode, UDim2.new(0, 15, 0, 33), function()
-	if sortMode == "Random" then 
-		sortMode = "Shortest"
-	elseif sortMode == "Shortest" then 
-		sortMode = "Longest"
-	elseif sortMode == "Longest" then 
-		sortMode = "Sartre"
-	elseif sortMode == "Sartre" then 
-		sortMode = "Altver"
-	elseif sortMode == "Altver" then 
-		sortMode = "Hyphenated"
-	else 
-		sortMode = "Random" 
-	end
+	if sortMode == "Random" then sortMode = "Shortest"
+	elseif sortMode == "Shortest" then sortMode = "Longest"
+	elseif sortMode == "Longest" then sortMode = "Sartre"
+	elseif sortMode == "Sartre" then sortMode = "Altver"
+	elseif sortMode == "Altver" then sortMode = "Hyphenated"
+	elseif sortMode == "Hyphenated" then sortMode = "Benzene"
+	elseif sortMode == "Benzene" then sortMode = "Yawn"
+	elseif sortMode == "Yawn" then sortMode = "Coiny"
+	elseif sortMode == "Coiny" then sortMode = "Hxze"
+	elseif sortMode == "Hxze" then sortMode = "Unlisto"
+	else sortMode = "Random" end
 
 	Config.SortMode = sortMode
 	lastDetected = "---"
+	forceUpdateList = true
+	ShowToast("Sort Mode: " .. sortMode, "success")
 	return true, "Sort: "..sortMode, THEME.Accent
 end)
 SortBtn.TextColor3 = THEME.Accent
@@ -2718,7 +2771,7 @@ local function CollectMatches(prefix, tryFallbackLengths)
     local maxPartialLen = 0
     local limit = 100
 
-    local isPrioritySort = (sortMode == "Sartre" or sortMode == "Altver" or sortMode == "Hyphenated")
+    local isPrioritySort = (sortMode == "Sartre" or sortMode == "Altver" or sortMode == "Hyphenated" or sortMode == "Benzene" or sortMode == "Yawn" or sortMode == "Coiny" or sortMode == "Hxze" or sortMode == "Unlisto")
 
     if bucket then
         local checkWord = function(w)
@@ -2766,9 +2819,9 @@ local function CollectMatches(prefix, tryFallbackLengths)
                 if isPrioritySort and #prefix > 1 then
                     hardCap = math.huge  -- precise prefix: safe to scan all matches
                 elseif isPrioritySort and #prefix == 1 then
-                    hardCap = 3000       -- single-char: limit to avoid lag, still enough to rank well
+                    hardCap = 8000       -- single-char: limit to avoid lag, still enough to rank well
                 else
-                    hardCap = 3000
+                    hardCap = 8000
                 end
 
                 for i = startIndex, #bucket do
@@ -2783,7 +2836,7 @@ local function CollectMatches(prefix, tryFallbackLengths)
             end
 
         else
-            local searchLimit = (sortMode == "Random") and 1000 or limit
+            local searchLimit = (sortMode == "Random") and 8000 or limit
             for _, w in ipairs(bucket) do
                 checkWord(w)
                 if #exacts >= searchLimit then break end
@@ -2862,6 +2915,14 @@ if #matches > 0 then
         table.sort(matches, function(a, b)
             local sA = GetHyphenatedPriority(a)
             local sB = GetHyphenatedPriority(b)
+            if sA == sB then return #a < #b end
+            return sA > sB
+        end)
+
+    elseif sortMode == "Benzene" or sortMode == "Yawn" or sortMode == "Coiny" or sortMode == "Hxze" or sortMode == "Unlisto" then
+        table.sort(matches, function(a, b)
+            local sA = GetPriority(a, sortMode)
+            local sB = GetPriority(b, sortMode)
             if sA == sB then return #a < #b end
             return sA > sB
         end)
@@ -3120,7 +3181,7 @@ runConn = RunService.RenderStepped:Connect(function()
 		end
 		local detected, censored = cachedDetected, cachedCensored
 
-		if isVisible and isMyTurn and not isTyping and seconds and seconds < 1.5 then
+		if isVisible and isMyTurn and not isTyping and seconds and seconds < 0 then
 			local char = (requiredLetter or ""):lower()
 			local bucket = Buckets[char]
 			if bucket then
@@ -3542,9 +3603,26 @@ inputConn = UserInputService.InputBegan:Connect(function(input)
 	if input.KeyCode == Enum.KeyCode.Zero or input.KeyCode == Enum.KeyCode.KeypadZero then
 		if antiIntimidatorEnabled then
 			antiIntimidatorActive = not antiIntimidatorActive
-			ShowToast("Anti Intimidator Reversing: " .. (antiIntimidatorActive and "ON" or "OFF"), 
-					  antiIntimidatorActive and "success" or "warning")
+			ShowToast("Anti Intimidator Reversing: " .. (antiIntimidatorActive and "ON" or "OFF"), antiIntimidatorActive and "success" or "warning")
 			forceUpdateList = true
+		else
+			-- Cycle mode
+			if sortMode == "Random" then sortMode = "Shortest"
+			elseif sortMode == "Shortest" then sortMode = "Longest"
+			elseif sortMode == "Longest" then sortMode = "Sartre"
+			elseif sortMode == "Sartre" then sortMode = "Altver"
+			elseif sortMode == "Altver" then sortMode = "Hyphenated"
+			elseif sortMode == "Hyphenated" then sortMode = "Benzene"
+			elseif sortMode == "Benzene" then sortMode = "Yawn"
+			elseif sortMode == "Yawn" then sortMode = "Coiny"
+			elseif sortMode == "Coiny" then sortMode = "Hxze"
+			elseif sortMode == "Hxze" then sortMode = "Unlisto"
+			else sortMode = "Random" end
+
+			Config.SortMode = sortMode
+			lastDetected = "---"
+			forceUpdateList = true
+			ShowToast("Sort Mode: " .. sortMode, "success")
 		end
 	end
 	if unloaded then return end
