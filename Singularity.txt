@@ -5050,6 +5050,9 @@ imatinib(*)
   learner-centrednesses
   learning-as-a-service
   ledipasvir-sofosbuvir
+  glecaprevir-pibrentasvir
+  velpatasvir
+ledipasvir
   lendings-as-a-service
   lighting-as-a-service
   machines-as-a-service
@@ -217947,7 +217950,6 @@ laurvikites
 laury
 lauryl
 lauryls
-laus
 lautarite
 lautenclavicymbal
 lautenclavicymbel
@@ -258144,7 +258146,7 @@ nko?
 nkrumahist?
 nkrumahists?
 nkrumahism?
-nkatenkwan?
+nkatenkwan
 icchantika?
 icchantikas?
 nkanu
@@ -258227,7 +258229,7 @@ nobody
 nobodyd
 nobodyness
 nobs
-nobut
+	t
 nocake
 nocakes
 nocardia
@@ -461375,8 +461377,8 @@ nyjer?
 nyjers?
 eunoia?
 eunoias?
-gyeranjjim?
-galbijjim?
+gyeranjjim
+galbijjim
 daoism?
 daoisms?
 yangmei?
@@ -477139,3 +477141,18 @@ lalab
 ozanimod
 zaragoza
 chilgoza
+dalfampridine
+istrian
+istradefylline
+ortstein
+tebuconazole
+gorontalo
+beidellite
+beidellites
+icodextrin
+goserelin
+goserelins
+nabumetone
+ortstaler
+tbh
+crohn's
